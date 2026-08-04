@@ -6,7 +6,7 @@
 
 **Architecture:** Next.js App Router의 정적 페이지로 메인, 이력서, 프로젝트 상세 경로를 생성한다. 콘텐츠는 타입이 있는 로컬 TypeScript 데이터로 관리하고, 아키텍처는 접근 가능한 React/CSS 다이어그램으로 렌더링하며 실제 화면 자료는 `next/image`로 최적화한다.
 
-**Tech Stack:** Next.js 16.3.0, React 19.2.8, TypeScript 7.0.2, CSS Modules, React Icons 5.7.0, Vitest 4.1.10, Testing Library 16.3.2, Playwright 1.62.1, pnpm
+**Tech Stack:** Next.js 16.3.0, React 19.2.8, TypeScript 6.0.3, CSS Modules, React Icons 5.7.0, Vitest 4.1.10, Testing Library 16.3.2, Playwright 1.62.1, pnpm
 
 ## Global Constraints
 
@@ -99,10 +99,10 @@ e2e/portfolio.spec.ts        데스크톱·모바일 핵심 사용자 흐름
     "@types/node": "26.1.2",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
-    "eslint": "10.8.0",
+    "eslint": "9.39.5",
     "eslint-config-next": "16.3.0",
     "jsdom": "30.0.1",
-    "typescript": "7.0.2",
+    "typescript": "6.0.3",
     "vitest": "4.1.10"
   }
 }
