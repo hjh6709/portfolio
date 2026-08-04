@@ -124,7 +124,33 @@ export const projects: Project[] = [
         { from: 'vm', to: 'validation', label: 'inspect state', kind: 'data' },
       ],
     },
-    gallery: [],
+    gallery: [
+      {
+        src: 'projects/cledyu/labs-catalog.png',
+        alt: '난이도별 실습 목록과 필터가 보이는 Cledyu Labs 카탈로그 화면',
+        caption: '난이도별 Lab을 탐색하고 실습을 시작하는 카탈로그',
+      },
+      {
+        src: 'projects/cledyu/lab-detail.png',
+        alt: 'Linux 기초 Lab의 실습 환경과 진행 순서를 안내하는 상세 화면',
+        caption: '세션을 만들기 전에 실습 범위와 순서를 확인하는 상세 페이지',
+      },
+      {
+        src: 'projects/cledyu/provisioning.png',
+        alt: '전용 VM 세션 생성과 디스크 복제 진행 상태를 보여주는 프로비저닝 화면',
+        caption: '세션 생성부터 자동 로그인까지 실제 인프라 상태를 사용자에게 전달',
+      },
+      {
+        src: 'projects/cledyu/lab-session.png',
+        alt: '단계 안내와 브라우저 터미널이 나란히 배치된 Cledyu 실습 세션 화면',
+        caption: '명령 실행, 단계 검증, AI 힌트를 한 화면에서 연결한 실습 환경',
+      },
+      {
+        src: 'projects/cledyu/my-learning.png',
+        alt: '점수와 완료율, 진행 중 Lab을 보여주는 Cledyu 내 학습 화면',
+        caption: '진행 중인 세션과 완료 이력을 다시 찾는 학습 현황',
+      },
+    ],
     evidence: [
       { label: 'GitHub repository', href: 'https://github.com/requset700k/Cledyu' },
     ],
@@ -362,4 +388,3 @@ export const projects: Project[] = [
     ],
   },
 ];
-
