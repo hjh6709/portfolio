@@ -98,8 +98,19 @@ export default function ResumePage() {
         </div>
       </section>
 
-      <aside className={styles.note} aria-label="이력서 파일 안내">
-        <p>검토가 끝난 이력서 파일이 준비되면 이 페이지에 다운로드 링크를 연결할 예정입니다.</p>
+      <aside className={styles.verification} aria-labelledby="verification-title">
+        <div>
+          <p className={styles.eyebrow}>VERIFIABLE WORK</p>
+          <h2 id="verification-title">직접 확인하기</h2>
+        </div>
+        <div className={styles.verificationLinks}>
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            GitHub에서 코드 보기 <span aria-hidden="true">↗</span>
+          </a>
+          <Link href="/#projects">
+            프로젝트 사례 보기 <span aria-hidden="true">→</span>
+          </Link>
+        </div>
       </aside>
     </main>
   );
