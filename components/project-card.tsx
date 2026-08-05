@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import type { Project } from '@/data/projects';
@@ -14,20 +15,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <article className={styles.card}>
-      <div className={styles.visual} aria-hidden="true">
-        <span className={styles.visualIndex}>{projectNumber}</span>
-        <div className={styles.systemMap}>
-          {project.architecture.nodes.slice(0, 5).map((node, nodeIndex) => (
-            <span
-              key={node.id}
-              className={node.ownership === 'mine' ? styles.mine : styles.node}
-              style={{ '--node-index': nodeIndex } as React.CSSProperties}
-            >
-              {node.label}
-            </span>
-          ))}
-        </div>
-        <p>{project.technologies.slice(0, 4).join(' · ')}</p>
+      <div className={styles.visual}>
+        <Image
+          src={`/${project.heroImage.src}`}
+          alt={project.heroImage.alt}
+          fill
+          sizes="(max-width: 928px) 100vw, 58vw"
+        />
       </div>
 
       <div className={styles.content}>
@@ -37,19 +31,27 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <span>{project.period}</span>
         </div>
 
-        <h3>{project.title}</h3>
-        <p className={styles.summary}>{project.summary}</p>
-        <p className={styles.role}>{project.role}</p>
+        <div>
+          <h3>{project.title}</h3>
+          <p className={styles.summary}>{project.summary}</p>
+          <p className={styles.role}>{project.role}</p>
+        </div>
 
-        <Link
-          className={styles.link}
-          href={`/projects/${project.slug}`}
-          aria-label={`프로젝트 자세히 보기: ${project.title}`}
-        >
-          프로젝트 자세히 보기 <span aria-hidden="true">↗</span>
-        </Link>
+        <div className={styles.cardFooter}>
+          <ul aria-label={`${project.title} 주요 기술`}>
+            {project.technologies.slice(0, 5).map((technology) => (
+              <li key={technology}>{technology}</li>
+            ))}
+          </ul>
+          <Link
+            className={styles.link}
+            href={`/projects/${project.slug}`}
+            aria-label={`${project.title} 사례 자세히 보기`}
+          >
+            사례 자세히 보기 <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
       </div>
     </article>
   );
 }
-
