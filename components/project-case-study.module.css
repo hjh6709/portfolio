@@ -231,6 +231,19 @@
   grid-row: 1;
 }
 
+.featureCopyOnly,
+.featureCopyOnly:nth-child(even) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.featureCopyOnly .featureCopy,
+.featureCopyOnly:nth-child(even) .featureCopy {
+  grid-column: auto;
+  grid-row: auto;
+  max-width: 52rem;
+  padding-bottom: 0;
+}
+
 .feature figure figcaption {
   border-bottom: 1px solid var(--line);
   padding: 0.9rem 0;

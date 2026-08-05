@@ -12,17 +12,22 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const projectNumber = String(index + 1).padStart(2, '0');
+  const isDiagram = project.heroImage.src.endsWith('.svg');
 
   return (
     <article className={styles.card}>
-      <div className={styles.visual}>
+      <Link
+        className={`${styles.visual} ${isDiagram ? styles.diagramVisual : ''}`}
+        href={`/projects/${project.slug}`}
+        aria-label={`${project.title} 사례 이미지로 자세히 보기`}
+      >
         <Image
           src={`/${project.heroImage.src}`}
           alt={project.heroImage.alt}
           fill
           sizes="(max-width: 928px) 100vw, 58vw"
         />
-      </div>
+      </Link>
 
       <div className={styles.content}>
         <div className={styles.meta}>
@@ -32,7 +37,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
         <div>
-          <h3>{project.title}</h3>
+          <h3>
+            <Link className={styles.titleLink} href={`/projects/${project.slug}`}>
+              {project.title}
+            </Link>
+          </h3>
           <p className={styles.summary}>{project.summary}</p>
           <p className={styles.role}>{project.role}</p>
         </div>

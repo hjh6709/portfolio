@@ -97,27 +97,36 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </div>
 
         <div className={styles.featureList}>
-          {project.featureStories.map((story, index) => (
-            <article className={styles.feature} key={`${story.src}-${story.title}`}>
-              <figure>
-                <div className={styles.featureImage}>
-                  <Image
-                    src={`/${story.src}`}
-                    alt={story.alt}
-                    width={2048}
-                    height={1280}
-                    sizes="(max-width: 900px) 100vw, 62vw"
-                  />
+          {project.featureStories.map((story, index) => {
+            const duplicatesHero = story.src === project.heroImage.src;
+
+            return (
+              <article
+                className={`${styles.feature} ${duplicatesHero ? styles.featureCopyOnly : ''}`}
+                key={`${story.src}-${story.title}`}
+              >
+                {!duplicatesHero && (
+                  <figure>
+                    <div className={styles.featureImage}>
+                      <Image
+                        src={`/${story.src}`}
+                        alt={story.alt}
+                        width={2048}
+                        height={1280}
+                        sizes="(max-width: 900px) 100vw, 62vw"
+                      />
+                    </div>
+                    <figcaption>{story.caption}</figcaption>
+                  </figure>
+                )}
+                <div className={styles.featureCopy}>
+                  <span>{sectionNumber(index + 1)}</span>
+                  <h3>{story.title}</h3>
+                  <p>{story.description}</p>
                 </div>
-                <figcaption>{story.caption}</figcaption>
-              </figure>
-              <div className={styles.featureCopy}>
-                <span>{sectionNumber(index + 1)}</span>
-                <h3>{story.title}</h3>
-                <p>{story.description}</p>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </section>
 

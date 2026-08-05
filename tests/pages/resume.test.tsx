@@ -17,4 +17,19 @@ describe('ResumePage', () => {
       '/#projects',
     );
   });
+
+  it('offers verifiable work instead of an unfinished download notice', () => {
+    render(<ResumePage />);
+
+    expect(screen.queryByText(/준비되면.*다운로드 링크/)).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '직접 확인하기' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /GitHub에서 코드 보기/ })).toHaveAttribute(
+      'href',
+      expect.stringContaining('github.com'),
+    );
+    expect(screen.getByRole('link', { name: /프로젝트 사례 보기/ })).toHaveAttribute(
+      'href',
+      '/#projects',
+    );
+  });
 });

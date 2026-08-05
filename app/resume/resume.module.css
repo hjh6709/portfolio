@@ -159,17 +159,45 @@
   letter-spacing: 0.08em;
 }
 
-.note {
-  display: flex;
-  padding: 1.5rem 0 0;
-  justify-content: flex-end;
+.verification {
+  display: grid;
+  padding: clamp(3rem, 7vw, 5.5rem) 0 0;
+  align-items: end;
+  grid-template-columns: minmax(12rem, 0.42fr) minmax(0, 1fr);
+  gap: clamp(3rem, 8vw, 8rem);
 }
 
-.note p {
-  max-width: 40rem;
-  margin: 0;
-  color: var(--subtle);
-  font-size: 0.82rem;
+.verification h2 {
+  margin: 0.55rem 0 0;
+  font-family: var(--display-font);
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.verificationLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.verificationLinks a {
+  display: inline-flex;
+  padding: 0.85rem 1.1rem;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 650;
+  text-decoration: none;
+  gap: 1rem;
+}
+
+.verificationLinks a:hover,
+.verificationLinks a:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 @media (max-width: 48rem) {
@@ -193,6 +221,21 @@
     gap: 2.5rem;
   }
 
+  .verification {
+    align-items: start;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .verificationLinks {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .verificationLinks a {
+    justify-content: space-between;
+  }
+
   .timeline article {
     gap: 0.7rem;
   }
@@ -209,7 +252,7 @@
   }
 
   .actions,
-  .note {
+  .verification {
     display: none;
   }
 

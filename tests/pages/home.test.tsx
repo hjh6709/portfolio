@@ -26,4 +26,12 @@ describe('HomePage', () => {
     expect(screen.getByAltText(/Cledyu.*Lab/)).toBeInTheDocument();
     expect(screen.queryByText('Wait:ON')).not.toBeInTheDocument();
   });
+
+  it('links project images to their case studies', () => {
+    render(<HomePage />);
+
+    const cledyuImage = screen.getByAltText(/Cledyu.*Lab/);
+
+    expect(cledyuImage.closest('a')).toHaveAttribute('href', '/projects/cledyu');
+  });
 });

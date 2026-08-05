@@ -17,6 +17,8 @@
   overflow: hidden;
   border: 1px solid var(--line);
   background: #e7e8e8;
+  color: inherit;
+  text-decoration: none;
 }
 
 .visual img {
@@ -27,6 +29,15 @@
 
 .visual:hover img {
   transform: scale(1.018);
+}
+
+.diagramVisual {
+  background: #f0f1f1;
+}
+
+.diagramVisual img {
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  object-fit: contain;
 }
 
 .content {
@@ -52,6 +63,18 @@
   font-weight: 600;
   letter-spacing: -0.065em;
   line-height: 0.95;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.titleLink:hover,
+.titleLink:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.12em;
 }
 
 .summary {
@@ -125,7 +148,7 @@
   }
 
   .content {
-    min-height: 22rem;
+    min-height: auto;
   }
 }
 
