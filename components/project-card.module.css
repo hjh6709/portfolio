@@ -1,0 +1,189 @@
+.card {
+  display: grid;
+  padding: clamp(2rem, 5vw, 4.5rem) 0;
+  border-top: 1px solid var(--line-strong);
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  gap: clamp(2rem, 6vw, 7rem);
+}
+
+.card:nth-child(even) .visual {
+  order: 2;
+}
+
+.visual {
+  position: relative;
+  display: flex;
+  min-height: clamp(20rem, 40vw, 34rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #171717;
+  color: #f8f7f3;
+}
+
+.visual::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 7%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 7%) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  content: '';
+  mask-image: linear-gradient(to bottom, #000, transparent 80%);
+}
+
+.visualIndex,
+.visual p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+}
+
+.visualIndex {
+  color: #9d9a93;
+}
+
+.visual p {
+  color: #c7c4bd;
+}
+
+.systemMap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.systemMap::before {
+  position: absolute;
+  right: 5%;
+  left: 5%;
+  height: 1px;
+  background: #65625d;
+  content: '';
+}
+
+.node,
+.mine {
+  position: relative;
+  display: grid;
+  width: clamp(3.4rem, 7vw, 5.5rem);
+  aspect-ratio: 1;
+  padding: 0.5rem;
+  margin: auto;
+  place-items: center;
+  border: 1px solid #77736c;
+  background: #171717;
+  color: #d6d2ca;
+  font-family: var(--mono-font);
+  font-size: clamp(0.55rem, 0.8vw, 0.72rem);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.mine {
+  border-color: #7fa5ff;
+  box-shadow: inset 0 0 0 2px rgb(23 88 214 / 45%);
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  padding-bottom: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.meta {
+  display: flex;
+  margin-bottom: clamp(2rem, 5vw, 5rem);
+  color: var(--subtle);
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  gap: 1rem;
+}
+
+.content h3 {
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: clamp(2.4rem, 5vw, 5.5rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.summary {
+  max-width: 34rem;
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.22rem);
+  line-height: 1.75;
+}
+
+.role {
+  margin: 1.2rem 0 0;
+  color: var(--accent);
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.link {
+  display: inline-flex;
+  padding: 0.85rem 0;
+  margin-top: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+  border-bottom: 1px solid var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  gap: 1.5rem;
+}
+
+.link span {
+  transition: transform 160ms ease;
+}
+
+.link:hover span,
+.link:focus-visible span {
+  transform: translate(0.2rem, -0.15rem);
+}
+
+@media (max-width: 58rem) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .card:nth-child(even) .visual {
+    order: initial;
+  }
+
+  .content {
+    min-height: 20rem;
+  }
+}
+
+@media (max-width: 36rem) {
+  .visual {
+    min-height: 17rem;
+  }
+
+  .node,
+  .mine {
+    width: 3rem;
+    padding: 0.25rem;
+    font-size: 0.48rem;
+  }
+
+  .meta {
+    flex-wrap: wrap;
+  }
+}
+
