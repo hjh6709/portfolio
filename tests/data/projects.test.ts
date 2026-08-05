@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { projects } from '@/data/projects';
 import { getFeaturedProjects, getProject, getProjectSlugs } from '@/lib/projects';
 
 describe('project content', () => {
@@ -21,6 +22,16 @@ describe('project content', () => {
       expect(project?.architecture.nodes.length).toBeGreaterThan(2);
       expect(project?.architecture.edges.length).toBeGreaterThan(1);
       expect(project?.evidence.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('gives every featured project evidence-led case study content', () => {
+    for (const project of projects.filter((item) => item.featured)) {
+      expect(project.heroImage.alt).not.toHaveLength(0);
+      expect(project.challenge).not.toHaveLength(0);
+      expect(project.responsibilities.length).toBeGreaterThan(0);
+      expect(project.featureStories.length).toBeGreaterThan(0);
+      expect(project.outcomes.length).toBeGreaterThan(0);
     }
   });
 

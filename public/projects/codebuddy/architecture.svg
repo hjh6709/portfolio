@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">CodeBuddy 서버리스 코드 리뷰 흐름</title>
+  <desc id="desc">GitHub Pull Request 이벤트가 API Gateway와 Lambda를 거쳐 Bedrock Agent에서 분석되고 GitHub와 Slack으로 전달되는 구조</desc>
+  <rect width="1600" height="900" fill="#eef1f4"/>
+  <text x="96" y="110" fill="#17191c" font-family="Arial,sans-serif" font-size="30" font-weight="700">CODEBUDDY · REVIEW PIPELINE</text>
+  <text x="96" y="153" fill="#66707a" font-family="Arial,sans-serif" font-size="20">Webhook 응답과 AI 분석을 분리한 비동기 서버리스 구조</text>
+  <g font-family="Arial,sans-serif">
+    <g fill="#fff" stroke="#c8d0d8" stroke-width="2">
+      <rect x="96" y="315" width="210" height="170" rx="12"/><rect x="365" y="315" width="210" height="170" rx="12"/>
+      <rect x="634" y="315" width="210" height="170" rx="12"/><rect x="903" y="315" width="210" height="170" rx="12"/>
+      <rect x="1172" y="315" width="250" height="170" rx="12"/>
+    </g>
+    <g fill="none" stroke="#1f5fbf" stroke-width="4">
+      <path d="M306 400h59"/><path d="M575 400h59"/><path d="M844 400h59"/><path d="M1113 400h59"/>
+    </g>
+    <g fill="#1f5fbf"><path d="M353 392l16 8-16 8z"/><path d="M622 392l16 8-16 8z"/><path d="M891 392l16 8-16 8z"/><path d="M1160 392l16 8-16 8z"/></g>
+    <g fill="#17191c" font-size="24" font-weight="700" text-anchor="middle">
+      <text x="201" y="385">GitHub PR</text><text x="470" y="385">API Gateway</text>
+      <text x="739" y="385">Orchestrator</text><text x="1008" y="385">Review Worker</text>
+      <text x="1297" y="385">Bedrock Agent</text>
+    </g>
+    <g fill="#66707a" font-size="18" text-anchor="middle">
+      <text x="201" y="425">signed webhook</text><text x="470" y="425">HMAC 검증</text>
+      <text x="739" y="425">즉시 응답 · 비동기 전달</text><text x="1008" y="425">patch 수집 · 입력 구성</text>
+      <text x="1297" y="425">변경 분석 · 리뷰 생성</text>
+    </g>
+    <path d="M1297 485v126H1008" fill="none" stroke="#1f5fbf" stroke-width="4"/>
+    <path d="M1020 603l-16 8 16 8z" fill="#1f5fbf"/>
+    <rect x="793" y="570" width="430" height="110" rx="12" fill="#17191c"/>
+    <text x="1008" y="620" fill="#fff" font-size="24" font-weight="700" text-anchor="middle">GitHub Review · Slack 알림</text>
+    <text x="1008" y="652" fill="#bfc8d2" font-size="18" text-anchor="middle">하나의 분석 결과를 두 전달 채널에 반영</text>
+  </g>
+</svg>
