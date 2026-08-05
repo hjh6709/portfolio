@@ -34,4 +34,16 @@ describe('ProjectCaseStudy', () => {
       architecture.compareDocumentPosition(outcomes) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
+
+  it('does not repeat a hero image inside feature stories', () => {
+    const project = getProject('codebuddy')!;
+    const { container } = render(<ProjectCaseStudy project={project} />);
+    const repeatedSource = `/${project.heroImage.src}`;
+
+    const repeatedImages = Array.from(container.querySelectorAll('img')).filter((image) =>
+      image.getAttribute('src')?.includes(repeatedSource),
+    );
+
+    expect(repeatedImages).toHaveLength(1);
+  });
 });

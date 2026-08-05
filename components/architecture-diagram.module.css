@@ -16,7 +16,7 @@
 .caption > div > span,
 .routesHeading span {
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--mono-font);
   font-size: 0.68rem;
   letter-spacing: 0.17em;
 }
@@ -96,7 +96,7 @@
 
 .nodeIndex {
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--mono-font);
   font-size: 0.7rem;
 }
 
@@ -171,7 +171,7 @@
 
 .routeIndex {
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--mono-font);
   font-size: 0.68rem;
 }
 
@@ -194,7 +194,7 @@
 .routeLabel small {
   color: var(--muted);
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--mono-font);
   font-size: 0.57rem;
   letter-spacing: 0.12em;
   margin-bottom: 0.15rem;
@@ -229,6 +229,20 @@
   .caption {
     align-items: start;
     flex-direction: column;
+  }
+
+  .viewport {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .nodeGrid {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .node {
+    min-height: 9rem;
   }
 
   .routes li {
