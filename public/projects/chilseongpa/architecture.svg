@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Chilseongpa 하이브리드 멀티클라우드 구조</title>
+  <desc id="desc">Cloudflare가 GCP 주 환경과 AWS 대기 환경 사이에서 장애 전환하고 두 환경이 Cloud SQL과 모니터링을 공유하는 구조</desc>
+  <rect width="1600" height="900" fill="#eef2f0"/>
+  <text x="96" y="110" fill="#17211d" font-family="Arial,sans-serif" font-size="30" font-weight="700">CHILSEONGPA · ACTIVE–STANDBY</text>
+  <text x="96" y="153" fill="#64716b" font-family="Arial,sans-serif" font-size="20">GCP Primary와 AWS Standby를 연결한 장애 전환 구조</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="96" y="320" width="210" height="170" rx="12" fill="#fff" stroke="#c9d3ce" stroke-width="2"/>
+    <text x="201" y="392" fill="#17211d" font-size="26" font-weight="700" text-anchor="middle">User</text><text x="201" y="430" fill="#64716b" font-size="18" text-anchor="middle">HTTPS request</text>
+    <path d="M306 405h125" stroke="#246b50" stroke-width="4"/><path d="M419 397l16 8-16 8z" fill="#246b50"/>
+    <rect x="435" y="320" width="250" height="170" rx="12" fill="#17211d"/>
+    <text x="560" y="392" fill="#fff" font-size="26" font-weight="700" text-anchor="middle">Cloudflare</text><text x="560" y="430" fill="#bdc8c2" font-size="18" text-anchor="middle">health check · routing</text>
+    <path d="M685 365h155" stroke="#246b50" stroke-width="4"/><path d="M828 357l16 8-16 8z" fill="#246b50"/>
+    <path d="M685 445h155" stroke="#8d5bb7" stroke-width="4" stroke-dasharray="12 10"/><path d="M828 437l16 8-16 8z" fill="#8d5bb7"/>
+    <g fill="#fff" stroke="#c9d3ce" stroke-width="2"><rect x="844" y="245" width="285" height="200" rx="12"/><rect x="844" y="500" width="285" height="200" rx="12"/><rect x="1240" y="320" width="260" height="170" rx="12"/><rect x="1240" y="555" width="260" height="130" rx="12"/></g>
+    <text x="986" y="330" fill="#17211d" font-size="26" font-weight="700" text-anchor="middle">GCP Primary</text><text x="986" y="370" fill="#64716b" font-size="18" text-anchor="middle">Kubernetes · active</text>
+    <text x="986" y="585" fill="#17211d" font-size="26" font-weight="700" text-anchor="middle">AWS Standby</text><text x="986" y="625" fill="#64716b" font-size="18" text-anchor="middle">Kubernetes · failover</text>
+    <text x="1370" y="392" fill="#17211d" font-size="26" font-weight="700" text-anchor="middle">Cloud SQL</text><text x="1370" y="430" fill="#64716b" font-size="18" text-anchor="middle">shared application data</text>
+    <text x="1370" y="610" fill="#17211d" font-size="23" font-weight="700" text-anchor="middle">Prometheus · Grafana</text><text x="1370" y="646" fill="#64716b" font-size="18" text-anchor="middle">metrics · alerts</text>
+    <path d="M1129 345h111M1129 600h70V455h41" fill="none" stroke="#246b50" stroke-width="4"/>
+    <path d="M1228 337l16 8-16 8zM1228 447l16 8-16 8z" fill="#246b50"/>
+    <path d="M986 445v55M1129 640h111" fill="none" stroke="#8d5bb7" stroke-width="4" stroke-dasharray="12 10"/>
+    <path d="M978 488l8 16 8-16zM1228 632l16 8-16 8z" fill="#8d5bb7"/>
+    <text x="745" y="345" fill="#246b50" font-size="17">Primary</text><text x="735" y="475" fill="#8d5bb7" font-size="17">Failover</text>
+  </g>
+</svg>

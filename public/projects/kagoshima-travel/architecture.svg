@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kagoshima Travel 서비스 구조</title>
+  <desc id="desc">모바일 사용자가 React PWA를 통해 Go API와 PostgreSQL, 지도 서비스, 읽기 전용 공유 링크를 이용하는 구조</desc>
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <text x="96" y="110" fill="#1f2328" font-family="Arial,sans-serif" font-size="30" font-weight="700">KAGOSHIMA TRAVEL · SERVICE FLOW</text>
+  <text x="96" y="153" fill="#746f67" font-family="Arial,sans-serif" font-size="20">여행 준비와 현장 이동을 한 흐름으로 연결한 모바일 우선 서비스</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="105" y="270" width="260" height="330" rx="30" fill="#1f2328"/>
+    <rect x="128" y="306" width="214" height="248" rx="12" fill="#fff"/>
+    <text x="235" y="380" fill="#1f2328" font-size="27" font-weight="700" text-anchor="middle">오늘 일정</text>
+    <text x="155" y="432" fill="#746f67" font-size="18">09:30  공항 도착</text><text x="155" y="474" fill="#746f67" font-size="18">11:00  이동 경로 확인</text>
+    <text x="235" y="650" fill="#1f2328" font-size="22" font-weight="700" text-anchor="middle">Traveler · PWA</text>
+    <path d="M365 435h145" stroke="#bd5b2a" stroke-width="4"/><path d="M498 427l16 8-16 8z" fill="#bd5b2a"/>
+    <g fill="#fff" stroke="#d7cec2" stroke-width="2"><rect x="515" y="315" width="260" height="240" rx="16"/><rect x="860" y="245" width="260" height="170" rx="16"/><rect x="860" y="500" width="260" height="170" rx="16"/><rect x="1205" y="315" width="260" height="240" rx="16"/></g>
+    <g fill="#1f2328" font-size="26" font-weight="700" text-anchor="middle"><text x="645" y="405">React Web</text><text x="990" y="330">Go API</text><text x="990" y="585">Places · Maps</text><text x="1335" y="405">PostgreSQL</text></g>
+    <g fill="#746f67" font-size="18" text-anchor="middle"><text x="645" y="443">Vite PWA · Vercel</text><text x="990" y="367">Oracle Cloud VM</text><text x="990" y="622">검색 · 경로 안내</text><text x="1335" y="443">여행 · 일정 · 체크리스트</text></g>
+    <path d="M775 375h85M1120 330h85M775 505h85M1120 585h85" fill="none" stroke="#bd5b2a" stroke-width="4"/>
+    <g fill="#bd5b2a"><path d="M848 367l16 8-16 8z"/><path d="M1193 322l16 8-16 8z"/><path d="M848 497l16 8-16 8z"/><path d="M1193 577l16 8-16 8z"/></g>
+    <rect x="515" y="660" width="950" height="92" rx="12" fill="#eadbca"/>
+    <text x="990" y="701" fill="#1f2328" font-size="22" font-weight="700" text-anchor="middle">읽기 전용 공유 링크</text>
+    <text x="990" y="730" fill="#746f67" font-size="17" text-anchor="middle">로그인 없이 일정을 확인하고 편집 권한은 보호</text>
+  </g>
+</svg>

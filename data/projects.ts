@@ -13,6 +13,17 @@ export type ArchitectureEdge = {
   kind: 'request' | 'data' | 'recovery';
 };
 
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+export type FeatureStory = ProjectImage & {
+  title: string;
+  description: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -22,6 +33,11 @@ export type Project = {
   period: string;
   featured: boolean;
   technologies: string[];
+  heroImage: ProjectImage;
+  challenge: string;
+  responsibilities: string[];
+  featureStories: FeatureStory[];
+  outcomes: string[];
   problem: string;
   contribution: string[];
   decisions: Array<{ title: string; body: string }>;
@@ -35,7 +51,7 @@ export type Project = {
     nodes: ArchitectureNode[];
     edges: ArchitectureEdge[];
   };
-  gallery: Array<{ src: string; alt: string; caption: string }>;
+  gallery: ProjectImage[];
   evidence: Array<{ label: string; href: string }>;
 };
 
@@ -59,6 +75,53 @@ export const projects: Project[] = [
       'KubeVirt',
       'Kafka',
       'AWS',
+    ],
+    heroImage: {
+      src: 'projects/cledyu/lab-session.png',
+      alt: 'Cledyu Lab 단계 안내와 브라우저 터미널을 함께 보여주는 실습 화면',
+      caption: '설명, 명령 실행, 검증, 힌트를 한 화면에 연결한 실제 Lab 세션',
+    },
+    challenge:
+      '가상머신을 만드는 것만으로는 실습 서비스가 완성되지 않습니다. 로그인부터 Lab 선택, 세션 생성, 터미널 연결, 단계 검증과 재접속까지 끊기지 않는 경험으로 연결해야 했습니다.',
+    responsibilities: [
+      '랜딩부터 로그인, Lab 탐색, 프로비저닝, 실습, 내 학습까지 웹 사용자 흐름을 구현했습니다.',
+      'Next.js 화면과 Go Session API, WebSocket 터미널 사이의 상태 계약을 연결했습니다.',
+      'KubeVirt 콘솔 연결 RBAC와 세션 복귀·만료·실패 동선을 점검하고 개선했습니다.',
+    ],
+    featureStories: [
+      {
+        src: 'projects/cledyu/labs-catalog.png',
+        alt: '난이도와 진행 상태를 함께 보여주는 Cledyu Labs 카탈로그 화면',
+        caption: '진행 상태를 확인하고 바로 시작하거나 이어갈 수 있는 Lab 탐색 화면',
+        title: '실습을 고르는 순간부터 현재 상태가 보이도록',
+        description: '난이도와 예상 시간뿐 아니라 진행 중인 세션과 완료 이력을 함께 표시했습니다.',
+      },
+      {
+        src: 'projects/cledyu/provisioning.png',
+        alt: 'Cledyu 전용 VM 생성 단계를 표시하는 프로비저닝 진행 화면',
+        caption: '세션 생성, 디스크 복제, VM 시작, 자동 로그인 상태를 단계별로 전달',
+        title: '기다림을 막연한 로딩으로 남기지 않기',
+        description: '백엔드가 전달하는 실제 준비 상태를 단계와 진행률로 바꿔 사용자가 현재 상황을 알 수 있게 했습니다.',
+      },
+      {
+        src: 'projects/cledyu/lab-session.png',
+        alt: '단계 설명과 Ubuntu 터미널이 나란히 배치된 Cledyu 실습 화면',
+        caption: '실습 설명을 놓치지 않고 바로 옆 터미널에서 명령을 실행하는 구성',
+        title: '읽고 실행하고 검증하는 흐름을 한 화면에',
+        description: '현재 작업과 완료 조건을 터미널 가까이에 두고 단계 검증과 AI 힌트를 다음 행동으로 연결했습니다.',
+      },
+      {
+        src: 'projects/cledyu/my-learning.png',
+        alt: '진행 중인 Lab과 완료 현황을 보여주는 Cledyu 내 학습 화면',
+        caption: '중단한 실습을 다시 찾고 전체 학습 진행을 확인하는 개인 현황',
+        title: '세션이 끝나도 학습 기록은 이어지도록',
+        description: '진행 중인 Lab과 완료 이력을 모아 재접속 이후에도 학습 맥락을 잃지 않게 했습니다.',
+      },
+    ],
+    outcomes: [
+      'VM 생성 성공만 확인하던 기준을 터미널 접속과 단계 검증까지 포함하는 사용자 흐름 검증으로 넓혔습니다.',
+      '활성·완료·실패·만료 세션의 동선을 분리해 잘못된 재개 링크와 중복 생성 가능성을 줄였습니다.',
+      '서비스 화면과 API, Kubernetes 권한이 서로 맞물리는 지점을 실제 장애 사례로 확인했습니다.',
     ],
     problem:
       '영상이나 설명만 보는 교육을 넘어, 학습자가 실제 서버 환경에서 명령을 실행하고 단계별 결과를 바로 확인할 수 있어야 했습니다.',
@@ -165,6 +228,32 @@ export const projects: Project[] = [
     period: '2026',
     featured: true,
     technologies: ['Python', 'AWS Lambda', 'API Gateway', 'Amazon Bedrock', 'CloudFormation', 'GitHub API'],
+    heroImage: {
+      src: 'projects/codebuddy/architecture.svg',
+      alt: 'CodeBuddy GitHub Webhook부터 Bedrock Agent 리뷰 전달까지의 서버리스 아키텍처',
+      caption: 'Webhook 응답과 AI 분석을 분리한 비동기 코드 리뷰 파이프라인',
+    },
+    challenge:
+      'AI가 리뷰를 생성하는 것보다 GitHub Webhook을 안전하게 받고, 긴 변경 내용을 보존하며, 지연과 실패가 있어도 결과를 전달하는 전체 파이프라인이 중요했습니다.',
+    responsibilities: [
+      'GitHub Webhook 수신부터 비동기 Lambda Worker와 Bedrock Agent 호출까지 설계했습니다.',
+      'HMAC 검증, Secrets Manager, 최소 권한 IAM으로 외부 요청과 비밀값 경계를 구성했습니다.',
+      'GitHub 댓글과 Slack 알림 계약을 테스트로 고정했습니다.',
+    ],
+    featureStories: [
+      {
+        src: 'projects/codebuddy/architecture.svg',
+        alt: 'CodeBuddy의 비동기 Lambda와 Bedrock Agent 코드 리뷰 처리 구조',
+        caption: '즉시 응답이 필요한 Webhook과 시간이 걸리는 AI 분석을 서로 분리',
+        title: 'Webhook은 빠르게, 분석은 안정적으로',
+        description: 'Orchestrator가 요청을 검증해 즉시 응답하고 Review Worker가 긴 분석과 전달을 맡도록 나눴습니다.',
+      },
+    ],
+    outcomes: [
+      '긴 모델 호출이 Webhook 응답 시간을 막지 않는 비동기 처리 구조를 완성했습니다.',
+      '전체 변경량 기준 입력 예산으로 중요한 patch 후반부가 잘리는 문제를 수정했습니다.',
+      '보안과 전달 계약을 포함한 102개 테스트로 서버리스 흐름을 검증했습니다.',
+    ],
     problem:
       'PR 리뷰 자동화는 단순 요약을 넘어 Webhook 검증, 긴 patch 보존, 결과 전달, 실패 처리를 함께 만족해야 했습니다.',
     contribution: [
@@ -222,6 +311,32 @@ export const projects: Project[] = [
     period: '2026',
     featured: true,
     technologies: ['Go', 'React', 'TypeScript', 'PostgreSQL', 'PWA', 'Oracle Cloud', 'Caddy'],
+    heroImage: {
+      src: 'projects/kagoshima-travel/architecture.svg',
+      alt: 'Kagoshima Travel React PWA와 Go API, PostgreSQL 서비스 아키텍처',
+      caption: '여행 준비와 현장 이동을 모바일 PWA와 Go API로 연결한 구조',
+    },
+    challenge:
+      '여행 준비 때 필요한 편집 기능과 현장에서 바로 확인해야 하는 다음 일정은 사용 맥락이 달랐습니다. 작은 화면에서 필요한 정보가 먼저 보이면서도 공유 권한은 안전하게 분리해야 했습니다.',
+    responsibilities: [
+      'React PWA, Go API, PostgreSQL 데이터 모델을 설계하고 구현했습니다.',
+      '여행·일정·장소·체크리스트와 읽기 전용 공유 링크를 하나의 서비스로 연결했습니다.',
+      'Vercel과 Oracle Cloud VM, Caddy를 이용한 배포 및 복구 절차를 구성했습니다.',
+    ],
+    featureStories: [
+      {
+        src: 'projects/kagoshima-travel/architecture.svg',
+        alt: 'Kagoshima Travel 모바일 사용자와 서비스 구성요소 사이의 데이터 흐름',
+        caption: '편집 API와 읽기 전용 공유 경로를 분리한 여행 플래너 구조',
+        title: '여행 전 계획과 여행 중 확인을 같은 데이터로',
+        description: '모바일 PWA에서 일정과 장소를 관리하고, 현장에서는 오늘 필요한 정보와 이동 경로를 빠르게 확인하도록 구성했습니다.',
+      },
+    ],
+    outcomes: [
+      '프론트엔드부터 API, 데이터베이스, 배포까지 개인 프로젝트의 전체 운영 경로를 완성했습니다.',
+      '편집 권한과 토큰 기반 읽기 전용 공유 경로를 분리해 공개 범위를 명확히 했습니다.',
+      '모바일 설치와 오프라인 사용을 고려한 PWA 형태로 실제 여행 상황에 맞췄습니다.',
+    ],
     problem:
       '장소, 일정, 항공편, 준비물과 지도 정보가 흩어져 있어 여행 중 다음 행동을 빠르게 확인하기 어려웠습니다.',
     contribution: [
@@ -280,6 +395,32 @@ export const projects: Project[] = [
     period: '2026',
     featured: true,
     technologies: ['AWS', 'GCP', 'Kubernetes', 'Terraform', 'Cloudflare', 'Prometheus', 'Grafana'],
+    heroImage: {
+      src: 'projects/chilseongpa/architecture.svg',
+      alt: 'Chilseongpa GCP Primary와 AWS Standby 장애 전환 아키텍처',
+      caption: 'Cloudflare 상태 확인을 기준으로 GCP에서 AWS로 전환하는 하이브리드 구조',
+    },
+    challenge:
+      '주 클라우드에 장애가 나도 서비스를 이어가려면 대기 환경만 만드는 것으로 부족했습니다. 같은 애플리케이션 버전, 데이터 접근, DNS 전환과 모니터링이 함께 동작해야 했습니다.',
+    responsibilities: [
+      'AWS Standby 환경의 네트워크, 컴퓨트, Kubernetes 인프라와 접근 경로를 구성했습니다.',
+      'AWS 환경에서 GCP Cloud SQL을 사용하는 교차 클라우드 연결 조건을 점검했습니다.',
+      'Prometheus와 Grafana 구성을 이전하고 장애 전환 시 관측 흐름을 검증했습니다.',
+    ],
+    featureStories: [
+      {
+        src: 'projects/chilseongpa/architecture.svg',
+        alt: 'Cloudflare 라우팅과 GCP AWS 이중 환경을 보여주는 장애 복구 흐름',
+        caption: 'Primary와 Standby가 같은 데이터와 관측 흐름을 사용하도록 연결',
+        title: '대기 환경을 실제 전환 가능한 환경으로',
+        description: '장애 감지, Kubernetes 리소스 정리, Load Balancer 생성, DNS 전환 순서를 하나의 운영 절차로 검증했습니다.',
+      },
+    ],
+    outcomes: [
+      'GCP 장애 시 AWS Standby로 전환하고 복구 후 원 환경으로 돌아오는 흐름을 실습했습니다.',
+      'Failback 뒤 남은 Kubernetes 객체가 다음 Failover를 막는 문제를 찾아 정리 순서를 보완했습니다.',
+      '인프라 생성보다 재실행 가능하고 관측 가능한 운영 절차가 중요하다는 점을 확인했습니다.',
+    ],
     problem:
       '주 클라우드 장애에도 서비스를 이어가면서 두 환경의 애플리케이션 버전과 네트워크, 데이터 접근을 일관되게 유지해야 했습니다.',
     contribution: [
@@ -339,6 +480,32 @@ export const projects: Project[] = [
     period: '2026',
     featured: true,
     technologies: ['TypeScript', 'GitHub Actions', 'GitHub API', 'CI/CD', 'Security'],
+    heroImage: {
+      src: 'projects/pr-check-doctor/architecture.svg',
+      alt: 'PR Check Doctor GitHub CI 실패 로그 수집과 진단 코멘트 생성 흐름',
+      caption: '실패 체크를 수집하고 민감값을 제거해 하나의 실행 가능한 코멘트로 정리',
+    },
+    challenge:
+      '여러 CI Job이 동시에 실패하면 로그가 흩어지고 핵심 원인을 찾는 시간이 길어집니다. 자동 진단이 유용하려면 누락 없이 수집하면서도 로그 속 비밀값을 노출하지 않아야 했습니다.',
+    responsibilities: [
+      'Check Run과 Workflow Job, 실패 로그를 페이지네이션하며 수집하는 흐름을 구현했습니다.',
+      '토큰과 비밀번호, API Key, Private Key 패턴을 코멘트 생성 전에 마스킹했습니다.',
+      'PASS·WARN·BLOCK 판정과 기존 PR 코멘트 갱신 방식을 설계했습니다.',
+    ],
+    featureStories: [
+      {
+        src: 'projects/pr-check-doctor/architecture.svg',
+        alt: 'PR Check Doctor 실패 체크 수집부터 보안 필터와 PR 코멘트까지의 구조',
+        caption: '실패 위치, 원인 후보, 재현 명령을 한 개의 업데이트 가능한 댓글로 제공',
+        title: '로그 요약이 아니라 다음 행동을 전달하기',
+        description: '실패한 체크와 유효 로그 구간을 모아 개발자가 바로 실행할 수 있는 재현 명령과 함께 정리했습니다.',
+      },
+    ],
+    outcomes: [
+      '체크와 Job 페이지네이션을 적용해 큰 PR에서도 실패 진단이 누락되지 않게 했습니다.',
+      '반복 실행 시 새 댓글을 쌓지 않고 기존 진단 코멘트를 갱신해 알림 노이즈를 줄였습니다.',
+      'fork PR의 외부 코드 실행과 코멘트 쓰기 권한을 분리할 수 있는 안전한 운영 경계를 정리했습니다.',
+    ],
     problem:
       '여러 CI Job이 동시에 실패하면 개발자가 각각의 로그를 열어 원인과 재현 명령을 다시 정리해야 했습니다.',
     contribution: [

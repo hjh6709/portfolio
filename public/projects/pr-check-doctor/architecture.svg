@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">PR Check Doctor 진단 파이프라인</title>
+  <desc id="desc">GitHub CI 실패 체크와 로그를 수집하고 시크릿을 제거한 뒤 판정과 해결 방법을 하나의 PR 댓글로 갱신하는 구조</desc>
+  <rect width="1600" height="900" fill="#f1f0ed"/>
+  <text x="96" y="110" fill="#1b1b1b" font-family="Arial,sans-serif" font-size="30" font-weight="700">PR CHECK DOCTOR · DIAGNOSIS FLOW</text>
+  <text x="96" y="153" fill="#686764" font-family="Arial,sans-serif" font-size="20">흩어진 실패 로그를 안전하고 실행 가능한 한 개의 코멘트로 정리</text>
+  <g font-family="Arial,sans-serif">
+    <g fill="#fff" stroke="#cbc9c3" stroke-width="2"><rect x="80" y="300" width="230" height="210" rx="12"/><rect x="385" y="300" width="230" height="210" rx="12"/><rect x="690" y="300" width="230" height="210" rx="12"/><rect x="995" y="300" width="230" height="210" rx="12"/><rect x="1300" y="300" width="230" height="210" rx="12"/></g>
+    <g fill="none" stroke="#2d5e9e" stroke-width="4"><path d="M310 405h75"/><path d="M615 405h75"/><path d="M920 405h75"/><path d="M1225 405h75"/></g>
+    <g fill="#2d5e9e"><path d="M373 397l16 8-16 8z"/><path d="M678 397l16 8-16 8z"/><path d="M983 397l16 8-16 8z"/><path d="M1288 397l16 8-16 8z"/></g>
+    <g fill="#1b1b1b" font-size="23" font-weight="700" text-anchor="middle"><text x="195" y="377">GitHub CI</text><text x="500" y="377">Check Collector</text><text x="805" y="377">Secret Redactor</text><text x="1110" y="377">Failure Classifier</text><text x="1415" y="377">PR Comment</text></g>
+    <g fill="#686764" font-size="17" text-anchor="middle"><text x="195" y="420">failed checks</text><text x="500" y="420">runs · jobs · logs</text><text x="805" y="420">토큰 · 키 마스킹</text><text x="1110" y="420">PASS · WARN · BLOCK</text><text x="1415" y="420">create or update</text></g>
+    <rect x="385" y="610" width="840" height="110" rx="12" fill="#1b1b1b"/>
+    <text x="805" y="657" fill="#fff" font-size="24" font-weight="700" text-anchor="middle">실패 위치 · 원인 후보 · 로컬 재현 명령</text>
+    <text x="805" y="692" fill="#c6c5c1" font-size="18" text-anchor="middle">반복 실행해도 새 댓글을 쌓지 않고 기존 진단 코멘트를 갱신</text>
+  </g>
+</svg>

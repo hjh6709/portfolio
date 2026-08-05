@@ -11,6 +11,19 @@ describe('HomePage', () => {
       '서비스를 끝까지 연결하는 백엔드 개발자',
     );
     expect(screen.getByRole('heading', { name: '대표 프로젝트' })).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /프로젝트 자세히 보기/ })).toHaveLength(5);
+    expect(screen.getAllByRole('link', { name: /사례 자세히 보기/ })).toHaveLength(5);
+  });
+
+  it('presents selected work before capabilities and uses project evidence', () => {
+    render(<HomePage />);
+
+    const selectedWork = screen.getByRole('heading', { name: '대표 프로젝트' });
+    const capabilities = screen.getByRole('heading', { name: '사용한 기술' });
+
+    expect(
+      selectedWork.compareDocumentPosition(capabilities) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(screen.getByAltText(/Cledyu.*Lab/)).toBeInTheDocument();
+    expect(screen.queryByText('Wait:ON')).not.toBeInTheDocument();
   });
 });
