@@ -14,7 +14,14 @@ describe('project gallery assets', () => {
 
   it('ships every referenced image with descriptive alternative text', () => {
     for (const project of projects) {
-      for (const image of [project.heroImage, ...project.gallery, ...project.featureStories]) {
+      const images = [
+        project.heroImage,
+        ...project.gallery,
+        ...project.featureStories,
+        ...(project.architectureImage ? [project.architectureImage] : []),
+      ];
+
+      for (const image of images) {
         expect(existsSync(join(process.cwd(), 'public', image.src))).toBe(true);
         expect(image.alt.length).toBeGreaterThan(8);
         expect(image.caption.length).toBeGreaterThan(8);

@@ -32,7 +32,28 @@ describe('project content', () => {
       expect(project.responsibilities.length).toBeGreaterThan(0);
       expect(project.featureStories.length).toBeGreaterThan(0);
       expect(project.outcomes.length).toBeGreaterThan(0);
+      expect(project.technologyRoles.length).toBeGreaterThan(2);
     }
+  });
+
+  it('publishes verified architecture evidence for Cledyu and Kagoshima Travel', () => {
+    const cledyu = getProject('cledyu');
+    const kagoshima = getProject('kagoshima-travel');
+
+    expect(cledyu?.architectureImage?.src).toBe('projects/cledyu/architecture.png');
+    expect(kagoshima?.architectureImage?.src).toBe(
+      'projects/kagoshima-travel/service-flow.svg',
+    );
+  });
+
+  it('marks Kagoshima Travel as an operating project under active revision', () => {
+    const kagoshima = getProject('kagoshima-travel');
+
+    expect(kagoshima?.status).toBe('운영 중 · 화면 개선 진행 중');
+    expect(kagoshima?.evidence).toContainEqual({
+      label: 'Live service',
+      href: 'https://kagoshima.hjh-dev.site/',
+    });
   });
 
   it('returns undefined for an unknown project', () => {
