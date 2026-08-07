@@ -5,6 +5,7 @@ import type { Project } from '@/data/projects';
 
 import { ArchitectureDiagram } from './architecture-diagram';
 import styles from './project-case-study.module.css';
+import { TechnologyIcon } from './technology-icon';
 
 type ProjectCaseStudyProps = {
   project: Project;
@@ -13,8 +14,10 @@ type ProjectCaseStudyProps = {
 const sectionNumber = (value: number) => String(value).padStart(2, '0');
 
 export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
+  const isPortraitHero = project.slug === 'kagoshima-travel';
+
   return (
-    <article className={styles.caseStudy}>
+    <article className={styles.caseStudy} data-project={project.slug}>
       <header className={styles.hero}>
         <Link href="/#projects" className={styles.backLink}>
           <span aria-hidden="true">←</span> 프로젝트 목록
@@ -22,9 +25,17 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
 
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
+            <p className={styles.status}>{project.status}</p>
             <p className={styles.eyebrow}>PROJECT CASE STUDY · {project.period}</p>
             <h1>{project.title}</h1>
             <p className={styles.summary}>{project.summary}</p>
+            <div className={styles.heroLinks} aria-label={`${project.title} 외부 근거`}>
+              {project.evidence.map((item) => (
+                <a key={item.href} href={item.href} target="_blank" rel="noreferrer">
+                  {item.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
           </div>
 
           <dl className={styles.metadata}>
@@ -44,12 +55,12 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </div>
 
         <figure className={styles.heroEvidence}>
-          <div className={styles.heroImage}>
+          <div className={`${styles.heroImage} ${isPortraitHero ? styles.heroImagePortrait : ''}`}>
             <Image
               src={`/${project.heroImage.src}`}
               alt={project.heroImage.alt}
-              width={2400}
-              height={1500}
+              width={project.heroImage.width}
+              height={project.heroImage.height}
               priority
               sizes="(max-width: 900px) 100vw, 90vw"
             />
@@ -111,8 +122,8 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                       <Image
                         src={`/${story.src}`}
                         alt={story.alt}
-                        width={2048}
-                        height={1280}
+                        width={story.width}
+                        height={story.height}
                         sizes="(max-width: 900px) 100vw, 62vw"
                       />
                     </div>
@@ -139,16 +150,56 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           </div>
         </div>
 
-        <ArchitectureDiagram
-          title={`${project.title} 시스템 흐름`}
-          nodes={project.architecture.nodes}
-          edges={project.architecture.edges}
-        />
+        {project.architectureImage ? (
+          <figure className={styles.architectureEvidence}>
+            <div className={styles.architectureCanvas}>
+              <Image
+                src={`/${project.architectureImage.src}`}
+                alt={project.architectureImage.alt}
+                width={project.architectureImage.width}
+                height={project.architectureImage.height}
+                sizes="(max-width: 900px) 100vw, 90vw"
+              />
+            </div>
+            <figcaption>{project.architectureImage.caption}</figcaption>
+          </figure>
+        ) : (
+          <ArchitectureDiagram
+            title={`${project.title} 시스템 흐름`}
+            nodes={project.architecture.nodes}
+            edges={project.architecture.edges}
+          />
+        )}
+      </section>
+
+      <section className={styles.technology} aria-labelledby="technology-title">
+        <div className={styles.sectionIntro}>
+          <span className={styles.sectionNumber}>{sectionNumber(4)}</span>
+          <div>
+            <p className={styles.eyebrow}>TECHNOLOGY · RESPONSIBILITY</p>
+            <h2 id="technology-title">기술과 역할</h2>
+          </div>
+        </div>
+
+        <div className={styles.technologyGrid}>
+          {project.technologyRoles.map((technology, index) => (
+            <article key={technology.name}>
+              <div className={styles.technologyIndex}>{sectionNumber(index + 1)}</div>
+              <div className={styles.technologyIcon}>
+                <TechnologyIcon name={technology.icon} label={technology.name} />
+              </div>
+              <div>
+                <h3>{technology.name}</h3>
+                <p>{technology.role}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className={styles.decisions} aria-labelledby="decisions-title">
         <div className={styles.sectionIntro}>
-          <span className={styles.sectionNumber}>{sectionNumber(4)}</span>
+          <span className={styles.sectionNumber}>{sectionNumber(5)}</span>
           <div>
             <p className={styles.eyebrow}>ENGINEERING DECISIONS</p>
             <h2 id="decisions-title">설계 판단</h2>
@@ -168,7 +219,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
 
       <section className={styles.troubleshooting} aria-labelledby="troubleshooting-title">
         <div className={styles.sectionIntro}>
-          <span className={styles.sectionNumber}>{sectionNumber(5)}</span>
+          <span className={styles.sectionNumber}>{sectionNumber(6)}</span>
           <div>
             <p className={styles.eyebrow}>TROUBLESHOOTING</p>
             <h2 id="troubleshooting-title">트러블슈팅</h2>
@@ -203,7 +254,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
 
       <section className={styles.outcomes} aria-labelledby="outcomes-title">
         <div className={styles.sectionIntro}>
-          <span className={styles.sectionNumber}>{sectionNumber(6)}</span>
+          <span className={styles.sectionNumber}>{sectionNumber(7)}</span>
           <div>
             <p className={styles.eyebrow}>RESULT · LESSON</p>
             <h2 id="outcomes-title">결과와 배운 점</h2>
@@ -220,19 +271,6 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </ol>
       </section>
 
-      <footer className={styles.evidence}>
-        <div>
-          <p className={styles.eyebrow}>EVIDENCE</p>
-          <h2>직접 확인하기</h2>
-        </div>
-        <div className={styles.evidenceLinks}>
-          {project.evidence.map((item) => (
-            <a key={item.href} href={item.href} target="_blank" rel="noreferrer">
-              {item.label} <span aria-hidden="true">↗</span>
-            </a>
-          ))}
-        </div>
-      </footer>
     </article>
   );
 }

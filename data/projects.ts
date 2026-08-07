@@ -17,6 +17,8 @@ export type ProjectImage = {
   src: string;
   alt: string;
   caption: string;
+  width: number;
+  height: number;
 };
 
 export type FeatureStory = ProjectImage & {
@@ -28,12 +30,19 @@ export type Project = {
   slug: string;
   title: string;
   summary: string;
+  status: string;
   role: string;
   team: string;
   period: string;
   featured: boolean;
   technologies: string[];
+  technologyRoles: Array<{
+    name: string;
+    icon: string;
+    role: string;
+  }>;
   heroImage: ProjectImage;
+  architectureImage?: ProjectImage;
   challenge: string;
   responsibilities: string[];
   featureStories: FeatureStory[];
@@ -61,6 +70,7 @@ export const projects: Project[] = [
     title: 'Cledyu',
     summary:
       '브라우저에서 전용 VM을 열고 직접 명령을 실행하며 배우는 클라우드 엔지니어링 실습 플랫폼입니다.',
+    status: '팀 프로젝트 · 서비스 배포',
     role: 'Full-stack · 인증과 Lab 사용자 흐름 · 세션 연동',
     team: '6인 팀 프로젝트',
     period: '2026',
@@ -76,10 +86,51 @@ export const projects: Project[] = [
       'Kafka',
       'AWS',
     ],
+    technologyRoles: [
+      {
+        name: 'Next.js',
+        icon: 'nextjs',
+        role: '랜딩, 인증 이후 Lab 탐색, 프로비저닝, 세션, 학습 현황까지 사용자 흐름을 구현했습니다.',
+      },
+      {
+        name: 'Go',
+        icon: 'go',
+        role: '세션 생성과 복귀, 만료, 종료 상태를 다루는 API 계약과 프론트엔드 연동을 담당했습니다.',
+      },
+      {
+        name: 'WebSocket',
+        icon: 'link',
+        role: '브라우저 xterm.js와 KubeVirt console을 연결해 실제 VM 명령 입출력을 전달했습니다.',
+      },
+      {
+        name: 'Keycloak',
+        icon: 'keycloak',
+        role: 'OIDC 로그인과 소셜 인증 진입점을 서비스 화면에 연결하고 역할별 인증 경계를 점검했습니다.',
+      },
+      {
+        name: 'Kubernetes · KubeVirt',
+        icon: 'kubevirt',
+        role: '학습자별 격리 VM 세션과 console 접근에 필요한 최소 RBAC 및 Namespace 바인딩을 검증했습니다.',
+      },
+      {
+        name: 'Kafka · Validation',
+        icon: 'kafka',
+        role: '실습 단계 검증 요청과 결과가 이벤트 파이프라인을 거쳐 화면에 반영되는 흐름을 연결했습니다.',
+      },
+    ],
     heroImage: {
       src: 'projects/cledyu/lab-session.png',
       alt: 'Cledyu Lab 단계 안내와 브라우저 터미널을 함께 보여주는 실습 화면',
       caption: '설명, 명령 실행, 검증, 힌트를 한 화면에 연결한 실제 Lab 세션',
+      width: 2916,
+      height: 1690,
+    },
+    architectureImage: {
+      src: 'projects/cledyu/architecture.png',
+      alt: 'Cledyu 학습자 요청부터 인증, 세션 배치, KubeVirt VM, 검증, 재해 복구까지의 실제 서비스 아키텍처',
+      caption: '실제 구현 자료를 기준으로 정리한 사용자 요청, 인증, 세션, 검증, 오버플로와 DR 흐름',
+      width: 3840,
+      height: 2160,
     },
     challenge:
       '가상머신을 만드는 것만으로는 실습 서비스가 완성되지 않습니다. 로그인부터 Lab 선택, 세션 생성, 터미널 연결, 단계 검증과 재접속까지 끊기지 않는 경험으로 연결해야 했습니다.',
@@ -93,6 +144,8 @@ export const projects: Project[] = [
         src: 'projects/cledyu/labs-catalog.png',
         alt: '난이도와 진행 상태를 함께 보여주는 Cledyu Labs 카탈로그 화면',
         caption: '진행 상태를 확인하고 바로 시작하거나 이어갈 수 있는 Lab 탐색 화면',
+        width: 2922,
+        height: 1682,
         title: '실습을 고르는 순간부터 현재 상태가 보이도록',
         description: '난이도와 예상 시간뿐 아니라 진행 중인 세션과 완료 이력을 함께 표시했습니다.',
       },
@@ -100,6 +153,8 @@ export const projects: Project[] = [
         src: 'projects/cledyu/provisioning.png',
         alt: 'Cledyu 전용 VM 생성 단계를 표시하는 프로비저닝 진행 화면',
         caption: '세션 생성, 디스크 복제, VM 시작, 자동 로그인 상태를 단계별로 전달',
+        width: 1914,
+        height: 1724,
         title: '기다림을 막연한 로딩으로 남기지 않기',
         description: '백엔드가 전달하는 실제 준비 상태를 단계와 진행률로 바꿔 사용자가 현재 상황을 알 수 있게 했습니다.',
       },
@@ -107,6 +162,8 @@ export const projects: Project[] = [
         src: 'projects/cledyu/lab-session.png',
         alt: '단계 설명과 Ubuntu 터미널이 나란히 배치된 Cledyu 실습 화면',
         caption: '실습 설명을 놓치지 않고 바로 옆 터미널에서 명령을 실행하는 구성',
+        width: 2916,
+        height: 1690,
         title: '읽고 실행하고 검증하는 흐름을 한 화면에',
         description: '현재 작업과 완료 조건을 터미널 가까이에 두고 단계 검증과 AI 힌트를 다음 행동으로 연결했습니다.',
       },
@@ -114,6 +171,8 @@ export const projects: Project[] = [
         src: 'projects/cledyu/my-learning.png',
         alt: '진행 중인 Lab과 완료 현황을 보여주는 Cledyu 내 학습 화면',
         caption: '중단한 실습을 다시 찾고 전체 학습 진행을 확인하는 개인 현황',
+        width: 1884,
+        height: 1852,
         title: '세션이 끝나도 학습 기록은 이어지도록',
         description: '진행 중인 Lab과 완료 이력을 모아 재접속 이후에도 학습 맥락을 잃지 않게 했습니다.',
       },
@@ -192,26 +251,36 @@ export const projects: Project[] = [
         src: 'projects/cledyu/labs-catalog.png',
         alt: '난이도별 실습 목록과 필터가 보이는 Cledyu Labs 카탈로그 화면',
         caption: '난이도별 Lab을 탐색하고 실습을 시작하는 카탈로그',
+        width: 2922,
+        height: 1682,
       },
       {
         src: 'projects/cledyu/lab-detail.png',
         alt: 'Linux 기초 Lab의 실습 환경과 진행 순서를 안내하는 상세 화면',
         caption: '세션을 만들기 전에 실습 범위와 순서를 확인하는 상세 페이지',
+        width: 2944,
+        height: 1550,
       },
       {
         src: 'projects/cledyu/provisioning.png',
         alt: '전용 VM 세션 생성과 디스크 복제 진행 상태를 보여주는 프로비저닝 화면',
         caption: '세션 생성부터 자동 로그인까지 실제 인프라 상태를 사용자에게 전달',
+        width: 1914,
+        height: 1724,
       },
       {
         src: 'projects/cledyu/lab-session.png',
         alt: '단계 안내와 브라우저 터미널이 나란히 배치된 Cledyu 실습 세션 화면',
         caption: '명령 실행, 단계 검증, AI 힌트를 한 화면에서 연결한 실습 환경',
+        width: 2916,
+        height: 1690,
       },
       {
         src: 'projects/cledyu/my-learning.png',
         alt: '점수와 완료율, 진행 중 Lab을 보여주는 Cledyu 내 학습 화면',
         caption: '진행 중인 세션과 완료 이력을 다시 찾는 학습 현황',
+        width: 1884,
+        height: 1852,
       },
     ],
     evidence: [
@@ -223,15 +292,40 @@ export const projects: Project[] = [
     title: 'CodeBuddy',
     summary:
       'Pull Request 변경사항을 Bedrock Agent가 분석하고 GitHub 리뷰와 Slack 알림으로 전달하는 서버리스 코드 리뷰 시스템입니다.',
+    status: '개인 프로젝트 · 구현 완료',
     role: 'Backend · Serverless · AI agent integration',
     team: '개인 프로젝트',
     period: '2026',
     featured: true,
     technologies: ['Python', 'AWS Lambda', 'API Gateway', 'Amazon Bedrock', 'CloudFormation', 'GitHub API'],
+    technologyRoles: [
+      {
+        name: 'Python',
+        icon: 'python',
+        role: 'Webhook 검증, 변경 수집, 프롬프트 구성, 결과 전달을 담당하는 Lambda 로직을 구현했습니다.',
+      },
+      {
+        name: 'AWS Lambda',
+        icon: 'aws-lambda',
+        role: '빠른 Webhook 응답과 긴 AI 분석을 Orchestrator와 Worker로 분리해 비동기로 실행했습니다.',
+      },
+      {
+        name: 'Amazon Bedrock',
+        icon: 'amazon-bedrock',
+        role: 'PR 전체 변경 맥락과 입력 예산을 관리하며 실행 가능한 코드 리뷰 결과를 생성했습니다.',
+      },
+      {
+        name: 'GitHub API',
+        icon: 'github',
+        role: '서명된 이벤트 수신부터 diff 수집과 PR 코멘트 갱신까지 자동화했습니다.',
+      },
+    ],
     heroImage: {
       src: 'projects/codebuddy/architecture.svg',
       alt: 'CodeBuddy GitHub Webhook부터 Bedrock Agent 리뷰 전달까지의 서버리스 아키텍처',
       caption: 'Webhook 응답과 AI 분석을 분리한 비동기 코드 리뷰 파이프라인',
+      width: 1600,
+      height: 900,
     },
     challenge:
       'AI가 리뷰를 생성하는 것보다 GitHub Webhook을 안전하게 받고, 긴 변경 내용을 보존하며, 지연과 실패가 있어도 결과를 전달하는 전체 파이프라인이 중요했습니다.',
@@ -245,6 +339,8 @@ export const projects: Project[] = [
         src: 'projects/codebuddy/architecture.svg',
         alt: 'CodeBuddy의 비동기 Lambda와 Bedrock Agent 코드 리뷰 처리 구조',
         caption: '즉시 응답이 필요한 Webhook과 시간이 걸리는 AI 분석을 서로 분리',
+        width: 1600,
+        height: 900,
         title: 'Webhook은 빠르게, 분석은 안정적으로',
         description: 'Orchestrator가 요청을 검증해 즉시 응답하고 Review Worker가 긴 분석과 전달을 맡도록 나눴습니다.',
       },
@@ -306,15 +402,57 @@ export const projects: Project[] = [
     title: 'Kagoshima Travel',
     summary:
       '여행 전 계획과 여행 중 다음 이동을 한 화면에서 관리하는 모바일 우선 여행 플래너입니다.',
+    status: '운영 중 · 화면 개선 진행 중',
     role: 'Full-stack · Product design · Deployment',
     team: '개인 프로젝트',
     period: '2026',
     featured: true,
     technologies: ['Go', 'React', 'TypeScript', 'PostgreSQL', 'PWA', 'Oracle Cloud', 'Caddy'],
+    technologyRoles: [
+      {
+        name: 'React · PWA',
+        icon: 'react',
+        role: '여행 전 편집과 현장 확인을 모바일 화면에 맞추고 설치 및 오프라인 사용 흐름을 구성했습니다.',
+      },
+      {
+        name: 'TypeScript',
+        icon: 'typescript',
+        role: '여행, 일정, 장소, 체크리스트와 API 응답 계약을 타입으로 고정했습니다.',
+      },
+      {
+        name: 'Go',
+        icon: 'go',
+        role: '인증된 편집 API, 읽기 전용 공유 경로, Google Places 프록시를 구현했습니다.',
+      },
+      {
+        name: 'PostgreSQL · Supabase',
+        icon: 'supabase',
+        role: '여행과 일정, 장소 사이의 관계를 모델링하고 브라우저가 DB에 직접 접근하지 않도록 분리했습니다.',
+      },
+      {
+        name: 'Vercel',
+        icon: 'vercel',
+        role: '정적 PWA를 배포하고 실제 모바일 사용 환경에서 화면과 설치 동작을 검증했습니다.',
+      },
+      {
+        name: 'Oracle Cloud · Caddy',
+        icon: 'caddy',
+        role: 'Go API를 VM에 배포하고 HTTPS 종료와 reverse proxy, 재시작 절차를 구성했습니다.',
+      },
+    ],
     heroImage: {
-      src: 'projects/kagoshima-travel/architecture.svg',
-      alt: 'Kagoshima Travel React PWA와 Go API, PostgreSQL 서비스 아키텍처',
-      caption: '여행 준비와 현장 이동을 모바일 PWA와 Go API로 연결한 구조',
+      src: 'projects/kagoshima-travel/manage-overview.png',
+      alt: 'Kagoshima Travel 실제 운영 서비스의 모바일 여행 관리 화면',
+      caption: '장소 저장, 일정 구성, 이동 확인을 한 흐름으로 연결한 실제 운영 화면',
+      width: 1884,
+      height: 2400,
+    },
+    architectureImage: {
+      src: 'projects/kagoshima-travel/service-flow.svg',
+      alt: 'Kagoshima Travel 실제 배포 구성과 외부 서비스 연결 흐름',
+      caption: 'Vercel React PWA, Oracle Cloud의 Caddy와 Go API, Supabase PostgreSQL 및 Google 서비스 연결 구조',
+      width: 1920,
+      height: 1080,
     },
     challenge:
       '여행 준비 때 필요한 편집 기능과 현장에서 바로 확인해야 하는 다음 일정은 사용 맥락이 달랐습니다. 작은 화면에서 필요한 정보가 먼저 보이면서도 공유 권한은 안전하게 분리해야 했습니다.',
@@ -325,9 +463,11 @@ export const projects: Project[] = [
     ],
     featureStories: [
       {
-        src: 'projects/kagoshima-travel/architecture.svg',
-        alt: 'Kagoshima Travel 모바일 사용자와 서비스 구성요소 사이의 데이터 흐름',
-        caption: '편집 API와 읽기 전용 공유 경로를 분리한 여행 플래너 구조',
+        src: 'projects/kagoshima-travel/manage-overview.png',
+        alt: 'Kagoshima Travel 여행 일정과 장소를 관리하는 실제 모바일 화면',
+        caption: '여행 전 계획과 현장 확인을 같은 데이터로 이어 주는 관리 화면',
+        width: 1884,
+        height: 2400,
         title: '여행 전 계획과 여행 중 확인을 같은 데이터로',
         description: '모바일 PWA에서 일정과 장소를 관리하고, 현장에서는 오늘 필요한 정보와 이동 경로를 빠르게 확인하도록 구성했습니다.',
       },
@@ -380,8 +520,17 @@ export const projects: Project[] = [
         { from: 'share', to: 'web', label: 'read-only trip', kind: 'request' },
       ],
     },
-    gallery: [],
+    gallery: [
+      {
+        src: 'projects/kagoshima-travel/manage.png',
+        alt: 'Kagoshima Travel 실제 운영 서비스의 긴 모바일 관리 화면',
+        caption: '일정과 장소, 준비 정보를 모바일에서 관리하는 실제 배포 화면',
+        width: 1884,
+        height: 13804,
+      },
+    ],
     evidence: [
+      { label: 'Live service', href: 'https://kagoshima.hjh-dev.site/' },
       { label: 'GitHub repository', href: 'https://github.com/hjh6709/for_Kagoshima_travel' },
     ],
   },
@@ -390,15 +539,40 @@ export const projects: Project[] = [
     title: 'Chilseongpa',
     summary:
       'GCP 주 환경과 AWS 대기 환경을 연결하고 장애 시 트래픽을 전환하는 하이브리드 멀티클라우드 운영 프로젝트입니다.',
+    status: '팀 프로젝트 · 구축 완료',
     role: 'AWS infrastructure · Cross-cloud connectivity',
     team: '6인 팀 프로젝트',
     period: '2026',
     featured: true,
     technologies: ['AWS', 'GCP', 'Kubernetes', 'Terraform', 'Cloudflare', 'Prometheus', 'Grafana'],
+    technologyRoles: [
+      {
+        name: 'AWS',
+        icon: 'aws',
+        role: 'Standby VPC와 컴퓨트, Kubernetes 접근 경로를 구성하고 장애 전환 대상을 준비했습니다.',
+      },
+      {
+        name: 'Kubernetes',
+        icon: 'kubernetes',
+        role: '재실행 가능한 Failover를 위해 잔여 리소스 정리와 배포 순서를 운영 절차로 고정했습니다.',
+      },
+      {
+        name: 'Terraform',
+        icon: 'terraform',
+        role: '대기 환경의 네트워크와 인프라 구성을 코드로 관리하고 반복 배포 가능성을 높였습니다.',
+      },
+      {
+        name: 'Prometheus · Grafana',
+        icon: 'prometheus',
+        role: '전환 전후의 상태와 지표를 확인할 수 있도록 관측 구성과 Alert Rule을 검증했습니다.',
+      },
+    ],
     heroImage: {
       src: 'projects/chilseongpa/architecture.svg',
       alt: 'Chilseongpa GCP Primary와 AWS Standby 장애 전환 아키텍처',
       caption: 'Cloudflare 상태 확인을 기준으로 GCP에서 AWS로 전환하는 하이브리드 구조',
+      width: 1600,
+      height: 900,
     },
     challenge:
       '주 클라우드에 장애가 나도 서비스를 이어가려면 대기 환경만 만드는 것으로 부족했습니다. 같은 애플리케이션 버전, 데이터 접근, DNS 전환과 모니터링이 함께 동작해야 했습니다.',
@@ -412,6 +586,8 @@ export const projects: Project[] = [
         src: 'projects/chilseongpa/architecture.svg',
         alt: 'Cloudflare 라우팅과 GCP AWS 이중 환경을 보여주는 장애 복구 흐름',
         caption: 'Primary와 Standby가 같은 데이터와 관측 흐름을 사용하도록 연결',
+        width: 1600,
+        height: 900,
         title: '대기 환경을 실제 전환 가능한 환경으로',
         description: '장애 감지, Kubernetes 리소스 정리, Load Balancer 생성, DNS 전환 순서를 하나의 운영 절차로 검증했습니다.',
       },
@@ -475,15 +651,40 @@ export const projects: Project[] = [
     title: 'PR Check Doctor',
     summary:
       '실패한 GitHub PR 체크와 로그를 읽어 다음 행동을 하나의 안정적인 PR 코멘트로 정리하는 GitHub Action입니다.',
+    status: '오픈소스 · Marketplace 배포',
     role: 'Product design · GitHub API · Security',
     team: '개인 프로젝트',
     period: '2026',
     featured: true,
     technologies: ['TypeScript', 'GitHub Actions', 'GitHub API', 'CI/CD', 'Security'],
+    technologyRoles: [
+      {
+        name: 'TypeScript',
+        icon: 'typescript',
+        role: '체크 수집, 로그 가공, 판정, 코멘트 렌더링 계약을 타입 안전하게 구현했습니다.',
+      },
+      {
+        name: 'GitHub Actions',
+        icon: 'github-actions',
+        role: 'CI 완료 이후 실패 근거를 모으고 fork PR에서도 권한 경계가 유지되는 실행 흐름을 설계했습니다.',
+      },
+      {
+        name: 'GitHub API',
+        icon: 'github',
+        role: 'Check Run과 Workflow Job을 페이지네이션하고 기존 진단 코멘트를 찾아 갱신했습니다.',
+      },
+      {
+        name: 'Security',
+        icon: 'shield',
+        role: '로그 속 토큰, 비밀번호, API Key, Private Key를 코멘트 작성 전에 마스킹했습니다.',
+      },
+    ],
     heroImage: {
       src: 'projects/pr-check-doctor/architecture.svg',
       alt: 'PR Check Doctor GitHub CI 실패 로그 수집과 진단 코멘트 생성 흐름',
       caption: '실패 체크를 수집하고 민감값을 제거해 하나의 실행 가능한 코멘트로 정리',
+      width: 1600,
+      height: 900,
     },
     challenge:
       '여러 CI Job이 동시에 실패하면 로그가 흩어지고 핵심 원인을 찾는 시간이 길어집니다. 자동 진단이 유용하려면 누락 없이 수집하면서도 로그 속 비밀값을 노출하지 않아야 했습니다.',
@@ -497,6 +698,8 @@ export const projects: Project[] = [
         src: 'projects/pr-check-doctor/architecture.svg',
         alt: 'PR Check Doctor 실패 체크 수집부터 보안 필터와 PR 코멘트까지의 구조',
         caption: '실패 위치, 원인 후보, 재현 명령을 한 개의 업데이트 가능한 댓글로 제공',
+        width: 1600,
+        height: 900,
         title: '로그 요약이 아니라 다음 행동을 전달하기',
         description: '실패한 체크와 유효 로그 구간을 모아 개발자가 바로 실행할 수 있는 재현 명령과 함께 정리했습니다.',
       },

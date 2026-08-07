@@ -25,6 +25,8 @@ describe('project gallery assets', () => {
         expect(existsSync(join(process.cwd(), 'public', image.src))).toBe(true);
         expect(image.alt.length).toBeGreaterThan(8);
         expect(image.caption.length).toBeGreaterThan(8);
+        expect(image.width).toBeGreaterThan(0);
+        expect(image.height).toBeGreaterThan(0);
       }
     }
   });
