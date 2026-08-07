@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title description">
+  <title id="title">Kagoshima Travel 실제 배포 구성과 외부 서비스 연결 흐름</title>
+  <desc id="description">모바일 사용자가 Vercel에 배포된 React PWA를 사용하고, Oracle Cloud의 Caddy와 Go API를 거쳐 Supabase PostgreSQL에 접근하는 서비스 구성입니다. Google Maps와 Places API, 읽기 전용 공유 경로도 함께 표시합니다.</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6cb7ee"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#68c891"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#9098a0"/>
+    </marker>
+    <style>
+      .title { fill: #f4f4f0; font: 600 34px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: -.02em; }
+      .kicker { fill: #8d949b; font: 600 15px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; }
+      .lane { fill: none; stroke: #34383d; stroke-width: 1.5; }
+      .lane-title { fill: #9aa1a7; font: 600 15px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .14em; }
+      .node { fill: #181b1e; stroke: #454a50; stroke-width: 1.5; }
+      .node.primary { stroke: #6cb7ee; }
+      .node.data { stroke: #68c891; }
+      .node.external { fill: #151719; stroke-dasharray: 7 7; }
+      .icon { fill: #23272b; stroke: #535a61; stroke-width: 1; }
+      .icon-text { fill: #f7f7f3; font: 700 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; text-anchor: middle; dominant-baseline: central; }
+      .name { fill: #f4f4f0; font: 650 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .caption { fill: #969da4; font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .tag { fill: #c9d0d5; font: 600 12px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; }
+      .flow-blue { fill: none; stroke: #6cb7ee; stroke-width: 3; marker-end: url(#arrow-blue); }
+      .flow-green { fill: none; stroke: #68c891; stroke-width: 3; marker-end: url(#arrow-green); }
+      .flow-gray { fill: none; stroke: #9098a0; stroke-width: 2; stroke-dasharray: 8 8; marker-end: url(#arrow-gray); }
+      .flow-label { fill: #d7dadd; font: 600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; text-anchor: middle; }
+      .note { fill: #171a1d; stroke: #34383d; stroke-width: 1.5; }
+      .note-title { fill: #f4f4f0; font: 650 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .note-copy { fill: #a4abb1; font: 400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#111315"/>
+  <text x="92" y="80" class="kicker">KAGOSHIMA TRAVEL · PRODUCTION ARCHITECTURE</text>
+  <text x="92" y="132" class="title">여행 계획부터 현장 이동까지 연결한 실제 서비스 구성</text>
+
+  <rect x="70" y="190" width="1780" height="335" rx="2" class="lane"/>
+  <text x="94" y="225" class="lane-title">USER REQUEST · APPLICATION</text>
+
+  <g transform="translate(110 290)">
+    <rect width="220" height="145" rx="2" class="node external"/>
+    <rect x="22" y="25" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="54" class="icon-text">UI</text>
+    <text x="98" y="48" class="name">Traveler</text>
+    <text x="98" y="74" class="caption">Mobile · Browser</text>
+    <text x="22" y="116" class="tag">PLAN · CHECK · NAVIGATE</text>
+  </g>
+
+  <g transform="translate(430 290)">
+    <rect width="300" height="145" rx="2" class="node primary"/>
+    <rect x="22" y="25" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="54" class="icon-text">R</text>
+    <text x="98" y="48" class="name">React PWA</text>
+    <text x="98" y="74" class="caption">TypeScript · Vite · Vercel</text>
+    <text x="22" y="116" class="tag">MOBILE-FIRST WEB</text>
+  </g>
+
+  <g transform="translate(830 290)">
+    <rect width="250" height="145" rx="2" class="node"/>
+    <rect x="22" y="25" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="54" class="icon-text">C</text>
+    <text x="98" y="48" class="name">Caddy</text>
+    <text x="98" y="74" class="caption">Oracle Cloud VM</text>
+    <text x="22" y="116" class="tag">TLS · REVERSE PROXY</text>
+  </g>
+
+  <g transform="translate(1180 290)">
+    <rect width="250" height="145" rx="2" class="node primary"/>
+    <rect x="22" y="25" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="54" class="icon-text">GO</text>
+    <text x="98" y="48" class="name">Go API</text>
+    <text x="98" y="74" class="caption">REST · Auth · Share</text>
+    <text x="22" y="116" class="tag">APPLICATION CONTRACT</text>
+  </g>
+
+  <g transform="translate(1530 290)">
+    <rect width="250" height="145" rx="2" class="node data"/>
+    <rect x="22" y="25" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="54" class="icon-text">DB</text>
+    <text x="98" y="48" class="name">PostgreSQL</text>
+    <text x="98" y="74" class="caption">Supabase</text>
+    <text x="22" y="116" class="tag">TRIPS · PLACES · SCHEDULES</text>
+  </g>
+
+  <path d="M330 362H415" class="flow-blue"/>
+  <text x="372" y="344" class="flow-label">HTTPS</text>
+  <path d="M730 362H815" class="flow-blue"/>
+  <text x="772" y="344" class="flow-label">API 요청</text>
+  <path d="M1080 362H1165" class="flow-blue"/>
+  <text x="1122" y="344" class="flow-label">proxy</text>
+  <path d="M1430 362H1515" class="flow-green"/>
+  <text x="1472" y="344" class="flow-label">query</text>
+
+  <rect x="70" y="565" width="1780" height="405" rx="2" class="lane"/>
+  <text x="94" y="600" class="lane-title">EXTERNAL SERVICES · ACCESS BOUNDARY</text>
+
+  <g transform="translate(270 670)">
+    <rect width="300" height="140" rx="2" class="node external"/>
+    <rect x="22" y="24" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="53" class="icon-text">MAP</text>
+    <text x="98" y="47" class="name">Google Maps</text>
+    <text x="98" y="73" class="caption">Map JS · Directions</text>
+    <text x="22" y="112" class="tag">BROWSER INTEGRATION</text>
+  </g>
+
+  <g transform="translate(810 670)">
+    <rect width="300" height="140" rx="2" class="node external"/>
+    <rect x="22" y="24" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="53" class="icon-text">P</text>
+    <text x="98" y="47" class="name">Places API</text>
+    <text x="98" y="73" class="caption">Search · place details</text>
+    <text x="22" y="112" class="tag">SERVER-SIDE CALL</text>
+  </g>
+
+  <g transform="translate(1350 670)">
+    <rect width="300" height="140" rx="2" class="node data"/>
+    <rect x="22" y="24" width="58" height="58" rx="14" class="icon"/>
+    <text x="51" y="53" class="icon-text">RO</text>
+    <text x="98" y="47" class="name">Share Route</text>
+    <text x="98" y="73" class="caption">Token · read-only view</text>
+    <text x="22" y="112" class="tag">NO EDIT PERMISSION</text>
+  </g>
+
+  <path d="M580 670V600H580V450H580" class="flow-gray"/>
+  <text x="665" y="632" class="flow-label">지도와 이동 경로</text>
+  <path d="M1280 450V610H960V655" class="flow-green"/>
+  <text x="1118" y="592" class="flow-label">장소 검색 프록시</text>
+  <path d="M1305 435V610H1500V655" class="flow-green"/>
+  <text x="1430" y="592" class="flow-label">읽기 전용 공유</text>
+
+  <g transform="translate(270 855)">
+    <rect width="1380" height="78" rx="2" class="note"/>
+    <text x="28" y="32" class="note-title">권한과 데이터 경계</text>
+    <text x="28" y="57" class="note-copy">브라우저는 데이터베이스에 직접 연결하지 않습니다. 편집 요청은 인증된 Go API로, 공유 링크는 토큰 기반 읽기 전용 경로로 분리했습니다.</text>
+  </g>
+</svg>

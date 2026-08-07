@@ -47,10 +47,44 @@
   margin: 1rem 0 2rem;
 }
 
+.status {
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--accent);
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+  padding: 0.55rem 0.8rem;
+}
+
 .summary {
   font-size: clamp(1.12rem, 2vw, 1.55rem);
   line-height: 1.65;
   max-width: 42rem;
+}
+
+.heroLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 2rem;
+}
+
+.heroLinks a {
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--muted);
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 0;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.heroLinks a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .metadata {
@@ -95,6 +129,17 @@
   width: 100%;
 }
 
+.heroImagePortrait {
+  background: #f1f1ed;
+  padding: clamp(1rem, 3vw, 3rem);
+}
+
+.heroImagePortrait img {
+  border: 1px solid #d6d6d0;
+  box-shadow: 0 2.5rem 6rem rgb(0 0 0 / 14%);
+  max-width: 58rem;
+}
+
 .heroEvidence figcaption {
   border-bottom: 1px solid var(--line);
   display: grid;
@@ -123,6 +168,7 @@
 .challenge,
 .features,
 .architecture,
+.technology,
 .decisions,
 .troubleshooting,
 .outcomes {
@@ -267,8 +313,80 @@
   line-height: 1.7;
 }
 
-.architecture > :last-child {
+.architectureEvidence {
+  margin: 0;
+}
+
+.architectureCanvas {
+  background: #111315;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.architectureCanvas img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.architectureEvidence figcaption {
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  padding: 1rem 0;
+}
+
+.technologyGrid {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0 clamp(2rem, 5vw, 5rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-left: calc(16% + 1.2rem);
+}
+
+.technologyGrid article {
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 2rem 3rem minmax(0, 1fr);
+  min-height: 13rem;
+  padding: 2.2rem 0;
+}
+
+.technologyIndex {
+  color: var(--muted);
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  padding-top: 0.3rem;
+}
+
+.technologyIcon {
+  align-items: center;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+  width: 3rem;
+}
+
+.technologyIcon svg {
+  height: 1.45rem;
+  width: 1.45rem;
+}
+
+.technologyGrid h3 {
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+}
+
+.technologyGrid p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
 }
 
 .decisionGrid {
@@ -346,30 +464,6 @@
   max-width: 62rem;
 }
 
-.evidence {
-  align-items: end;
-  border-top: 1px solid var(--line);
-  display: flex;
-  gap: 3rem;
-  justify-content: space-between;
-  padding-top: clamp(4.5rem, 9vw, 8rem);
-}
-
-.evidenceLinks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-.evidenceLinks a {
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: 0.85rem;
-  padding: 0.8rem 1.1rem;
-  text-decoration: none;
-}
-
-.evidenceLinks a:hover,
 .backLink:hover {
   color: var(--accent);
 }
@@ -383,9 +477,9 @@
   .challengeBody,
   .featureList,
   .decisionGrid,
+  .technologyGrid,
   .troubleList,
-  .outcomes > ol,
-  .architecture > :last-child {
+  .outcomes > ol {
     margin-left: 0;
   }
 
@@ -413,6 +507,14 @@
   .featureCopy {
     padding-bottom: 0;
   }
+
+  .technologyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .technologyGrid article {
+    min-height: 0;
+  }
 }
 
 @media (max-width: 640px) {
@@ -437,6 +539,17 @@
     grid-template-columns: 1fr;
   }
 
+  .technologyGrid article {
+    gap: 0.85rem;
+    grid-template-columns: 1.7rem 2.7rem minmax(0, 1fr);
+    padding: 1.6rem 0;
+  }
+
+  .technologyIcon {
+    height: 2.7rem;
+    width: 2.7rem;
+  }
+
   .decisionGrid article {
     min-height: 0;
   }
@@ -450,8 +563,4 @@
     grid-template-columns: 1fr;
   }
 
-  .evidence {
-    align-items: start;
-    flex-direction: column;
-  }
 }

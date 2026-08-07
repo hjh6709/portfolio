@@ -46,4 +46,19 @@ describe('ProjectCaseStudy', () => {
 
     expect(repeatedImages).toHaveLength(1);
   });
+
+  it('shows project status, verified architecture and technology roles', () => {
+    const project = getProject('kagoshima-travel')!;
+    render(<ProjectCaseStudy project={project} />);
+
+    expect(screen.getByText('운영 중 · 화면 개선 진행 중')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '기술과 역할' })).toBeInTheDocument();
+    expect(
+      screen.getByAltText('Kagoshima Travel 실제 배포 구성과 외부 서비스 연결 흐름'),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Live service/ })).toHaveAttribute(
+      'href',
+      'https://kagoshima.hjh-dev.site/',
+    );
+  });
 });

@@ -52,17 +52,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={styles.statement} aria-labelledby="statement-title">
-        <p className={styles.sectionLabel}>02 · HOW I WORK</p>
-        <h2 id="statement-title">
-          기술 단위의 성공보다
-          <br />
-          <span>사용자가 끝까지 이용하는 흐름</span>을 봅니다.
-        </h2>
-        <p>
-          VM이 생성됐어도 터미널에 연결되지 않으면 실습은 시작되지 않습니다. API 응답과 화면,
-          권한, 배포 환경이 만나는 지점까지 확인하고 실패했을 때의 다음 행동도 함께 설계합니다.
-        </p>
+      <section className={styles.experience} id="experience" aria-labelledby="experience-title">
+        <div className={styles.sectionHeading}>
+          <p className={styles.sectionLabel}>02 · EXPERIENCE</p>
+          <h2 id="experience-title">경험과 교육</h2>
+          <p>서비스를 만드는 기술과 정확하게 협업하는 기본을 함께 익혔습니다.</p>
+        </div>
+
+        <div className={styles.timeline}>
+          {[...experience, ...education].map((item, index) => (
+            <article key={`${item.organization}-${item.title}`}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <p>{item.organization}</p>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className={styles.capabilities} aria-labelledby="capabilities-title">
@@ -90,23 +96,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={styles.experience} id="experience" aria-labelledby="experience-title">
-        <div className={styles.sectionHeading}>
-          <p className={styles.sectionLabel}>04 · EXPERIENCE</p>
-          <h2 id="experience-title">경험과 교육</h2>
-          <p>서비스를 만드는 기술과 정확하게 협업하는 기본을 함께 익혔습니다.</p>
-        </div>
-
-        <div className={styles.timeline}>
-          {[...experience, ...education].map((item, index) => (
-            <article key={`${item.organization}-${item.title}`}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <p>{item.organization}</p>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
+      <section className={styles.statement} aria-labelledby="statement-title">
+        <p className={styles.sectionLabel}>04 · HOW I WORK</p>
+        <h2 id="statement-title">
+          기술 단위의 성공보다
+          <br />
+          <span>사용자가 끝까지 이용하는 흐름</span>을 봅니다.
+        </h2>
+        <p>
+          VM이 생성됐어도 터미널에 연결되지 않으면 실습은 시작되지 않습니다. API 응답과 화면,
+          권한, 배포 환경이 만나는 지점까지 확인하고 실패했을 때의 다음 행동도 함께 설계합니다.
+        </p>
       </section>
     </main>
   );
