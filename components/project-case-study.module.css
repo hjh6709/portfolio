@@ -16,7 +16,7 @@
   font-size: 0.72rem;
   gap: 0.65rem;
   letter-spacing: 0.12em;
-  margin-bottom: clamp(4rem, 9vw, 8rem);
+  margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -40,11 +40,12 @@
 
 .hero h1 {
   font-family: var(--display-font);
-  font-size: clamp(4rem, 10vw, 9rem);
-  font-weight: 500;
-  letter-spacing: -0.075em;
-  line-height: 0.88;
-  margin: 1rem 0 2rem;
+  font-size: clamp(4rem, 8.2vw, 7.4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  margin: 1.1rem 0 2rem;
+  text-wrap: balance;
 }
 
 .status {
@@ -59,9 +60,11 @@
 }
 
 .summary {
-  font-size: clamp(1.12rem, 2vw, 1.55rem);
-  line-height: 1.65;
-  max-width: 42rem;
+  font-size: clamp(1.08rem, 1.55vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 38rem;
+  text-wrap: pretty;
 }
 
 .heroLinks {
@@ -101,9 +104,10 @@
 }
 
 .metadata dd {
-  font-size: 0.84rem;
-  line-height: 1.55;
+  font-size: 0.88rem;
+  line-height: 1.65;
   margin: 0;
+  text-wrap: pretty;
 }
 
 .heroEvidence,
@@ -116,9 +120,12 @@
   align-items: center;
   background: #111;
   border: 1px solid var(--line);
+  color: inherit;
   display: flex;
   justify-content: center;
   overflow: hidden;
+  position: relative;
+  text-decoration: none;
 }
 
 .heroImage img,
@@ -173,7 +180,7 @@
 .troubleshooting,
 .outcomes {
   border-top: 1px solid var(--line);
-  padding: clamp(4.5rem, 9vw, 8rem) 0;
+  padding: clamp(3rem, 4.5vw, 4.5rem) 0;
 }
 
 .challenge {
@@ -184,20 +191,22 @@
   display: grid;
   gap: clamp(1.5rem, 4vw, 4rem);
   grid-template-columns: minmax(3rem, 0.32fr) minmax(0, 1.68fr);
-  margin-bottom: clamp(3rem, 6vw, 5rem);
+  margin-bottom: clamp(2.5rem, 4vw, 4rem);
 }
 
 .sectionIntro h2,
 .evidence h2 {
   font-family: var(--display-font);
-  font-size: clamp(2.2rem, 5vw, 4.8rem);
-  font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 1;
+  font-size: clamp(2.35rem, 4.4vw, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
   margin-top: 0.65rem;
+  text-wrap: balance;
 }
 
 .challengeBody,
+.journey,
 .featureList,
 .decisionGrid,
 .troubleList,
@@ -205,25 +214,115 @@
   margin-left: calc(16% + 1.2rem);
 }
 
+.journey {
+  margin-bottom: clamp(3rem, 5vw, 5rem);
+}
+
+.journeyHeading {
+  display: grid;
+  align-items: end;
+  margin-bottom: 1.5rem;
+  grid-template-columns: minmax(9rem, 0.45fr) minmax(0, 1.55fr);
+  gap: 2rem;
+}
+
+.journeyHeading h3 {
+  max-width: 46rem;
+  font-family: var(--display-font);
+  font-size: clamp(1.55rem, 3vw, 2.65rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.journey ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  list-style: none;
+}
+
+.journey li {
+  min-width: 0;
+  border-right: 1px solid var(--line);
+}
+
+.journey li:last-child {
+  border-right: 0;
+}
+
+.journey li > a,
+.journey li > div {
+  display: flex;
+  min-height: 14rem;
+  padding: 1.45rem;
+  color: inherit;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.journey li > a:hover {
+  background: var(--paper-raised);
+}
+
+.journeyMeta {
+  display: flex;
+  justify-content: space-between;
+  color: var(--subtle);
+  font-family: var(--mono-font);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.journey h4 {
+  margin: 2.25rem 0 0.85rem;
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.journey li p {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.journeyLink {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  color: var(--accent);
+  font-family: var(--mono-font);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
 .lead {
-  font-size: clamp(1.35rem, 2.7vw, 2.25rem);
-  letter-spacing: -0.025em;
-  line-height: 1.58;
-  max-width: 62rem;
+  font-size: clamp(1.22rem, 2vw, 1.72rem);
+  letter-spacing: -0.015em;
+  line-height: 1.7;
+  max-width: 54rem;
+  text-wrap: pretty;
 }
 
 .responsibilities {
   display: grid;
   gap: 2rem;
   grid-template-columns: minmax(12rem, 0.45fr) minmax(0, 1.55fr);
-  margin-top: clamp(4rem, 8vw, 7rem);
+  margin-top: clamp(3rem, 5vw, 5rem);
 }
 
 .responsibilities h3 {
-  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-size: clamp(1.3rem, 2.1vw, 1.75rem);
+  font-weight: 700;
   grid-column: 1;
   line-height: 1.3;
   margin-top: 0.55rem;
+  text-wrap: balance;
 }
 
 .responsibilities ol {
@@ -246,7 +345,11 @@
 
 .responsibilities li p,
 .outcomes li p {
+  color: var(--ink);
+  font-size: 0.96rem;
+  font-weight: 500;
   line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .featureList {
@@ -257,7 +360,7 @@
   display: grid;
   gap: clamp(2rem, 5vw, 5rem);
   grid-template-columns: minmax(0, 1.45fr) minmax(15rem, 0.55fr);
-  padding: clamp(2.5rem, 6vw, 5.5rem) 0;
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0;
 }
 
 .feature + .feature {
@@ -292,7 +395,44 @@
 
 .feature figure figcaption {
   border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
   padding: 0.9rem 0;
+}
+
+.feature figure figcaption > span:last-child {
+  color: var(--subtle);
+  flex: 0 0 auto;
+  font-family: var(--mono-font);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.imageZoomLabel {
+  background: rgb(255 255 255 / 94%);
+  bottom: 1rem;
+  color: #111;
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  padding: 0.65rem 0.8rem;
+  position: absolute;
+  right: 1rem;
+  transition: opacity 160ms ease;
+}
+
+.featureImage:hover .imageZoomLabel,
+.featureImage:focus-visible .imageZoomLabel {
+  opacity: 1;
+}
+
+.featureImage:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .featureCopy {
@@ -301,16 +441,136 @@
 }
 
 .featureCopy h3 {
-  font-size: clamp(1.45rem, 3vw, 2.6rem);
+  font-size: clamp(1.45rem, 2.6vw, 2.25rem);
+  font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.25;
   margin: 1rem 0 1.25rem;
+  text-wrap: balance;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .heroImage {
+  padding: clamp(1rem, 3vw, 3rem);
+  background: #dfe1df;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .heroImage img {
+  border: 1px solid rgb(20 20 20 / 16%);
+  box-shadow: 0 2rem 5rem rgb(20 20 20 / 13%);
+  height: auto;
+  max-height: 68rem;
+  max-width: 100%;
+  width: auto;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureList {
+  border-top: 1px solid var(--line);
+  display: block;
+  margin-left: 0;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .feature,
+.caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) {
+  align-items: start;
+  border-top: 0;
+  display: grid;
+  gap: clamp(1.5rem, 2.4vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr);
+  padding: clamp(2.25rem, 3.5vw, 3.5rem) 0;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .feature + .feature {
+  border-top: 1px solid var(--line);
+}
+
+.caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) figure {
+  grid-column: 1;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) .featureCopy {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .feature figure {
+  grid-column: 1;
+  grid-row: 2;
+  width: 100%;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureImage {
+  min-height: 0;
+  padding: 0;
+  align-items: center;
+  background: transparent;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureImage img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  border: 1px solid rgb(20 20 20 / 14%);
+  box-shadow: none;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureImageLandscape {
+  aspect-ratio: auto;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureImagePortrait {
+  min-height: 0;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureImagePortrait img {
+  width: min(100%, 34rem);
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .portraitFeature {
+  margin-inline: auto;
+  max-width: 38rem;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .feature figure figcaption {
+  padding-top: 0.75rem;
+  border-bottom: 0;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureCopy,
+.caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) .featureCopy {
+  align-self: center;
+  display: grid;
+  gap: clamp(1rem, 2vw, 2rem);
+  grid-column: 1;
+  grid-row: 1;
+  grid-template-columns: 3rem minmax(16rem, 0.7fr) minmax(18rem, 1fr);
+  padding-bottom: 0;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureCopy h3 {
+  font-size: clamp(1.55rem, 2.35vw, 2.15rem);
+  margin: 0;
+}
+
+.caseStudy[data-project='kagoshima-travel'] .featureCopy p {
+  align-self: start;
+  max-width: 30rem;
 }
 
 .featureCopy p,
 .decisionGrid p {
   color: var(--muted);
+  font-size: 0.98rem;
   line-height: 1.7;
+  max-width: 56rem;
+  text-wrap: pretty;
 }
 
 .architectureEvidence {
@@ -351,8 +611,8 @@
   display: grid;
   gap: 1.2rem;
   grid-template-columns: 2rem 3rem minmax(0, 1fr);
-  min-height: 13rem;
-  padding: 2.2rem 0;
+  min-height: 0;
+  padding: 1.75rem 0;
 }
 
 .technologyIndex {
@@ -379,14 +639,17 @@
 
 .technologyGrid h3 {
   font-size: clamp(1.05rem, 1.7vw, 1.35rem);
-  line-height: 1.35;
+  font-weight: 700;
+  line-height: 1.4;
   margin-bottom: 0.75rem;
+  text-wrap: balance;
 }
 
 .technologyGrid p {
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.75;
+  text-wrap: pretty;
 }
 
 .decisionGrid {
@@ -399,19 +662,21 @@
 
 .decisionGrid article {
   background: var(--paper-raised);
-  min-height: 20rem;
-  padding: clamp(1.75rem, 4vw, 3.25rem);
+  min-height: 0;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
 }
 
 .decisionGrid h3 {
-  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  font-weight: 700;
   line-height: 1.35;
-  margin: clamp(3rem, 6vw, 6rem) 0 1.2rem;
+  margin: clamp(2rem, 3vw, 3rem) 0 1.2rem;
+  text-wrap: balance;
 }
 
 .troubleList > article {
   border-top: 1px solid var(--line);
-  padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  padding: clamp(2rem, 3.5vw, 3.25rem) 0;
 }
 
 .troubleTitle {
@@ -421,9 +686,11 @@
 }
 
 .troubleTitle h3 {
-  font-size: clamp(1.3rem, 2.7vw, 2.15rem);
+  font-size: clamp(1.3rem, 2.25vw, 1.9rem);
+  font-weight: 700;
   line-height: 1.45;
   max-width: 62rem;
+  text-wrap: balance;
 }
 
 .troubleList dl {
@@ -444,8 +711,10 @@
 }
 
 .troubleList dd {
+  font-size: 0.96rem;
   line-height: 1.7;
   margin: 0;
+  text-wrap: pretty;
 }
 
 .outcomes > ol {
@@ -460,7 +729,7 @@
 }
 
 .outcomes li p {
-  font-size: clamp(1.12rem, 2vw, 1.6rem);
+  font-size: clamp(1.08rem, 1.65vw, 1.35rem);
   max-width: 62rem;
 }
 
@@ -475,12 +744,35 @@
   }
 
   .challengeBody,
+  .journey,
   .featureList,
   .decisionGrid,
   .technologyGrid,
   .troubleList,
   .outcomes > ol {
     margin-left: 0;
+  }
+
+  .journeyHeading {
+    grid-template-columns: 1fr;
+  }
+
+  .journey ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .journey li,
+  .journey li:last-child {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .journey li:nth-child(even) {
+    border-right: 0;
+  }
+
+  .journey li:last-child {
+    border-bottom: 0;
   }
 
   .responsibilities {
@@ -515,6 +807,36 @@
   .technologyGrid article {
     min-height: 0;
   }
+
+  .caseStudy[data-project='kagoshima-travel'] .featureList {
+    border-top: 1px solid var(--line);
+  }
+
+  .caseStudy[data-project='kagoshima-travel'] .feature,
+  .caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+
+  .caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) figure,
+  .caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) .featureCopy {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .caseStudy[data-project='kagoshima-travel'] .feature figure {
+    grid-row: 2;
+  }
+
+  .caseStudy[data-project='kagoshima-travel'] .featureCopy,
+  .caseStudy[data-project='kagoshima-travel'] .feature:nth-child(even) .featureCopy {
+    display: block;
+    grid-row: 1;
+  }
+
+  .caseStudy[data-project='kagoshima-travel'] .featureCopy h3 {
+    margin: 0.8rem 0 1rem;
+  }
+
 }
 
 @media (max-width: 640px) {
@@ -533,6 +855,25 @@
   .sectionNumber {
     display: block;
     margin-bottom: 1.2rem;
+  }
+
+  .journey ol {
+    grid-template-columns: 1fr;
+  }
+
+  .journey li,
+  .journey li:nth-child(even),
+  .journey li:last-child {
+    border-right: 0;
+  }
+
+  .journey li > a,
+  .journey li > div {
+    min-height: 0;
+  }
+
+  .journey h4 {
+    margin-top: 2rem;
   }
 
   .decisionGrid {
@@ -561,6 +902,27 @@
   .troubleList dl div {
     gap: 0.45rem;
     grid-template-columns: 1fr;
+  }
+
+  .caseStudy[data-project='kagoshima-travel'] .featureImageLandscape {
+    aspect-ratio: auto;
+  }
+
+  .caseStudy[data-project='kagoshima-travel'] .featureImageLandscape img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .feature figure figcaption {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .imageZoomLabel {
+    bottom: 0.75rem;
+    opacity: 1;
+    right: 0.75rem;
   }
 
 }

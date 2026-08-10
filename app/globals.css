@@ -3,7 +3,7 @@
   --paper-raised: #fbfaf7;
   --ink: #141414;
   --muted: #66645f;
-  --subtle: #8c8982;
+  --subtle: #716e69;
   --line: #d4d0c8;
   --line-strong: #a8a39a;
   --accent: #1758d6;
@@ -13,8 +13,8 @@
   --page-gutter: clamp(1.25rem, 4vw, 4.5rem);
   --content-width: 78rem;
   --reading-width: 45rem;
-  --display-font: 'Helvetica Neue', 'Pretendard', 'Noto Sans KR', sans-serif;
-  --body-font: 'Pretendard', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+  --display-font: var(--font-keris-baeum), 'Noto Sans KR', sans-serif;
+  --body-font: var(--font-pretendard), 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
   --mono-font: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 }
 
@@ -35,19 +35,18 @@ body {
   color: var(--ink);
   font-family: var(--body-font);
   font-size: 1rem;
+  font-weight: 400;
   line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-body::before {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  background-image: linear-gradient(to right, rgb(20 20 20 / 2%) 1px, transparent 1px);
-  background-size: clamp(4rem, 8vw, 8rem) 100%;
-  content: '';
-  pointer-events: none;
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 
 a {
@@ -102,4 +101,3 @@ svg {
     transition-duration: 0.01ms !important;
   }
 }
-

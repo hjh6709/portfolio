@@ -22,7 +22,8 @@ describe('ProjectCaseStudy', () => {
     const heroImage = screen.getByAltText(project.heroImage.alt);
     const challenge = screen.getByRole('heading', { name: '해결하려던 문제' });
     const architecture = screen.getByRole('heading', { name: '서비스 아키텍처' });
-    const outcomes = screen.getByRole('heading', { name: '결과와 배운 점' });
+    const outcomes = screen.getByRole('heading', { name: '구현 결과' });
+    const learnings = screen.getByRole('heading', { name: '배운 점' });
 
     expect(
       heroImage.compareDocumentPosition(challenge) & Node.DOCUMENT_POSITION_FOLLOWING,
@@ -32,6 +33,9 @@ describe('ProjectCaseStudy', () => {
     ).toBeTruthy();
     expect(
       architecture.compareDocumentPosition(outcomes) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      outcomes.compareDocumentPosition(learnings) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 

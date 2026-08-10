@@ -1,16 +1,23 @@
 import { describe, expect, it } from 'vitest';
 
 import { projects } from '@/data/projects';
-import { getFeaturedProjects, getProject, getProjectSlugs } from '@/lib/projects';
+import {
+  getFlagshipProjects,
+  getOtherProjects,
+  getProject,
+  getProjectSlugs,
+} from '@/lib/projects';
 
 describe('project content', () => {
-  it('publishes the five verified case studies in the intended order', () => {
-    expect(getFeaturedProjects().map((project) => project.slug)).toEqual([
+  it('separates the three flagship case studies from supporting work', () => {
+    expect(getFlagshipProjects().map((project) => project.slug)).toEqual([
       'cledyu',
       'codebuddy',
       'kagoshima-travel',
-      'chilseongpa',
+    ]);
+    expect(getOtherProjects().map((project) => project.slug)).toEqual([
       'pr-check-doctor',
+      'chilseongpa',
     ]);
   });
 
@@ -54,6 +61,43 @@ describe('project content', () => {
       label: 'Live service',
       href: 'https://kagoshima.hjh-dev.site/',
     });
+    expect(kagoshima?.heroImage.src).toBe(
+      'projects/kagoshima-travel/live/map-current.png',
+    );
+    expect(kagoshima?.journey?.map((step) => step.label)).toEqual([
+      '공개 탐색',
+      '샘플 체험',
+      '로그인 · 회원가입',
+      '여행 관리',
+      '공유',
+    ]);
+    expect(kagoshima?.featureStories.map((story) => story.src)).toEqual([
+        'projects/kagoshima-travel/live/today.png',
+        'projects/kagoshima-travel/live/schedule.png',
+        'projects/kagoshima-travel/live/map-current.png',
+        'projects/kagoshima-travel/live/share.png',
+        'projects/kagoshima-travel/live/login.png',
+        'projects/kagoshima-travel/live/register.png',
+    ]);
+    expect(
+      kagoshima?.featureStories.slice(0, 3).map(({ width, height }) => [width, height]),
+    ).toEqual([
+      [1280, 720],
+      [1280, 720],
+      [908, 1716],
+    ]);
+    expect(kagoshima?.evidence).toEqual(
+      expect.arrayContaining([
+        {
+          label: 'Sample trip',
+          href: 'https://kagoshima.hjh-dev.site/demo',
+        },
+        {
+          label: 'Shared trip',
+          href: 'https://kagoshima.hjh-dev.site/share/lo-PEB-IyorpWGzTaRFuuJffCGWZ3tFe',
+        },
+      ]),
+    );
   });
 
   it('returns undefined for an unknown project', () => {

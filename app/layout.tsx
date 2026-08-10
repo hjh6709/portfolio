@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 
 import { SiteFooter } from '@/components/site-footer';
@@ -6,6 +7,24 @@ import { SiteHeader } from '@/components/site-header';
 import { getSiteUrl } from '@/lib/site-url';
 
 import './globals.css';
+
+const kerisBaeum = localFont({
+  src: [
+    { path: './fonts/KERISBAEUM_L.otf', weight: '300', style: 'normal' },
+    { path: './fonts/KERISBAEUM_R.otf', weight: '400', style: 'normal' },
+    { path: './fonts/KERISBAEUM_B.otf', weight: '700', style: 'normal' },
+    { path: './fonts/KERISBAEUM_EB.otf', weight: '800', style: 'normal' },
+  ],
+  variable: '--font-keris-baeum',
+  display: 'swap',
+});
+
+const pretendard = localFont({
+  src: './fonts/PretendardVariable.woff2',
+  variable: '--font-pretendard',
+  display: 'swap',
+  weight: '100 900',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -35,7 +54,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={`${kerisBaeum.variable} ${pretendard.variable}`}>
       <body>
         <SiteHeader />
         {children}

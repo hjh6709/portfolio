@@ -45,8 +45,15 @@ export type Project = {
   architectureImage?: ProjectImage;
   challenge: string;
   responsibilities: string[];
+  journey?: Array<{
+    label: string;
+    title: string;
+    description: string;
+    href?: string;
+  }>;
   featureStories: FeatureStory[];
   outcomes: string[];
+  learnings?: string[];
   problem: string;
   contribution: string[];
   decisions: Array<{ title: string; body: string }>;
@@ -178,9 +185,14 @@ export const projects: Project[] = [
       },
     ],
     outcomes: [
-      'VM 생성 성공만 확인하던 기준을 터미널 접속과 단계 검증까지 포함하는 사용자 흐름 검증으로 넓혔습니다.',
-      '활성·완료·실패·만료 세션의 동선을 분리해 잘못된 재개 링크와 중복 생성 가능성을 줄였습니다.',
-      '서비스 화면과 API, Kubernetes 권한이 서로 맞물리는 지점을 실제 장애 사례로 확인했습니다.',
+      '사용자별 KubeVirt VM과 브라우저 WebSocket 터미널을 연결해 실제 명령을 실행하는 실습 환경을 구현했습니다.',
+      '세션을 활성·완료·실패·만료 상태로 구분하고 각 상태에 맞는 생성·복귀·종료 동선을 구현했습니다.',
+      'KubeVirt console 조회 권한과 Lab Namespace별 RoleBinding을 최소 범위로 구성해 터미널 연결을 복구했습니다.',
+      '로그인부터 Lab 선택, VM 프로비저닝, 터미널 접속, 단계 검증까지 실제 Kubernetes 환경에서 확인했습니다.',
+    ],
+    learnings: [
+      '인프라 리소스가 Ready여도 사용자가 실제로 터미널에 접속할 수 있는지는 별도로 검증해야 했습니다.',
+      'API 상태, RBAC, 화면 안내를 하나의 세션 lifecycle로 설계해야 복귀와 실패 동선이 일관됩니다.',
     ],
     problem:
       '영상이나 설명만 보는 교육을 넘어, 학습자가 실제 서버 환경에서 명령을 실행하고 단계별 결과를 바로 확인할 수 있어야 했습니다.',
@@ -291,9 +303,9 @@ export const projects: Project[] = [
     slug: 'codebuddy',
     title: 'CodeBuddy',
     summary:
-      'Pull Request 변경사항을 Bedrock Agent가 분석하고 GitHub 리뷰와 Slack 알림으로 전달하는 서버리스 코드 리뷰 시스템입니다.',
+      'GitHub Webhook을 안전하게 검증하고 PR 변경 분석을 비동기로 처리해 GitHub 리뷰와 Slack으로 전달하는 서버리스 파이프라인입니다.',
     status: '개인 프로젝트 · 구현 완료',
-    role: 'Backend · Serverless · AI agent integration',
+    role: 'Backend · Cloud · Serverless',
     team: '개인 프로젝트',
     period: '2026',
     featured: true,
@@ -325,7 +337,7 @@ export const projects: Project[] = [
       alt: 'CodeBuddy GitHub Webhook부터 Bedrock Agent 리뷰 전달까지의 서버리스 아키텍처',
       caption: 'Webhook 응답과 AI 분석을 분리한 비동기 코드 리뷰 파이프라인',
       width: 1600,
-      height: 900,
+      height: 650,
     },
     challenge:
       'AI가 리뷰를 생성하는 것보다 GitHub Webhook을 안전하게 받고, 긴 변경 내용을 보존하며, 지연과 실패가 있어도 결과를 전달하는 전체 파이프라인이 중요했습니다.',
@@ -349,6 +361,9 @@ export const projects: Project[] = [
       '긴 모델 호출이 Webhook 응답 시간을 막지 않는 비동기 처리 구조를 완성했습니다.',
       '전체 변경량 기준 입력 예산으로 중요한 patch 후반부가 잘리는 문제를 수정했습니다.',
       '보안과 전달 계약을 포함한 102개 테스트로 서버리스 흐름을 검증했습니다.',
+    ],
+    learnings: [
+      'AI 모델 자체보다 Webhook 검증, 입력 예산, 비동기 전달과 실패 경로가 서비스 신뢰성을 좌우했습니다.',
     ],
     problem:
       'PR 리뷰 자동화는 단순 요약을 넘어 Webhook 검증, 긴 patch 보존, 결과 전달, 실패 처리를 함께 만족해야 했습니다.',
@@ -412,7 +427,7 @@ export const projects: Project[] = [
       {
         name: 'React · PWA',
         icon: 'react',
-        role: '여행 전 편집과 현장 확인을 모바일 화면에 맞추고 설치 및 오프라인 사용 흐름을 구성했습니다.',
+        role: '여행 전 편집과 현장 확인을 모바일 화면에 맞추고 Mac과 모바일에서 설치형 앱 흐름을 검증했습니다.',
       },
       {
         name: 'TypeScript',
@@ -441,11 +456,11 @@ export const projects: Project[] = [
       },
     ],
     heroImage: {
-      src: 'projects/kagoshima-travel/manage-overview.png',
-      alt: 'Kagoshima Travel 실제 운영 서비스의 모바일 여행 관리 화면',
-      caption: '장소 저장, 일정 구성, 이동 확인을 한 흐름으로 연결한 실제 운영 화면',
-      width: 1884,
-      height: 2400,
+      src: 'projects/kagoshima-travel/live/map-current.png',
+      alt: '여행 도우미 앱에서 저장 장소와 현재 위치를 확인하는 실제 지도 화면',
+      caption: '설치형 앱에서 실제 Google 지도와 저장 장소, 현재 위치를 확인하는 운영 화면',
+      width: 908,
+      height: 1716,
     },
     architectureImage: {
       src: 'projects/kagoshima-travel/service-flow.svg',
@@ -461,21 +476,100 @@ export const projects: Project[] = [
       '여행·일정·장소·체크리스트와 읽기 전용 공유 링크를 하나의 서비스로 연결했습니다.',
       'Vercel과 Oracle Cloud VM, Caddy를 이용한 배포 및 복구 절차를 구성했습니다.',
     ],
+    journey: [
+      {
+        label: '공개 탐색',
+        title: '서비스 이해',
+        description: '첫 화면에서 여행 준비와 현장 이동을 연결하는 서비스 목적을 확인합니다.',
+        href: 'https://kagoshima.hjh-dev.site/',
+      },
+      {
+        label: '샘플 체험',
+        title: '가입 전 사용',
+        description: '계정 없이 샘플 여행의 일정, 동선, 체크리스트를 먼저 사용해 봅니다.',
+        href: 'https://kagoshima.hjh-dev.site/demo',
+      },
+      {
+        label: '로그인 · 회원가입',
+        title: '개인 공간 진입',
+        description: '이메일 로그인 또는 2단계 회원가입을 거쳐 개인 여행 데이터에 접근합니다.',
+        href: 'https://kagoshima.hjh-dev.site/manage',
+      },
+      {
+        label: '여행 관리',
+        title: '계획 편집',
+        description: '여행을 만들고 장소, 항공편, 일정, 준비물을 한 흐름에서 정리합니다.',
+      },
+      {
+        label: '공유',
+        title: '읽기 전용 전달',
+        description: '동행자는 로그인 없이 토큰 링크로 필요한 여행 정보만 확인합니다.',
+        href: 'https://kagoshima.hjh-dev.site/share/lo-PEB-IyorpWGzTaRFuuJffCGWZ3tFe',
+      },
+    ],
     featureStories: [
       {
-        src: 'projects/kagoshima-travel/manage-overview.png',
-        alt: 'Kagoshima Travel 여행 일정과 장소를 관리하는 실제 모바일 화면',
-        caption: '여행 전 계획과 현장 확인을 같은 데이터로 이어 주는 관리 화면',
-        width: 1884,
-        height: 2400,
-        title: '여행 전 계획과 여행 중 확인을 같은 데이터로',
-        description: '모바일 PWA에서 일정과 장소를 관리하고, 현장에서는 오늘 필요한 정보와 이동 경로를 빠르게 확인하도록 구성했습니다.',
+        src: 'projects/kagoshima-travel/live/today.png',
+        alt: '출발 준비와 첫날 동선을 한눈에 보여주는 Kagoshima Travel 오늘 화면',
+        caption: '여행 단계, 첫 일정, 환율과 체크리스트를 모은 현재 운영 화면',
+        width: 1280,
+        height: 720,
+        title: '현장에서 필요한 다음 행동을 먼저',
+        description: '출발까지 남은 시간과 첫 일정, 이동 경로, 준비 항목을 한 화면에 모았습니다. 사용자는 여러 메뉴를 오가지 않고 지금 확인해야 할 행동부터 시작할 수 있습니다.',
+      },
+      {
+        src: 'projects/kagoshima-travel/live/schedule.png',
+        alt: '날짜별 일정을 확인하고 이동 순서를 관리하는 Kagoshima Travel 일정 화면',
+        caption: '여행 전체 일정을 날짜별 동선으로 정리한 현재 운영 화면',
+        width: 1280,
+        height: 720,
+        title: '계획은 날짜별 동선으로 읽히도록',
+        description: '장소 목록이 아니라 하루의 이동 순서로 일정을 구성했습니다. 여행 전에는 전체 계획을 검토하고 현장에서는 현재 날짜의 다음 장소를 바로 찾을 수 있습니다.',
+      },
+      {
+        src: 'projects/kagoshima-travel/live/map-current.png',
+        alt: '저장한 장소와 현재 위치를 보여주는 Kagoshima Travel 지도 화면',
+        caption: '저장 장소와 현재 위치를 실제 지도 위에서 확인하는 현재 운영 화면',
+        width: 908,
+        height: 1716,
+        title: '저장한 장소를 실제 이동 경로로 연결',
+        description: '일정에 담은 장소를 지도에서 다시 검색하지 않도록 저장 장소와 날짜별 경로를 연결했습니다. 계획과 현장 이동 사이의 정보 단절을 줄였습니다.',
+      },
+      {
+        src: 'projects/kagoshima-travel/live/share.png',
+        alt: '로그인 없이 여행 일정을 확인하는 Kagoshima Travel 읽기 전용 공유 화면',
+        caption: '동행자가 계정 없이 필요한 여행 정보만 확인하는 현재 공유 화면',
+        width: 520,
+        height: 960,
+        title: '동행자에게는 필요한 정보만 공유',
+        description: '공유 토큰으로 읽기 전용 화면을 제공하고 원본 여행의 편집 권한은 분리했습니다. 동행자는 가입 과정 없이 일정과 동선을 확인할 수 있습니다.',
+      },
+      {
+        src: 'projects/kagoshima-travel/live/login.png',
+        alt: '개인 여행 관리로 진입하는 Kagoshima Travel 이메일 로그인 화면',
+        caption: '공개 탐색과 개인 여행 편집의 경계를 구분하는 현재 로그인 화면',
+        width: 520,
+        height: 960,
+        title: '공개 탐색과 개인 편집의 경계를 명확하게',
+        description: '샘플과 공유 여행은 바로 열고 여행 생성과 편집은 인증 이후에 제공합니다. 사용 목적에 맞춰 진입 경로와 권한 경계를 나눴습니다.',
+      },
+      {
+        src: 'projects/kagoshima-travel/live/register.png',
+        alt: '이메일 확인과 비밀번호 설정으로 이어지는 Kagoshima Travel 회원가입 화면',
+        caption: '이메일 소유 확인 뒤 계정을 만드는 현재 2단계 회원가입 화면',
+        width: 520,
+        height: 960,
+        title: '회원가입은 단계와 완료 조건이 보이도록',
+        description: '이메일 인증과 비밀번호 설정을 분리하고 현재 단계를 표시했습니다. 작은 화면에서도 사용자가 무엇을 완료했고 다음에 무엇을 해야 하는지 놓치지 않게 했습니다.',
       },
     ],
     outcomes: [
       '프론트엔드부터 API, 데이터베이스, 배포까지 개인 프로젝트의 전체 운영 경로를 완성했습니다.',
       '편집 권한과 토큰 기반 읽기 전용 공유 경로를 분리해 공개 범위를 명확히 했습니다.',
-      '모바일 설치와 오프라인 사용을 고려한 PWA 형태로 실제 여행 상황에 맞췄습니다.',
+      '모바일과 Mac에서 설치형 PWA를 직접 실행하며 실제 여행 상황의 화면과 이동 흐름을 검증했습니다.',
+    ],
+    learnings: [
+      '여행 전 편집과 현장 확인은 같은 데이터라도 정보 우선순위와 화면 밀도가 달라야 했습니다.',
     ],
     problem:
       '장소, 일정, 항공편, 준비물과 지도 정보가 흩어져 있어 여행 중 다음 행동을 빠르게 확인하기 어려웠습니다.',
@@ -520,17 +614,14 @@ export const projects: Project[] = [
         { from: 'share', to: 'web', label: 'read-only trip', kind: 'request' },
       ],
     },
-    gallery: [
-      {
-        src: 'projects/kagoshima-travel/manage.png',
-        alt: 'Kagoshima Travel 실제 운영 서비스의 긴 모바일 관리 화면',
-        caption: '일정과 장소, 준비 정보를 모바일에서 관리하는 실제 배포 화면',
-        width: 1884,
-        height: 13804,
-      },
-    ],
+    gallery: [],
     evidence: [
       { label: 'Live service', href: 'https://kagoshima.hjh-dev.site/' },
+      { label: 'Sample trip', href: 'https://kagoshima.hjh-dev.site/demo' },
+      {
+        label: 'Shared trip',
+        href: 'https://kagoshima.hjh-dev.site/share/lo-PEB-IyorpWGzTaRFuuJffCGWZ3tFe',
+      },
       { label: 'GitHub repository', href: 'https://github.com/hjh6709/for_Kagoshima_travel' },
     ],
   },
@@ -595,7 +686,9 @@ export const projects: Project[] = [
     outcomes: [
       'GCP 장애 시 AWS Standby로 전환하고 복구 후 원 환경으로 돌아오는 흐름을 실습했습니다.',
       'Failback 뒤 남은 Kubernetes 객체가 다음 Failover를 막는 문제를 찾아 정리 순서를 보완했습니다.',
-      '인프라 생성보다 재실행 가능하고 관측 가능한 운영 절차가 중요하다는 점을 확인했습니다.',
+    ],
+    learnings: [
+      '인프라 생성만큼 재실행 가능하고 관측 가능한 전환 절차가 중요했습니다.',
     ],
     problem:
       '주 클라우드 장애에도 서비스를 이어가면서 두 환경의 애플리케이션 버전과 네트워크, 데이터 접근을 일관되게 유지해야 했습니다.',
@@ -708,6 +801,9 @@ export const projects: Project[] = [
       '체크와 Job 페이지네이션을 적용해 큰 PR에서도 실패 진단이 누락되지 않게 했습니다.',
       '반복 실행 시 새 댓글을 쌓지 않고 기존 진단 코멘트를 갱신해 알림 노이즈를 줄였습니다.',
       'fork PR의 외부 코드 실행과 코멘트 쓰기 권한을 분리할 수 있는 안전한 운영 경계를 정리했습니다.',
+    ],
+    learnings: [
+      '자동화 도구는 진단 정확도뿐 아니라 권한 경계와 반복 실행 시의 사용자 경험까지 함께 설계해야 했습니다.',
     ],
     problem:
       '여러 CI Job이 동시에 실패하면 개발자가 각각의 로그를 열어 원인과 재현 명령을 다시 정리해야 했습니다.',

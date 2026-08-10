@@ -16,6 +16,7 @@ export const profile = {
   title: 'Backend Developer',
   introduction:
     'API와 데이터 흐름을 설계하고, 사용자 화면부터 클라우드 운영 환경까지 직접 확인하는 백엔드 개발자입니다.',
+  email: 'jh6780h@naver.com',
   github: 'https://github.com/hjh6709',
 } as const;
 
@@ -54,4 +55,3 @@ export const education: TimelineItem[] = [
       'Linux와 네트워크 기초부터 Docker, Kubernetes, AWS, Terraform, CI/CD, OpenStack까지 실습하며 클라우드 서비스의 구축과 운영 흐름을 익혔습니다.',
   },
 ];
-

@@ -14,7 +14,7 @@ type ProjectCaseStudyProps = {
 const sectionNumber = (value: number) => String(value).padStart(2, '0');
 
 export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
-  const isPortraitHero = project.slug === 'kagoshima-travel';
+  const isPortraitHero = project.heroImage.height > project.heroImage.width;
 
   return (
     <article className={styles.caseStudy} data-project={project.slug}>
@@ -107,29 +107,80 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           </div>
         </div>
 
+        {project.journey ? (
+          <div className={styles.journey} aria-label={`${project.title} 사용자 여정`}>
+            <div className={styles.journeyHeading}>
+              <p className={styles.eyebrow}>ACTUAL USER JOURNEY</p>
+              <h3>서비스를 처음 만난 순간부터 여행을 공유할 때까지</h3>
+            </div>
+            <ol>
+              {project.journey.map((step, index) => {
+                const content = (
+                  <>
+                    <div className={styles.journeyMeta}>
+                      <span>{sectionNumber(index + 1)}</span>
+                      <span>{step.label}</span>
+                    </div>
+                    <h4>{step.title}</h4>
+                    <p>{step.description}</p>
+                    {step.href ? <span className={styles.journeyLink}>실제 화면 ↗</span> : null}
+                  </>
+                );
+
+                return (
+                  <li key={step.label}>
+                    {step.href ? (
+                      <a href={step.href} target="_blank" rel="noreferrer">
+                        {content}
+                      </a>
+                    ) : (
+                      <div>{content}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        ) : null}
+
         <div className={styles.featureList}>
           {project.featureStories.map((story, index) => {
+            const isPortraitStory = story.height > story.width;
             const duplicatesHero = story.src === project.heroImage.src;
+            const showStoryImage = project.slug === 'kagoshima-travel' || !duplicatesHero;
 
             return (
               <article
-                className={`${styles.feature} ${duplicatesHero ? styles.featureCopyOnly : ''}`}
+                className={`${styles.feature} ${!showStoryImage ? styles.featureCopyOnly : ''}`}
                 key={`${story.src}-${story.title}`}
               >
-                {!duplicatesHero && (
-                  <figure>
-                    <div className={styles.featureImage}>
+                {showStoryImage ? (
+                  <figure className={isPortraitStory ? styles.portraitFeature : undefined}>
+                    <a
+                      className={`${styles.featureImage} ${
+                        isPortraitStory ? styles.featureImagePortrait : styles.featureImageLandscape
+                      }`}
+                      href={`/${story.src}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${story.title} 원본 화면 보기`}
+                    >
                       <Image
                         src={`/${story.src}`}
                         alt={story.alt}
                         width={story.width}
                         height={story.height}
-                        sizes="(max-width: 900px) 100vw, 62vw"
+                        unoptimized
+                        sizes="(max-width: 900px) 100vw, 88vw"
                       />
-                    </div>
-                    <figcaption>{story.caption}</figcaption>
+                      <span className={styles.imageZoomLabel}>원본 화면 보기 ↗</span>
+                    </a>
+                    <figcaption>
+                      <span>{story.caption}</span>
+                      <span>전체 화면 캡처</span>
+                    </figcaption>
                   </figure>
-                )}
+                ) : null}
                 <div className={styles.featureCopy}>
                   <span>{sectionNumber(index + 1)}</span>
                   <h3>{story.title}</h3>
@@ -256,8 +307,8 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         <div className={styles.sectionIntro}>
           <span className={styles.sectionNumber}>{sectionNumber(7)}</span>
           <div>
-            <p className={styles.eyebrow}>RESULT · LESSON</p>
-            <h2 id="outcomes-title">결과와 배운 점</h2>
+            <p className={styles.eyebrow}>RESULT</p>
+            <h2 id="outcomes-title">구현 결과</h2>
           </div>
         </div>
 
@@ -270,6 +321,27 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           ))}
         </ol>
       </section>
+
+      {project.learnings?.length ? (
+        <section className={styles.outcomes} aria-labelledby="learnings-title">
+          <div className={styles.sectionIntro}>
+            <span className={styles.sectionNumber}>{sectionNumber(8)}</span>
+            <div>
+              <p className={styles.eyebrow}>LESSONS LEARNED</p>
+              <h2 id="learnings-title">배운 점</h2>
+            </div>
+          </div>
+
+          <ol>
+            {project.learnings.map((learning, index) => (
+              <li key={learning}>
+                <span>{sectionNumber(index + 1)}</span>
+                <p>{learning}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
 
     </article>
   );

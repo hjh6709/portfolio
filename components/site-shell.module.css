@@ -17,6 +17,8 @@
 
 .wordmark {
   display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
   color: var(--ink);
   font-family: var(--mono-font);
   font-size: 0.76rem;
@@ -39,6 +41,9 @@
 
 .navigation a {
   position: relative;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
   color: var(--muted);
   font-size: 0.92rem;
   font-weight: 600;
@@ -48,7 +53,7 @@
 .navigation a::after {
   position: absolute;
   right: 0;
-  bottom: -0.35rem;
+  bottom: 0.15rem;
   left: 0;
   height: 1px;
   background: var(--ink);
@@ -94,8 +99,8 @@
   font-family: var(--display-font);
   font-size: clamp(2.2rem, 5vw, 5rem);
   font-weight: 600;
-  letter-spacing: -0.055em;
-  line-height: 1.03;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
 }
 
 .footerLinks {
@@ -190,4 +195,3 @@
     animation: none;
   }
 }
-
