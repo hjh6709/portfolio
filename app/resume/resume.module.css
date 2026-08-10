@@ -25,7 +25,7 @@
   font-size: clamp(4.3rem, 12vw, 10rem);
   font-weight: 500;
   letter-spacing: -0.075em;
-  line-height: 0.88;
+  line-height: 1.04;
 }
 
 .introGrid {
@@ -102,19 +102,22 @@
 }
 
 .capabilityGrid,
-.timeline {
+.timeline,
+.projectList {
   display: grid;
   border-top: 1px solid var(--line);
 }
 
 .capabilityGrid article,
-.timeline article {
+.timeline article,
+.projectList article {
   padding: 1.6rem 0;
   border-bottom: 1px solid var(--line);
 }
 
 .capabilityGrid h3,
-.timeline h3 {
+.timeline h3,
+.projectList h3 {
   margin: 0;
   font-family: var(--display-font);
   font-size: clamp(1.35rem, 2.2vw, 2rem);
@@ -129,19 +132,92 @@
   color: var(--muted);
 }
 
-.capabilityGrid ul {
-  display: flex;
-  padding: 0;
-  margin: 1rem 0 0;
-  flex-wrap: wrap;
-  gap: 0.45rem 1.25rem;
-  list-style: none;
+.capabilityGrid article {
+  display: grid;
+  grid-template-columns: minmax(11rem, 0.42fr) minmax(0, 1fr);
+  gap: 2rem;
 }
 
-.capabilityGrid li {
+.capabilityGrid article > div p,
+.projectHeading p,
+.projectRole,
+.projectFooter p {
+  margin: 0.55rem 0 0;
+  color: var(--accent);
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.projectList article {
+  display: grid;
+  gap: 1rem;
+}
+
+.projectHeading {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 1.2rem;
+}
+
+.projectHeading > span {
+  padding-top: 0.25rem;
   color: var(--subtle);
   font-family: var(--mono-font);
   font-size: 0.72rem;
+}
+
+.projectList article > p {
+  max-width: 52rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.projectList ul {
+  display: grid;
+  padding: 0;
+  margin: 0.2rem 0 0;
+  gap: 0.55rem;
+  list-style: none;
+}
+
+.projectList li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.projectList li::before {
+  position: absolute;
+  top: 0.75em;
+  left: 0;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: var(--accent);
+  content: '';
+}
+
+.projectFooter {
+  display: flex;
+  padding-top: 0.4rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.projectFooter > div {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.2rem;
+}
+
+.projectFooter a {
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .timeline article {
@@ -203,7 +279,8 @@
 @media (max-width: 48rem) {
   .introGrid,
   .section,
-  .timeline article {
+  .timeline article,
+  .capabilityGrid article {
     grid-template-columns: 1fr;
   }
 
@@ -238,6 +315,11 @@
 
   .timeline article {
     gap: 0.7rem;
+  }
+
+  .projectFooter {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 

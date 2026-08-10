@@ -1,6 +1,6 @@
 .hero,
 .projects,
-.statement,
+.otherWork,
 .capabilities,
 .experience {
   width: min(100%, calc(var(--content-width) + (var(--page-gutter) * 2)));
@@ -11,11 +11,10 @@
 
 .hero {
   display: flex;
-  min-height: min(48rem, calc(100svh - 5.5rem));
-  padding-top: clamp(4rem, 10vw, 8rem);
-  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+  min-height: min(56rem, calc(100svh - 5.5rem));
+  padding-top: clamp(4rem, 9vw, 7.5rem);
+  padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .heroMeta {
@@ -28,17 +27,21 @@
 }
 
 .heroTitle {
-  max-width: 12ch;
-  margin: clamp(4.5rem, 11vw, 8.5rem) 0;
+  margin: clamp(4rem, 9vw, 7.4rem) 0 clamp(3.5rem, 8vw, 6rem);
   font-family: var(--display-font);
-  font-size: clamp(3.6rem, 8.6vw, 8.8rem);
+  font-size: clamp(3.5rem, 7.5vw, 7.2rem);
   font-weight: 500;
-  letter-spacing: -0.075em;
-  line-height: 0.96;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
 }
 
-.heroTitle span {
+.heroTitleLine {
+  display: block;
+}
+
+.heroTitle em {
   color: var(--accent);
+  font-style: normal;
 }
 
 .heroBottom {
@@ -51,7 +54,7 @@
 }
 
 .heroDescription {
-  max-width: 43rem;
+  max-width: 46rem;
   margin: 0;
   color: var(--muted);
   font-size: clamp(1rem, 1.5vw, 1.2rem);
@@ -60,11 +63,13 @@
 
 .heroActions {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
 }
 
 .heroActions a {
   display: inline-flex;
+  min-height: 2.75rem;
   padding-bottom: 0.2rem;
   align-items: center;
   border-bottom: 1px solid var(--ink);
@@ -73,16 +78,65 @@
   gap: 0.8rem;
 }
 
+.heroProofs {
+  display: grid;
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.heroProofs div {
+  display: flex;
+  min-height: 8.5rem;
+  padding: 1.4rem clamp(1rem, 2.2vw, 2rem);
+  justify-content: space-between;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  gap: 1.2rem;
+}
+
+.heroProofs div:first-child {
+  padding-left: 0;
+}
+
+.heroProofs div:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.heroProofs strong {
+  font-family: var(--display-font);
+  font-size: clamp(1.6rem, 3.5vw, 3.2rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.08;
+  word-break: keep-all;
+}
+
+.heroProofs div:last-child strong {
+  font-size: clamp(1.5rem, 2.65vw, 2.45rem);
+  letter-spacing: -0.065em;
+}
+
+.heroProofs span {
+  color: var(--subtle);
+  font-family: var(--mono-font);
+  font-size: 0.65rem;
+  line-height: 1.5;
+}
+
 .projects,
+.otherWork,
 .capabilities,
 .experience {
-  padding-top: clamp(5rem, 10vw, 9rem);
-  padding-bottom: clamp(5rem, 10vw, 9rem);
+  padding-top: clamp(4.5rem, 7vw, 6.75rem);
+  padding-bottom: clamp(4.5rem, 7vw, 6.75rem);
 }
 
 .sectionHeading {
   display: grid;
-  padding-bottom: clamp(3rem, 7vw, 5.5rem);
+  padding-bottom: clamp(2.5rem, 4.5vw, 4rem);
   grid-template-columns: 0.32fr minmax(0, 1.35fr) minmax(15rem, 0.5fr);
   gap: clamp(1.5rem, 5vw, 4.5rem);
 }
@@ -96,14 +150,13 @@
   letter-spacing: 0.14em;
 }
 
-.sectionHeading h2,
-.statement h2 {
+.sectionHeading h2 {
   margin: 0;
   font-family: var(--display-font);
   font-size: clamp(2.6rem, 5.2vw, 5.4rem);
   font-weight: 500;
-  letter-spacing: -0.06em;
-  line-height: 1.03;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
 }
 
 .sectionHeading > p:last-child {
@@ -112,26 +165,14 @@
   color: var(--muted);
 }
 
-.projectList > article:last-child {
-  border-bottom: 1px solid var(--line-strong);
+.otherWork {
+  border-top: 0;
 }
 
-.statement {
+.otherGrid {
   display: grid;
-  padding-top: clamp(6rem, 14vw, 12rem);
-  padding-bottom: clamp(6rem, 14vw, 12rem);
-  grid-template-columns: 0.32fr minmax(0, 1.35fr) minmax(15rem, 0.5fr);
-  gap: clamp(1.5rem, 5vw, 4.5rem);
-}
-
-.statement h2 span {
-  color: var(--accent);
-}
-
-.statement > p:last-child {
-  align-self: end;
-  margin: 0;
-  color: var(--muted);
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .capabilityList,
@@ -154,34 +195,36 @@
   font-size: 0.72rem;
 }
 
-.capability h3,
+.capabilityTitle {
+  display: grid;
+  align-items: baseline;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.capabilityTitle h3,
 .timeline h3 {
   margin: 0;
   font-family: var(--display-font);
   font-size: clamp(1.7rem, 3vw, 2.9rem);
   font-weight: 600;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
-.capability p {
-  max-width: 45rem;
-  margin: 0.75rem 0 1.5rem;
-  color: var(--muted);
-}
-
-.capability ul {
-  display: flex;
-  padding: 0;
+.capabilityTitle p {
   margin: 0;
-  flex-wrap: wrap;
-  list-style: none;
-  gap: 0.5rem 1.2rem;
+  color: var(--accent);
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-.capability li {
-  color: var(--subtle);
-  font-family: var(--mono-font);
-  font-size: 0.7rem;
+.capability > div > p:last-child {
+  max-width: 49rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
 }
 
 .timeline {
@@ -190,7 +233,7 @@
 }
 
 .timeline article {
-  min-height: 22rem;
+  min-height: 18rem;
   padding: clamp(1.5rem, 4vw, 3rem);
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -201,7 +244,7 @@
 }
 
 .timeline article > p:first-of-type {
-  margin: 3rem 0 0.5rem;
+  margin: 2.5rem 0 0.5rem;
   color: var(--accent);
   font-family: var(--mono-font);
   font-size: 0.7rem;
@@ -214,14 +257,32 @@
 }
 
 @media (max-width: 58rem) {
-  .statement,
   .sectionHeading {
     grid-template-columns: 1fr;
   }
 
-  .statement > p:last-child,
   .sectionHeading > p:last-child {
     max-width: var(--reading-width);
+  }
+
+  .heroProofs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .heroProofs div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .heroProofs div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .heroProofs div:nth-child(3) {
+    padding-left: 0;
+  }
+
+  .otherGrid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -246,6 +307,11 @@
     grid-template-columns: 2.5rem 1fr;
   }
 
+  .capabilityTitle {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
   .timeline {
     grid-template-columns: 1fr;
   }
@@ -253,5 +319,26 @@
   .timeline article {
     min-height: auto;
     border-right: 0;
+  }
+}
+
+@media (max-width: 32rem) {
+  .heroProofs {
+    grid-template-columns: 1fr;
+  }
+
+  .heroProofs div,
+  .heroProofs div:first-child,
+  .heroProofs div:nth-child(3),
+  .heroProofs div:last-child {
+    min-height: 7rem;
+    padding-right: 0;
+    padding-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .heroProofs div:last-child {
+    border-bottom: 0;
   }
 }
