@@ -197,13 +197,14 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         <div className={styles.sectionIntro}>
           <span className={styles.sectionNumber}>{sectionNumber(3)}</span>
           <div>
-            <p className={styles.eyebrow}>SYSTEM FLOW</p>
+            <p className={styles.eyebrow}>SYSTEM ARCHITECTURE</p>
             <h2 id="architecture-title">서비스 아키텍처</h2>
           </div>
         </div>
 
         <ArchitectureDiagram
-          title={`${project.title} 시스템 흐름`}
+          title={`${project.title} 시스템 아키텍처`}
+          zones={project.architecture.zones}
           nodes={project.architecture.nodes}
           edges={project.architecture.edges}
         />
