@@ -170,6 +170,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
                         alt={story.alt}
                         width={story.width}
                         height={story.height}
+                        loading="eager"
                         unoptimized
                         sizes="(max-width: 900px) 100vw, 88vw"
                       />
@@ -201,26 +202,11 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
           </div>
         </div>
 
-        {project.architectureImage ? (
-          <figure className={styles.architectureEvidence}>
-            <div className={styles.architectureCanvas}>
-              <Image
-                src={`/${project.architectureImage.src}`}
-                alt={project.architectureImage.alt}
-                width={project.architectureImage.width}
-                height={project.architectureImage.height}
-                sizes="(max-width: 900px) 100vw, 90vw"
-              />
-            </div>
-            <figcaption>{project.architectureImage.caption}</figcaption>
-          </figure>
-        ) : (
-          <ArchitectureDiagram
-            title={`${project.title} 시스템 흐름`}
-            nodes={project.architecture.nodes}
-            edges={project.architecture.edges}
-          />
-        )}
+        <ArchitectureDiagram
+          title={`${project.title} 시스템 흐름`}
+          nodes={project.architecture.nodes}
+          edges={project.architecture.edges}
+        />
       </section>
 
       <section className={styles.technology} aria-labelledby="technology-title">
