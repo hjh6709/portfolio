@@ -18,6 +18,6 @@ describe('ArchitectureDiagram', () => {
 
     expect(screen.getByRole('figure', { name: '테스트 아키텍처' })).toBeInTheDocument();
     expect(screen.getByText('API 요청')).toBeInTheDocument();
-    expect(screen.getAllByText('직접 담당')).toHaveLength(2);
+    expect(screen.getByText('직접 구현')).toBeInTheDocument();
   });
 });
