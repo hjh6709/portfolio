@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { ProjectCaseStudy } from '@/components/project-case-study';
@@ -57,9 +57,13 @@ describe('ProjectCaseStudy', () => {
 
     expect(screen.getByText('운영 중 · 화면 개선 진행 중')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '기술과 역할' })).toBeInTheDocument();
-    expect(
-      screen.getByAltText('Kagoshima Travel 실제 배포 구성과 외부 서비스 연결 흐름'),
-    ).toBeInTheDocument();
+    const architecture = screen.getByRole('figure', {
+      name: 'Kagoshima Travel 시스템 흐름',
+    });
+    expect(architecture).toBeInTheDocument();
+    expect(within(architecture).getAllByText('React PWA').length).toBeGreaterThan(0);
+    expect(within(architecture).getAllByText('Go API').length).toBeGreaterThan(0);
+    expect(within(architecture).getByText('API 요청')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Live service/ })).toHaveAttribute(
       'href',
       'https://kagoshima.hjh-dev.site/',
