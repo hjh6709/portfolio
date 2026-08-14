@@ -13,6 +13,14 @@ export type ArchitectureEdge = {
   kind: 'request' | 'data' | 'security' | 'operations' | 'recovery';
 };
 
+export type ArchitectureZone = {
+  id: string;
+  label: string;
+  caption: string;
+  kind: 'client' | 'edge' | 'application' | 'data' | 'runtime' | 'external' | 'operations' | 'recovery';
+  nodeIds: string[];
+};
+
 export type ProjectImage = {
   src: string;
   alt: string;
@@ -64,6 +72,7 @@ export type Project = {
     result: string;
   }>;
   architecture: {
+    zones: ArchitectureZone[];
     nodes: ArchitectureNode[];
     edges: ArchitectureEdge[];
   };
@@ -233,6 +242,50 @@ export const projects: Project[] = [
       },
     ],
     architecture: {
+      zones: [
+        {
+          id: 'access',
+          label: '접속 경계',
+          caption: 'Browser · Edge · Private tunnel',
+          kind: 'edge',
+          nodeIds: ['learner', 'edge', 'tunnel', 'traefik'],
+        },
+        {
+          id: 'application',
+          label: '서비스 계층',
+          caption: 'Web · API · Authentication · AI',
+          kind: 'application',
+          nodeIds: ['web', 'api', 'keycloak', 'ai'],
+        },
+        {
+          id: 'state',
+          label: '상태·이벤트 계층',
+          caption: 'Persistent state · Event pipeline · Grading',
+          kind: 'data',
+          nodeIds: ['db', 'kafka', 'validation'],
+        },
+        {
+          id: 'runtime',
+          label: '실습 실행 계층',
+          caption: 'Placement · Per-user VM · Storage',
+          kind: 'runtime',
+          nodeIds: ['dispatcher', 'vm'],
+        },
+        {
+          id: 'recovery',
+          label: '확장·재해 복구',
+          caption: 'Capacity overflow · DR · Backup',
+          kind: 'recovery',
+          nodeIds: ['overflow', 'dr', 's3'],
+        },
+        {
+          id: 'operations',
+          label: '플랫폼 제어 계층',
+          caption: 'Secrets · GitOps · Observability · Network',
+          kind: 'operations',
+          nodeIds: ['vault', 'argocd', 'cluster', 'prometheus', 'grafana', 'network'],
+        },
+      ],
       nodes: [
         { id: 'learner', label: 'Learner', caption: 'Browser', icon: 'browser', ownership: 'external' },
         { id: 'edge', label: 'AWS Edge', caption: 'Route 53 · WAF · ALB', icon: 'aws', ownership: 'team' },
@@ -415,6 +468,43 @@ export const projects: Project[] = [
       },
     ],
     architecture: {
+      zones: [
+        {
+          id: 'source',
+          label: '이벤트 원천',
+          caption: 'Signed GitHub event',
+          kind: 'client',
+          nodeIds: ['github'],
+        },
+        {
+          id: 'ingress',
+          label: 'AWS 수신 경계',
+          caption: 'Public endpoint · Signature verification',
+          kind: 'edge',
+          nodeIds: ['gateway'],
+        },
+        {
+          id: 'compute',
+          label: '비동기 실행 계층',
+          caption: 'Fast response · Deferred analysis',
+          kind: 'application',
+          nodeIds: ['orchestrator', 'worker'],
+        },
+        {
+          id: 'inference',
+          label: 'AI 추론 계층',
+          caption: 'Managed agent runtime',
+          kind: 'external',
+          nodeIds: ['bedrock'],
+        },
+        {
+          id: 'delivery',
+          label: '결과 전달',
+          caption: 'Pull Request · Team notification',
+          kind: 'external',
+          nodeIds: ['delivery'],
+        },
+      ],
       nodes: [
         { id: 'github', label: 'GitHub PR', caption: 'Webhook event', icon: 'github', ownership: 'external' },
         { id: 'gateway', label: 'API Gateway', caption: 'HMAC verification', icon: 'aws-api-gateway', ownership: 'mine' },
@@ -621,6 +711,50 @@ export const projects: Project[] = [
       },
     ],
     architecture: {
+      zones: [
+        {
+          id: 'client',
+          label: '사용자 클라이언트',
+          caption: 'Installable mobile web app',
+          kind: 'client',
+          nodeIds: ['traveler', 'web'],
+        },
+        {
+          id: 'delivery',
+          label: '프런트엔드 배포',
+          caption: 'Static delivery · HTTPS',
+          kind: 'edge',
+          nodeIds: ['vercel'],
+        },
+        {
+          id: 'backend',
+          label: 'OCI 애플리케이션',
+          caption: 'TLS termination · Domain API',
+          kind: 'application',
+          nodeIds: ['caddy', 'api'],
+        },
+        {
+          id: 'data',
+          label: '관리형 데이터',
+          caption: 'Relational trip data',
+          kind: 'data',
+          nodeIds: ['db'],
+        },
+        {
+          id: 'maps',
+          label: '외부 지도 연동',
+          caption: 'Place search · Directions',
+          kind: 'external',
+          nodeIds: ['places'],
+        },
+        {
+          id: 'operations',
+          label: '배포 자동화',
+          caption: 'Frontend · API delivery',
+          kind: 'operations',
+          nodeIds: ['actions'],
+        },
+      ],
       nodes: [
         { id: 'traveler', label: 'Traveler', caption: 'Mobile browser · PWA', icon: 'mobile', ownership: 'external' },
         { id: 'web', label: 'React PWA', caption: 'Vite · installable web app', icon: 'react', ownership: 'mine' },
@@ -629,7 +763,6 @@ export const projects: Project[] = [
         { id: 'api', label: 'Go API', caption: 'Oracle Cloud VM', icon: 'go', ownership: 'mine' },
         { id: 'db', label: 'Supabase PostgreSQL', caption: 'Trips · schedules · places', icon: 'supabase', ownership: 'mine' },
         { id: 'places', label: 'Places · Maps', caption: 'Search · directions', icon: 'google-maps', ownership: 'external' },
-        { id: 'share', label: 'Share Link', caption: 'Read-only access', icon: 'link', ownership: 'mine' },
         { id: 'actions', label: 'GitHub Actions', caption: 'Build · deploy workflow', icon: 'github-actions', ownership: 'mine' },
       ],
       edges: [
@@ -639,8 +772,6 @@ export const projects: Project[] = [
         { from: 'caddy', to: 'api', label: 'Reverse proxy', kind: 'request' },
         { from: 'api', to: 'db', label: 'trip data', kind: 'data' },
         { from: 'web', to: 'places', label: 'place search', kind: 'request' },
-        { from: 'api', to: 'share', label: 'share token', kind: 'data' },
-        { from: 'share', to: 'web', label: 'read-only trip', kind: 'request' },
         { from: 'actions', to: 'vercel', label: 'Frontend deploy', kind: 'operations' },
         { from: 'actions', to: 'api', label: 'API build · deploy', kind: 'operations' },
       ],
@@ -747,6 +878,43 @@ export const projects: Project[] = [
       },
     ],
     architecture: {
+      zones: [
+        {
+          id: 'access',
+          label: '접속·라우팅',
+          caption: 'Health check · Traffic steering',
+          kind: 'edge',
+          nodeIds: ['user', 'edge'],
+        },
+        {
+          id: 'primary',
+          label: 'Primary 환경',
+          caption: 'GCP Kubernetes',
+          kind: 'runtime',
+          nodeIds: ['gcp'],
+        },
+        {
+          id: 'standby',
+          label: 'Standby 환경',
+          caption: 'AWS Kubernetes',
+          kind: 'recovery',
+          nodeIds: ['aws'],
+        },
+        {
+          id: 'data',
+          label: '공유 데이터 계층',
+          caption: 'Cross-cloud application data',
+          kind: 'data',
+          nodeIds: ['db'],
+        },
+        {
+          id: 'operations',
+          label: '통합 관측',
+          caption: 'Primary · Standby metrics',
+          kind: 'operations',
+          nodeIds: ['monitoring'],
+        },
+      ],
       nodes: [
         { id: 'user', label: 'User', caption: 'Service request', icon: 'browser', ownership: 'external' },
         { id: 'edge', label: 'Cloudflare Edge', caption: 'Health check · routing', icon: 'cloudflare', ownership: 'team' },
@@ -862,6 +1030,29 @@ export const projects: Project[] = [
       },
     ],
     architecture: {
+      zones: [
+        {
+          id: 'source',
+          label: '진단 원천',
+          caption: 'GitHub workflow results',
+          kind: 'client',
+          nodeIds: ['ci'],
+        },
+        {
+          id: 'analysis',
+          label: '진단 파이프라인',
+          caption: 'Collect · Redact · Classify · Render',
+          kind: 'application',
+          nodeIds: ['collector', 'redactor', 'classifier', 'renderer'],
+        },
+        {
+          id: 'delivery',
+          label: '개발자 피드백',
+          caption: 'Stable updated comment',
+          kind: 'external',
+          nodeIds: ['pr'],
+        },
+      ],
       nodes: [
         { id: 'ci', label: 'GitHub CI', caption: 'Failed checks', icon: 'github-actions', ownership: 'external' },
         { id: 'collector', label: 'Check Collector', caption: 'Runs · jobs · logs', icon: 'github', ownership: 'mine' },

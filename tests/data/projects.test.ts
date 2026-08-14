@@ -28,7 +28,18 @@ describe('project content', () => {
       expect(project).toBeDefined();
       expect(project?.architecture.nodes.length).toBeGreaterThan(2);
       expect(project?.architecture.edges.length).toBeGreaterThan(1);
+      expect(project?.architecture.zones.length).toBeGreaterThan(1);
       expect(project?.evidence.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('assigns every architecture component to exactly one deployment zone', () => {
+    for (const project of projects) {
+      const nodeIds = project.architecture.nodes.map((node) => node.id);
+      const assignedNodeIds = project.architecture.zones.flatMap((zone) => zone.nodeIds);
+
+      expect(new Set(assignedNodeIds), project.slug).toEqual(new Set(nodeIds));
+      expect(assignedNodeIds, project.slug).toHaveLength(new Set(assignedNodeIds).size);
     }
   });
 

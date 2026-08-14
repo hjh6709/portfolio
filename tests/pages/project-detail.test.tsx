@@ -58,7 +58,7 @@ describe('ProjectCaseStudy', () => {
     expect(screen.getByText('운영 중 · 화면 개선 진행 중')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '기술과 역할' })).toBeInTheDocument();
     const architecture = screen.getByRole('figure', {
-      name: 'Kagoshima Travel 시스템 흐름',
+      name: 'Kagoshima Travel 시스템 아키텍처',
     });
     expect(architecture).toBeInTheDocument();
     expect(within(architecture).getAllByText('React PWA').length).toBeGreaterThan(0);
