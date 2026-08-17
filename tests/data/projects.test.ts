@@ -11,14 +11,11 @@ import {
 describe('project content', () => {
   it('separates the three flagship case studies from supporting work', () => {
     expect(getFlagshipProjects().map((project) => project.slug)).toEqual([
+      'kagoshima-travel',
       'cledyu',
       'codebuddy',
-      'kagoshima-travel',
     ]);
-    expect(getOtherProjects().map((project) => project.slug)).toEqual([
-      'pr-check-doctor',
-      'chilseongpa',
-    ]);
+    expect(getOtherProjects().map((project) => project.slug)).toEqual(['pr-check-doctor']);
   });
 
   it('gives every published project an architecture and evidence', () => {
@@ -54,7 +51,7 @@ describe('project content', () => {
     }
   });
 
-  it('publishes verified architecture evidence for Cledyu and Kagoshima Travel', () => {
+  it('publishes verified architecture evidence for Cledyu and Map Planner', () => {
     const cledyu = getProject('cledyu');
     const kagoshima = getProject('kagoshima-travel');
 
@@ -64,7 +61,7 @@ describe('project content', () => {
     );
   });
 
-  it('marks Kagoshima Travel as an operating project under active revision', () => {
+  it('marks Map Planner as an operating project under active revision', () => {
     const kagoshima = getProject('kagoshima-travel');
 
     expect(kagoshima?.status).toBe('운영 중 · 화면 개선 진행 중');
@@ -103,12 +100,24 @@ describe('project content', () => {
           label: 'Sample trip',
           href: 'https://kagoshima.hjh-dev.site/demo',
         },
-        {
-          label: 'Shared trip',
-          href: 'https://kagoshima.hjh-dev.site/share/lo-PEB-IyorpWGzTaRFuuJffCGWZ3tFe',
-        },
       ]),
     );
+  });
+
+  it('never publishes a live share token, which would expose real trip data', () => {
+    // 공유 토큰 링크는 숙소 실주소와 항공 일정을 로그인 없이 노출합니다.
+    // 데모가 아닌 실제 여행 토큰이 다시 들어오면 이 테스트가 막습니다.
+    for (const slug of getProjectSlugs()) {
+      const project = getProject(slug);
+      const links = [
+        ...(project?.evidence.map((item) => item.href) ?? []),
+        ...(project?.journey?.map((step) => step.href ?? '') ?? []),
+      ];
+
+      for (const href of links) {
+        expect(href).not.toMatch(/\/share\/[A-Za-z0-9_-]+/);
+      }
+    }
   });
 
   it('returns undefined for an unknown project', () => {

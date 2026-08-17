@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   if (!project) return {};
 
   return {
-    title: `${project.title} | 한정현 포트폴리오`,
+    title: project.title,
     description: project.summary,
   };
 }

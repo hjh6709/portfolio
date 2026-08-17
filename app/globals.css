@@ -13,6 +13,19 @@
   --page-gutter: clamp(1.25rem, 4vw, 4.5rem);
   --content-width: 78rem;
   --reading-width: 45rem;
+  /* Type scale — 고정 단계는 정수 px 기준, 반응형 단계는 clamp 한 벌만 재사용합니다. */
+  --fs-caption: 0.75rem;   /* 12px — 이미지 캡션, 최소 단위 */
+  --fs-label: 0.8125rem;   /* 13px — 아이브로우, 태그, 메타 라벨 */
+  --fs-meta: 0.875rem;     /* 14px — 보조 설명, 역할 표기 */
+  --fs-body: 1rem;         /* 16px — 본문 */
+  --fs-body-lg: clamp(1rem, 1.4vw, 1.25rem);        /* 16 → 20px */
+  --fs-h4: clamp(1.25rem, 2vw, 1.75rem);            /* 20 → 28px */
+  --fs-h3: clamp(1.5rem, 2.6vw, 2.25rem);           /* 24 → 36px */
+  --fs-h2: clamp(1.75rem, 3.2vw, 2.75rem);          /* 28 → 44px */
+  --fs-h1: clamp(2rem, 4.4vw, 3.5rem);              /* 32 → 56px */
+  --fs-display-sm: clamp(2.5rem, 5.5vw, 4.5rem);    /* 40 → 72px */
+  --fs-display: clamp(3rem, 7.5vw, 7rem);           /* 48 → 112px */
+
   --display-font: var(--font-keris-baeum), 'Noto Sans KR', sans-serif;
   --body-font: var(--font-pretendard), 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
   --mono-font: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;

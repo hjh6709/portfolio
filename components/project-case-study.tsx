@@ -203,6 +203,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </div>
 
         <ArchitectureDiagram
+          project={project.slug}
           title={`${project.title} 시스템 아키텍처`}
           zones={project.architecture.zones}
           nodes={project.architecture.nodes}

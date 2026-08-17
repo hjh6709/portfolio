@@ -11,8 +11,8 @@ describe('HomePage', () => {
       '안정적인 서비스를 만드는 개발자',
     );
     expect(screen.getByText('BACKEND · CLOUD')).toBeInTheDocument();
-    expect(screen.getByText('05', { selector: 'strong' })).toBeInTheDocument();
-    expect(screen.getByText('02 / 03', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByText('04', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByText('LIVE', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByText('102', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByText('MARKETPLACE', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Email/ })).toHaveAttribute(
@@ -44,10 +44,6 @@ describe('HomePage', () => {
       'href',
       '/projects/pr-check-doctor',
     );
-    expect(screen.getByRole('link', { name: 'Chilseongpa' })).toHaveAttribute(
-      'href',
-      '/projects/chilseongpa',
-    );
   });
 
   it('links project images to their case studies', () => {
@@ -65,19 +61,23 @@ describe('HomePage', () => {
       screen.getByAltText(/여행 도우미 앱.*저장 장소.*현재 위치.*지도/),
     ).toBeInTheDocument();
     expect(
-      screen.queryByAltText(/Kagoshima Travel.*여행 마무리/),
+      screen.queryByAltText(/Map Planner.*여행 마무리/),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByAltText(/Kagoshima Travel.*날짜별 일정/),
+      screen.queryByAltText(/Map Planner.*날짜별 일정/),
     ).not.toBeInTheDocument();
   });
 
-  it('keeps the home timeline focused on cloud education', () => {
+  it('keeps the home timeline focused on education, not clerical internships', () => {
     render(<HomePage />);
 
-    expect(screen.getByRole('heading', { name: '교육' })).toBeInTheDocument();
+    const educationHeading = screen.getByRole('heading', { name: '교육' });
+
+    expect(educationHeading.closest('section')).toHaveAttribute('id', 'education');
     expect(screen.getByText(/KT Cloud/)).toBeInTheDocument();
+
+    expect(screen.queryByRole('heading', { name: '경력' })).not.toBeInTheDocument();
     expect(screen.queryByText(/평택도시공사/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/안전감사실 인턴/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/아세테크/)).not.toBeInTheDocument();
   });
 });
