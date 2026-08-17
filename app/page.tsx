@@ -19,7 +19,7 @@ export default function HomePage() {
         <Reveal className={styles.heroMeta}>
           <span>HAN JEONGHYUN</span>
           <span>BACKEND · CLOUD</span>
-          <span>SEOUL, KOREA</span>
+          <span>GYEONGGI, KOREA</span>
         </Reveal>
 
         <Reveal as="h1" className={styles.heroTitle} delay={80}>
@@ -103,10 +103,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={styles.experience} id="experience" aria-labelledby="experience-title">
+      <section className={styles.experience} id="education" aria-labelledby="education-title">
         <div className={styles.sectionHeading}>
           <p className={styles.sectionLabel}>04 · EDUCATION</p>
-          <h2 id="experience-title">교육</h2>
+          <h2 id="education-title">교육</h2>
           <p>AWS와 Kubernetes를 중심으로 클라우드 인프라를 설계하고 운영하는 과정을 익혔습니다.</p>
         </div>
 
@@ -114,7 +114,7 @@ export default function HomePage() {
           {education.map((item, index) => (
             <article key={`${item.organization}-${item.title}`}>
               <span>{String(index + 1).padStart(2, '0')}</span>
-              <p>{item.organization}</p>
+              <p>{item.organization} {item.period ? `· ${item.period}` : ''}</p>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
             </article>

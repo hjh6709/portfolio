@@ -1,7 +1,7 @@
 import { projects } from '@/data/projects';
 
-const flagshipProjectSlugs = ['cledyu', 'codebuddy', 'kagoshima-travel'];
-const otherProjectSlugs = ['pr-check-doctor', 'chilseongpa'];
+const flagshipProjectSlugs = ['kagoshima-travel', 'cledyu', 'codebuddy'];
+const otherProjectSlugs = ['pr-check-doctor'];
 
 function getProjectsInOrder(slugs: string[]) {
   return slugs.flatMap((slug) => {

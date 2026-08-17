@@ -40,7 +40,7 @@
   justify-content: space-between;
   color: var(--subtle);
   font-family: var(--mono-font);
-  font-size: 0.66rem;
+  font-size: var(--fs-label);
   letter-spacing: 0.08em;
   gap: 1rem;
 }
@@ -48,7 +48,7 @@
 .content h3 {
   margin: clamp(2rem, 5vw, 4.5rem) 0 0;
   font-family: var(--display-font);
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: var(--fs-h1);
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.12;
@@ -67,7 +67,7 @@
   margin: 0.8rem 0 0;
   color: var(--accent);
   font-family: var(--mono-font);
-  font-size: 0.68rem;
+  font-size: var(--fs-label);
 }
 
 .links {
@@ -83,7 +83,7 @@
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
-  font-size: 0.78rem;
+  font-size: var(--fs-meta);
   font-weight: 700;
   text-decoration: none;
 }

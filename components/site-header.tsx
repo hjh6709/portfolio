@@ -5,7 +5,7 @@ import styles from './site-shell.module.css';
 const navigation = [
   { href: '/#about', label: '소개' },
   { href: '/#projects', label: '프로젝트' },
-  { href: '/#experience', label: '경험' },
+  { href: '/#education', label: '교육' },
   { href: '/resume', label: '이력서' },
 ];
 
