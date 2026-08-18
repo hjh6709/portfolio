@@ -40,7 +40,7 @@ export const homeProjectProfiles: Record<string, HomeProjectProfile> = {
     ],
   },
   codebuddy: {
-    eyebrow: 'PERSONAL PROJECT · AWS SERVERLESS',
+    eyebrow: 'TRAINING PROJECT · AWS SERVERLESS',
     headline: 'GitHub Webhook을 안전하게 수신하고 AI 분석을 비동기로 처리하는 서버리스 파이프라인',
     flow: 'GitHub Webhook → HMAC 검증 → Async Lambda → 변경 분석 → GitHub Review · Slack',
     proofs: [
