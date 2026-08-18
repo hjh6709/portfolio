@@ -1,91 +1,65 @@
+/*
+ * 카드 하나가 화면 하나로 끝나도록 좌우로 나눕니다. 세로로 쌓으면 카드마다
+ * 높이가 달라져 스크롤할 때 어디서 끝나는지 예측되지 않았습니다.
+ */
 .card {
-  position: relative;
-  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  display: grid;
+  padding: clamp(3.5rem, 5.5vw, 5rem) 0;
+  align-items: stretch;
+  column-gap: clamp(2.5rem, 4.5vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
 }
 
 .card + .card {
   border-top: 1px solid var(--line-strong);
 }
 
-.header {
-  display: grid;
-  margin-bottom: clamp(2.5rem, 4.5vw, 4rem);
-  align-items: end;
-  grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.6fr);
-  column-gap: clamp(2rem, 7vw, 7rem);
-  row-gap: clamp(1rem, 1.8vw, 1.5rem);
-}
-
-.meta {
-  display: flex;
-  color: var(--subtle);
-  font-family: var(--mono-font);
-  font-size: var(--fs-label);
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  gap: 1rem;
-  grid-column: 1 / -1;
-}
-
-.titleBlock,
-.intro {
-  min-width: 0;
-}
-
-.titleBlock h3 {
-  margin: 0;
-  font-family: var(--display-font);
-  font-size: var(--fs-display);
-  font-weight: 700;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-}
-
-.titleLink {
-  color: inherit;
-  text-decoration: none;
-}
-
-.titleLink:hover,
-.titleLink:focus-visible {
-  color: var(--accent);
-}
-
-.headline {
-  max-width: 50rem;
-  margin: 1.65rem 0 0;
-  font-size: var(--fs-h3);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.45;
-}
-
-.summary {
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--fs-body-lg);
-  line-height: 1.85;
-}
-
-.role {
-  margin: 1.35rem 0 0;
-  color: var(--accent);
-  font-family: var(--mono-font);
-  font-size: var(--fs-label);
-  font-weight: 700;
-  letter-spacing: 0.045em;
-  line-height: 1.7;
-}
-
+/*
+ * 이미지가 칼럼 전체를 채우게 두면, 글이 조금 길어진 카드에서도 왼쪽에 빈
+ * 자리가 생기지 않습니다. min-height로 카드끼리 높이를 비슷하게 잡습니다.
+ */
 .visual {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
+  min-height: clamp(26rem, 38vw, 34rem);
   overflow: hidden;
   background: #151515;
   color: inherit;
   text-decoration: none;
+}
+
+.visual > img,
+.visual > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 도식은 자체 배경이 밝아, 검은 칸에 두면 그림이 허공에 뜬 것처럼 보입니다. */
+.diagramVisual {
+  background: var(--paper-raised);
+}
+
+.diagramVisual > img {
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+/* 휴대폰 화면이나 도식은 잘리면 내용을 잃어, 안쪽에 맞춰 넣습니다. */
+.containedVisual > img,
+.containedVisual > video {
+  object-fit: contain;
+  padding: clamp(1.5rem, 3vw, 3rem);
+}
+
+.visual:hover > img,
+.visual:hover > video {
+  transform: scale(1.012);
 }
 
 .visualKicker {
@@ -100,16 +74,6 @@
   font-size: var(--fs-caption);
   letter-spacing: 0.12em;
   backdrop-filter: blur(8px);
-}
-
-.visual > img {
-  object-fit: contain;
-  object-position: center;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.visual:hover > img {
-  transform: scale(1.012);
 }
 
 /* 카드 이미지에 호버·포커스하면 상세로 이어진다는 신호를 명시적으로 보여줍니다. */
@@ -162,166 +126,8 @@
   transform: translateX(0.25rem);
 }
 
-/* 컬렉션 이미지도 호버 시 살짝 떠오르게 해 카드 전체가 하나의 대상임을 알립니다. */
-.visualCollection .visualGrid figure {
-  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.visualCollection:hover .visualGrid figure {
-  transform: translateY(-0.5rem);
-}
-
-.visualCollection:hover .visualGrid .visualPrimary {
-  transform: translateY(-0.9rem);
-}
-
-.diagramVisual {
-  aspect-ratio: 16 / 9;
-  border: 1px solid #c9d1d9;
-  background:
-    linear-gradient(rgb(44 72 98 / 7%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(44 72 98 / 7%) 1px, transparent 1px),
-    #e8eef3;
-  background-size: 2.5rem 2.5rem;
-}
-
-.diagramVisual > img {
-  padding: clamp(2rem, 5vw, 5rem);
-  object-fit: contain;
-}
-
-.visualCollection {
-  aspect-ratio: 16 / 8.8;
-  padding: clamp(2.25rem, 4vw, 4rem) clamp(2.5rem, 5vw, 5.5rem) clamp(2.75rem, 4.5vw, 4.5rem);
-  border: 0;
-  background:
-    radial-gradient(circle at 50% 12%, rgb(255 255 255 / 86%), transparent 42%),
-    linear-gradient(135deg, #d6d1c9, #ece8e1 48%, #d2cdc5);
-}
-
-.singleVisualCollection {
-  aspect-ratio: 16 / 9;
-  padding: 0;
-  background: #dedbd4;
-}
-
-/* 가로형 스크린샷은 contain 여백이 크게 남아 카드 높이를 낮추고 화면을 더 크게 보여줍니다. */
-.landscapeVisualCollection {
-  aspect-ratio: 16 / 6.2;
-}
-
-.landscapeVisualCollection .visualGrid {
-  align-items: center;
-  gap: clamp(1rem, 2.6vw, 2.75rem);
-}
-
-.landscapeVisualCollection .visualGrid figure {
-  height: 100%;
-}
-
-.landscapeVisualCollection .visualGrid img {
-  object-position: center;
-}
-
-.visualGrid {
-  display: grid;
-  height: 100%;
-  min-height: 0;
-  align-items: end;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.18fr) minmax(0, 0.78fr);
-  gap: clamp(1.25rem, 4.2vw, 4.75rem);
-}
-
-.visualGrid figure {
-  position: relative;
-  height: 84%;
-  min-width: 0;
-  min-height: 0;
-  margin: 0;
-  overflow: visible;
-}
-
-.visualGrid .visualPrimary {
-  z-index: 1;
-  height: 100%;
-}
-
-.visualGrid img,
-.visualCollection:hover img {
-  padding: 0;
-  object-fit: contain;
-  object-position: center bottom;
-  filter: drop-shadow(0 1.5rem 2.4rem rgb(38 34 28 / 16%));
-  transform: none;
-}
-
-.visualGrid figcaption {
-  position: absolute;
-  z-index: 2;
-  right: 50%;
-  bottom: -1.25rem;
-  padding: 0.3rem 0;
-  color: #403c36;
-  font-family: var(--mono-font);
-  font-size: var(--fs-caption);
-  letter-spacing: 0.12em;
-  transform: translateX(50%);
-}
-
-.singleVisualCollection .visualGrid {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-}
-
-.singleVisualCollection .visualGrid figure,
-.singleVisualCollection .visualGrid .visualPrimary {
-  height: 100%;
-}
-
-.singleVisualCollection .visualGrid img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  filter: none;
-}
-
-.singleVisualCollection .visualGrid figcaption {
-  right: 1rem;
-  bottom: 1rem;
-  padding: 0.4rem 0.55rem;
-  background: rgb(248 246 241 / 88%);
-  color: #34302b;
-  transform: none;
-  backdrop-filter: blur(8px);
-}
-
 .card[data-project='cledyu'] .visual {
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 10%);
-}
-
-.card[data-project='codebuddy'] .titleBlock {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.card[data-project='codebuddy'] .header {
-  grid-template-columns: minmax(18rem, 0.62fr) minmax(0, 1.38fr);
-}
-
-.card[data-project='codebuddy'] .intro {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.card[data-project='codebuddy'] .titleBlock h3 {
-  font-size: var(--fs-display);
-  overflow-wrap: normal;
-  word-break: keep-all;
-}
-
-.card[data-project='kagoshima-travel'] .headline {
-  max-width: 39rem;
 }
 
 .card[data-project='kagoshima-travel'] .visualKicker {
@@ -329,16 +135,73 @@
   color: #34302b;
 }
 
-.content {
-  display: grid;
-  padding-top: clamp(2.25rem, 4vw, 3.5rem);
-  align-items: end;
-  grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.45fr);
-  gap: clamp(2rem, 7vw, 7rem);
+.body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.75rem, 2.5vw, 2.5rem);
+}
+
+.header {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--subtle);
+  font-family: var(--mono-font);
+  font-size: var(--fs-label);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  gap: 0.5rem 1rem;
+}
+
+.title {
+  margin: 1rem 0 0;
+  font-family: var(--display-font);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  word-break: keep-all;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.titleLink:hover,
+.titleLink:focus-visible {
+  color: var(--accent);
+}
+
+.headline {
+  margin: 1.1rem 0 0;
+  color: var(--muted);
+  font-size: var(--fs-body-lg);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.role {
+  margin: 1.1rem 0 0;
+  color: var(--accent);
+  font-family: var(--mono-font);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
 }
 
 .evidenceBlock {
   min-width: 0;
+  padding-top: clamp(1.5rem, 2.5vw, 2rem);
+  border-top: 1px solid var(--line);
 }
 
 .flowLabel {
@@ -350,24 +213,22 @@
 }
 
 .flow {
-  max-width: 60rem;
-  margin: 0.85rem 0 2.4rem;
-  font-size: var(--fs-body-lg);
+  margin: 0.75rem 0 1.85rem;
+  font-size: var(--fs-meta);
   font-weight: 700;
-  line-height: 1.7;
+  line-height: 1.75;
+  word-break: keep-all;
 }
 
 .proofs {
   display: grid;
   margin: 0;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 3vw, 3rem);
+  gap: clamp(0.75rem, 2vw, 1.75rem);
 }
 
 .proofs div {
   min-width: 0;
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--line);
 }
 
 .proofs dt {
@@ -379,18 +240,20 @@
 }
 
 .proofs dd {
-  margin: 0.6rem 0 0;
+  margin: 0.5rem 0 0;
   color: var(--subtle);
-  font-size: var(--fs-meta);
+  font-size: var(--fs-caption);
   line-height: 1.5;
+  word-break: keep-all;
 }
 
+/* 태그가 링크와 폭을 나눠 쓰면 카드마다 줄 수가 달라져, 각자 한 줄씩 씁니다. */
 .cardFooter {
   display: flex;
   min-width: 0;
   align-items: flex-start;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 .cardFooter ul {
@@ -404,12 +267,12 @@
 
 /* 기술 이름을 나열만 하면 배경에 묻혀, 하나씩 셀 수 있는 알약 형태로 보여줍니다. */
 .cardFooter li {
-  padding: 0.4rem 0.85rem;
+  padding: 0.35rem 0.75rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--muted);
   font-family: var(--mono-font);
-  font-size: var(--fs-label);
+  font-size: var(--fs-caption);
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
@@ -420,6 +283,7 @@
   padding-bottom: 0.25rem;
   align-items: center;
   border-bottom: 1px solid var(--ink);
+  font-size: var(--fs-meta);
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -435,150 +299,30 @@
   transform: translate(0.2rem, -0.15rem);
 }
 
+/* 좁은 화면에서는 좌우로 나눌 폭이 없어 이미지를 위로 올립니다. */
 @media (max-width: 68rem) {
-  .header,
-  .content {
+  .card {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    row-gap: clamp(2rem, 4vw, 2.75rem);
   }
 
-  .card[data-project='codebuddy'] .header {
-    grid-template-columns: 1fr;
-  }
-
-  .card[data-project='codebuddy'] .titleBlock,
-  .card[data-project='codebuddy'] .intro {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .intro {
-    max-width: 48rem;
-  }
-
-  .visual,
-  .diagramVisual {
+  .visual {
+    height: auto;
     aspect-ratio: 16 / 9;
-  }
-
-  .visualCollection {
-    aspect-ratio: 16 / 11;
-  }
-
-  .singleVisualCollection {
-    aspect-ratio: 16 / 9;
-    padding: 0;
-  }
-
-  .cardFooter {
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
   }
 }
 
 @media (max-width: 44rem) {
   .card {
-    padding: 4rem 0;
+    padding: 3.5rem 0;
   }
 
-  .meta {
-    flex-wrap: wrap;
-    gap: 0.5rem 0.85rem;
-  }
-
-  .titleBlock h3 {
-    font-size: clamp(3rem, 17vw, 4.8rem);
-  }
-
-  .visual,
-  .diagramVisual {
-    aspect-ratio: 16 / 9;
-  }
-
-  .diagramVisual > img {
-    padding: 2rem 1rem;
-  }
-
-  .visualCollection {
-    aspect-ratio: auto;
-    padding: 3.5rem 1rem 2.75rem;
-  }
-
-  .visualGrid {
-    height: auto;
-    align-items: stretch;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem 0.75rem;
-  }
-
-  .visualGrid figure,
-  .visualGrid .visualPrimary {
-    height: auto;
-    aspect-ratio: 3 / 4.8;
-  }
-
-  .singleVisualCollection .visualGrid {
-    display: block;
-  }
-
-  .singleVisualCollection .visualGrid figure,
-  .singleVisualCollection .visualGrid .visualPrimary {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: auto;
-  }
-
-  .singleVisualCollection .visualGrid img {
-    object-fit: contain;
-    object-position: center;
-  }
-
-  .visualGrid .visualPrimary {
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
-
-  .visualGrid figure:first-child {
-    grid-column: 1;
-  }
-
-  .visualGrid figure:last-child {
-    grid-column: 2;
-  }
-
-  .visualGrid figcaption {
-    bottom: -0.9rem;
-    font-size: var(--fs-caption);
-  }
-
-  /* 가로형 스크린샷은 좁은 화면에서 2열로 두면 판독이 안 돼 전체 폭 1열로 쌓습니다. */
-  .landscapeVisualCollection .visualGrid {
-    grid-template-columns: 1fr;
-    gap: 2.25rem;
-  }
-
-  .landscapeVisualCollection .visualGrid figure,
-  .landscapeVisualCollection .visualGrid .visualPrimary {
-    aspect-ratio: 16 / 9.6;
-    grid-column: 1;
-    grid-row: auto;
+  .visual {
+    aspect-ratio: 4 / 3;
   }
 
   .proofs {
-    gap: 0.75rem;
+    gap: 1rem 0.75rem;
   }
 
-  .proofs dt {
-    font-size: var(--fs-body);
-  }
-
-  .proofs dd {
-    font-size: var(--fs-caption);
-  }
-
-  .cardFooter {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 }

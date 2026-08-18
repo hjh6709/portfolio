@@ -3,10 +3,20 @@ export type HomeProjectProfile = {
   headline: string;
   flow: string;
   visualLabel?: string;
-  /** 가로형(데스크톱) 스크린샷은 세로 여백이 남지 않도록 낮은 카드로 렌더합니다. */
-  visualLayout?: 'portrait' | 'landscape';
+  /**
+   * 카드 왼쪽을 채우는 대표 화면. 흐름이 있는 서비스는 화면 녹화(video)가
+   * 정지 화면보다 전달이 빠릅니다. 없으면 프로젝트 대표 이미지로 대체합니다.
+   */
+  media?: {
+    kind?: 'image' | 'video';
+    src: string;
+    alt: string;
+    /** 영상 로딩 전에 보여줄 정지 화면. */
+    poster?: string;
+    /** 휴대폰 화면처럼 세로로 긴 이미지는 잘리지 않도록 contain으로 둡니다. */
+    fit?: 'cover' | 'contain';
+  };
   proofs: Array<{ value: string; label: string }>;
-  visuals?: Array<{ src: string; alt: string; label: string }>;
 };
 
 export const homeProjectProfiles: Record<string, HomeProjectProfile> = {
@@ -15,28 +25,14 @@ export const homeProjectProfiles: Record<string, HomeProjectProfile> = {
     headline: '브라우저에서 실제 VM을 열고 끝까지 실습하는 플랫폼',
     flow: '로그인 → Lab 선택 → VM 프로비저닝 → WebSocket 터미널 → 단계 검증',
     visualLabel: '실제 서비스 화면',
-    visualLayout: 'landscape',
+    media: {
+      src: 'projects/cledyu/lab-session.png',
+      alt: '단계 설명과 Ubuntu 터미널이 나란히 배치된 Cledyu 실습 화면',
+    },
     proofs: [
       { value: 'VM', label: '학습자별 격리 환경' },
       { value: 'WS', label: '브라우저 콘솔 연결' },
       { value: 'E2E', label: '세션 복귀·만료·검증' },
-    ],
-    visuals: [
-      {
-        src: 'projects/cledyu/labs-catalog.png',
-        alt: '난이도와 진행 상태를 함께 보여주는 Cledyu Labs 카탈로그 화면',
-        label: 'Lab 탐색',
-      },
-      {
-        src: 'projects/cledyu/lab-session.png',
-        alt: '단계 설명과 Ubuntu 터미널이 나란히 배치된 Cledyu 실습 화면',
-        label: '실습 세션',
-      },
-      {
-        src: 'projects/cledyu/provisioning.png',
-        alt: 'Cledyu 전용 VM 생성 단계를 표시하는 프로비저닝 진행 화면',
-        label: 'VM 프로비저닝',
-      },
     ],
   },
   codebuddy: {
@@ -54,17 +50,15 @@ export const homeProjectProfiles: Record<string, HomeProjectProfile> = {
     headline: '여행 전 계획과 현장 이동을 연결한 모바일 여행 서비스',
     flow: 'React PWA → Go API → PostgreSQL → Google Places · Maps',
     visualLabel: '실제 운영 화면',
+    media: {
+      src: 'projects/kagoshima-travel/live/map-current.png',
+      alt: '여행 도우미 앱에서 저장 장소와 현재 위치를 확인하는 실제 지도 화면',
+      fit: 'contain',
+    },
     proofs: [
       { value: '666', label: '단독 커밋' },
       { value: 'LIVE', label: '실제 여행에서 사용 중' },
       { value: '11', label: 'PostgreSQL 테이블' },
-    ],
-    visuals: [
-      {
-        src: 'projects/kagoshima-travel/live/map-current.png',
-        alt: '여행 도우미 앱에서 저장 장소와 현재 위치를 확인하는 실제 지도 화면',
-        label: '상하이 여행 실사용 화면',
-      },
     ],
   },
 };
