@@ -1,0 +1,44 @@
+/* 근거 링크는 눌러볼 대상이라는 게 드러나도록 알약 버튼으로 만듭니다. */
+.evidenceLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.05rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: var(--mono-font);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  gap: 0.55rem;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.evidenceLink:hover,
+.evidenceLink:focus-visible {
+  border-color: var(--ink);
+  background: var(--paper-raised);
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  font-size: 1.15em;
+}
+
+.arrow {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  color: var(--subtle);
+  font-size: 0.8em;
+  transition: transform 180ms ease;
+}
+
+.evidenceLink:hover .arrow,
+.evidenceLink:focus-visible .arrow {
+  color: var(--accent);
+  transform: translate(0.15rem, -0.15rem);
+}

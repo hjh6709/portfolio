@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 import type { Project } from '@/data/projects';
 
+import { EvidenceLink } from './evidence-link';
+
 import styles from './other-project-card.module.css';
 
 type OtherProjectCardProps = {
@@ -42,9 +44,7 @@ export function OtherProjectCard({ project, index }: OtherProjectCardProps) {
             Case study <span aria-hidden="true">→</span>
           </Link>
           {project.evidence.slice(0, 2).map((evidence) => (
-            <a key={evidence.href} href={evidence.href} target="_blank" rel="noreferrer">
-              {evidence.label} <span aria-hidden="true">↗</span>
-            </a>
+            <EvidenceLink key={evidence.href} href={evidence.href} label={evidence.label} />
           ))}
         </div>
       </div>

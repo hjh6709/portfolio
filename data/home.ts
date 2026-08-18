@@ -55,9 +55,9 @@ export const homeProjectProfiles: Record<string, HomeProjectProfile> = {
     flow: 'React PWA → Go API → PostgreSQL → Google Places · Maps',
     visualLabel: '실제 운영 화면',
     proofs: [
-      { value: 'LIVE', label: '실제 운영 서비스' },
-      { value: 'PWA', label: '모바일 설치·현장 접근' },
-      { value: 'HTTPS', label: 'Vercel · OCI · Caddy' },
+      { value: '666', label: '단독 커밋' },
+      { value: 'LIVE', label: '실제 여행에서 사용 중' },
+      { value: '11', label: 'PostgreSQL 테이블' },
     ],
     visuals: [
       {

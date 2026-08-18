@@ -74,21 +74,7 @@
   margin-top: 2rem;
 }
 
-.heroLinks a {
-  border-bottom: 1px solid var(--line-strong);
-  color: var(--muted);
-  font-family: var(--mono-font);
-  font-size: var(--fs-meta);
-  letter-spacing: 0.06em;
-  padding: 0.55rem 0;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.heroLinks a:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
+/* 근거 링크 모양은 EvidenceLink 컴포넌트가 담당합니다. */
 
 .metadata {
   border-top: 1px solid var(--line);
