@@ -24,7 +24,7 @@ export const capabilities: Capability[] = [
   {
     title: 'Backend',
     description: '서비스의 핵심 규칙과 데이터 흐름을 API로 구현하고 실패 경로까지 검증합니다.',
-    skills: ['Go', 'Python', 'REST API', 'PostgreSQL', 'WebSocket', 'Authentication'],
+    skills: ['Go', 'Python', 'REST API', 'PostgreSQL', 'MySQL', 'WebSocket', 'Authentication'],
   },
   {
     title: 'Service Experience',
@@ -52,6 +52,6 @@ export const education: TimelineItem[] = [
     title: '클라우드 인프라 부트캠프',
     organization: 'KT Cloud',
     description:
-      'Linux와 네트워크 기초부터 Docker, Kubernetes, AWS, Terraform, CI/CD, OpenStack까지 실습하며 클라우드 서비스의 구축과 운영 흐름을 익혔습니다.',
+      '리눅스 서버 운영과 네트워크·보안 기초, MySQL 기반 데이터베이스 설계, Docker와 Kubernetes, Terraform·Ansible, AWS, Prometheus·Grafana 모니터링, OpenStack, AWS Bedrock 기반 AI 개발까지 실습하며 클라우드 서비스의 구축과 운영 흐름을 익혔습니다.',
   },
 ];

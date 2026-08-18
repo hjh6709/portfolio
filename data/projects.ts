@@ -365,9 +365,9 @@ export const projects: Project[] = [
     title: 'CodeBuddy',
     summary:
       'GitHub Webhook을 안전하게 검증하고 PR 변경 분석을 비동기로 처리해 GitHub 리뷰와 Slack으로 전달하는 서버리스 파이프라인입니다.',
-    status: '개인 프로젝트 · 구현 완료',
+    status: '교육과정 통합 프로젝트 · 구현 완료',
     role: 'Backend · Cloud · Serverless',
-    team: '개인 프로젝트',
+    team: 'KT 클라우드 부트캠프 · 개인 수행',
     period: '2026',
     featured: true,
     technologies: ['Python', 'AWS Lambda', 'API Gateway', 'Amazon Bedrock', 'CloudFormation', 'GitHub API'],
@@ -401,7 +401,7 @@ export const projects: Project[] = [
       height: 650,
     },
     challenge:
-      'AI가 리뷰를 생성하는 것보다 GitHub Webhook을 안전하게 받고, 긴 변경 내용을 보존하며, 지연과 실패가 있어도 결과를 전달하는 전체 파이프라인이 중요했습니다.',
+      '부트캠프 통합 프로젝트로 시작했지만, 과제 요건을 채우는 것과 실제로 믿을 수 있는 리뷰를 내보내는 것은 다른 문제였습니다. AI가 리뷰를 생성하는 것보다 GitHub Webhook을 안전하게 받고, 긴 변경 내용을 보존하며, 지연과 실패가 있어도 결과를 전달하는 전체 파이프라인이 중요했습니다.',
     responsibilities: [
       'GitHub Webhook 수신부터 비동기 Lambda Worker와 Bedrock Agent 호출까지 설계했습니다.',
       'HMAC 검증, Secrets Manager, 최소 권한 IAM으로 외부 요청과 비밀값 경계를 구성했습니다.',
@@ -445,7 +445,7 @@ export const projects: Project[] = [
     ],
     troubleshooting: [
       {
-        problem: '약 10,000자의 OpenAPI patch 후반부가 분석 입력에서 누락됐습니다.',
+        problem: '약 10,000자의 OpenAPI patch 후반부가 분석 입력에서 누락돼, 존재하지 않는 코드를 지적하는 리뷰가 나갔습니다. 겉보기에는 정상적인 보고라 과제 요건상으로는 문제가 드러나지 않았습니다.',
         cause: '모든 파일에 동일한 4,000자 제한을 먼저 적용했습니다.',
         solution: 'PR 전체에 30,000자 예산을 두고 예산을 넘을 때만 파일별 제한을 적용했습니다.',
         result: '실제 9,996자 patch가 끝까지 보존되는 회귀 테스트를 추가했습니다.',
