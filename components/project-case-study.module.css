@@ -180,8 +180,7 @@
   margin-bottom: clamp(2.5rem, 4vw, 4rem);
 }
 
-.sectionIntro h2,
-.evidence h2 {
+.sectionIntro h2 {
   font-family: var(--display-font);
   font-size: var(--fs-display-sm);
   font-weight: 700;
@@ -562,30 +561,6 @@
   line-height: 1.7;
   max-width: 56rem;
   text-wrap: pretty;
-}
-
-.architectureEvidence {
-  margin: 0;
-}
-
-.architectureCanvas {
-  background: #111315;
-  border: 1px solid var(--line);
-  overflow: hidden;
-}
-
-.architectureCanvas img {
-  display: block;
-  height: auto;
-  width: 100%;
-}
-
-.architectureEvidence figcaption {
-  border-bottom: 1px solid var(--line);
-  color: var(--muted);
-  font-size: var(--fs-meta);
-  line-height: 1.6;
-  padding: 1rem 0;
 }
 
 .technologyGrid {
