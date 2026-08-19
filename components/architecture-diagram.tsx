@@ -101,15 +101,15 @@ const cledyuPreset: DiagramPreset = {
     's3:dr': 'M 978 480 H 948',
   },
   labels: {
-    'api:vm': { x: 963, y: 106 },
+    'api:vm': { x: 963, y: 92 },
     'web:keycloak': { x: 628, y: 228 },
     'api:ai': { x: 660, y: 398 },
     'api:kafka': { x: 916, y: 244 },
     'api:overflow': { x: 760, y: 418 },
     'vm:validation': { x: 1060, y: 236 },
     'validation:api': { x: 979, y: 70 },
-    'overflow:dr': { x: 801, y: 466 },
-    's3:dr': { x: 963, y: 466 },
+    'overflow:dr': { x: 801, y: 452 },
+    's3:dr': { x: 963, y: 452 },
   },
   hiddenLabels: [
     'learner:edge',
@@ -364,7 +364,9 @@ export function ArchitectureDiagram({ project, title, zones, nodes, edges }: Arc
               const routeKey = `${edge.from}:${edge.to}`;
               const labelPosition = preset.labels?.[routeKey];
               const labelX = labelPosition?.x ?? from.x + (to.x - from.x) / 2;
-              const labelY = labelPosition?.y ?? from.y + (to.y - from.y) / 2 - 8;
+              // 노드 상자는 연결점보다 21px 위에서 시작합니다. 라벨을 그보다 더
+              // 띄워야 이웃 노드의 이름을 덮지 않습니다.
+              const labelY = labelPosition?.y ?? from.y + (to.y - from.y) / 2 - 28;
               const showLabel = !preset.hiddenLabels?.includes(routeKey)
                 && (Boolean(labelPosition) || Math.abs(from.x - to.x) > 130 || Math.abs(from.y - to.y) > 90);
               return (
