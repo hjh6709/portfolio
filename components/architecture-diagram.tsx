@@ -57,55 +57,59 @@ const legendLabels: Record<ArchitectureEdge['kind'], string> = {
   recovery: '복구',
 };
 
+/*
+ * 노드를 같은 간격의 격자에 올리고, 열 사이에 30px 통로를 남깁니다. 세로선이
+ * 그 통로로만 지나가면 박스를 뚫고 가는 선이 생기지 않습니다.
+ */
 const cledyuPreset: DiagramPreset = {
   width: 1120,
-  height: 690,
+  height: 640,
   boundaries: [],
   positions: {
-    learner: { x: 68, y: 160 },
-    edge: { x: 216, y: 160 },
-    tunnel: { x: 368, y: 160 },
-    traefik: { x: 520, y: 160 },
-    web: { x: 672, y: 160 },
-    api: { x: 824, y: 160 },
-    vm: { x: 1052, y: 160 },
-    keycloak: { x: 672, y: 340 },
-    db: { x: 800, y: 340 },
-    kafka: { x: 932, y: 340 },
-    validation: { x: 1052, y: 340 },
-    ai: { x: 672, y: 520 },
-    overflow: { x: 792, y: 550 },
-    dr: { x: 960, y: 550 },
-    s3: { x: 1052, y: 630 },
+    learner: { x: 76, y: 120 },
+    edge: { x: 237, y: 120 },
+    tunnel: { x: 398, y: 120 },
+    traefik: { x: 560, y: 120 },
+    web: { x: 721, y: 120 },
+    api: { x: 882, y: 120 },
+    vm: { x: 1044, y: 120 },
+    keycloak: { x: 560, y: 300 },
+    db: { x: 721, y: 300 },
+    kafka: { x: 882, y: 300 },
+    validation: { x: 1044, y: 300 },
+    ai: { x: 560, y: 480 },
+    overflow: { x: 721, y: 480 },
+    dr: { x: 882, y: 480 },
+    s3: { x: 1044, y: 480 },
   },
   routes: {
-    'learner:edge': 'M 96 160 H 188',
-    'edge:tunnel': 'M 244 160 H 340',
-    'tunnel:traefik': 'M 396 160 H 492',
-    'traefik:web': 'M 548 160 H 644',
-    'web:api': 'M 700 160 H 796',
-    'api:vm': 'M 852 160 H 1024',
-    'web:keycloak': 'M 700 160 H 720 V 340 H 700',
-    'api:ai': 'M 796 160 H 744 V 520 H 700',
-    'api:db': 'M 796 160 H 766 V 340 H 772',
-    'api:kafka': 'M 852 160 H 882 V 340 H 904',
-    'kafka:validation': 'M 960 340 H 1024',
-    'vm:validation': 'M 1080 160 H 1098 V 340 H 1080',
-    'validation:api': 'M 1080 340 H 1108 V 96 H 824 V 132',
-    'api:overflow': 'M 852 160 H 882 V 550 H 820',
-    'overflow:dr': 'M 820 550 H 932',
-    's3:dr': 'M 1024 630 H 1008 V 550 H 988',
+    'learner:edge': 'M 142 120 H 171',
+    'edge:tunnel': 'M 303 120 H 332',
+    'tunnel:traefik': 'M 464 120 H 494',
+    'traefik:web': 'M 626 120 H 655',
+    'web:api': 'M 787 120 H 816',
+    'api:vm': 'M 948 120 H 978',
+    'web:keycloak': 'M 700 186 V 240 H 560 V 279',
+    'api:ai': 'M 838 202 V 230 H 640 V 410 H 560 V 459',
+    'api:db': 'M 860 202 V 250 H 721 V 279',
+    'api:kafka': 'M 900 202 V 279',
+    'api:overflow': 'M 920 202 V 268 H 802 V 430 H 721 V 459',
+    'kafka:validation': 'M 948 300 H 978',
+    'vm:validation': 'M 1044 186 V 279',
+    'validation:api': 'M 1044 366 V 400 H 963 V 78 H 882 V 99',
+    'overflow:dr': 'M 787 480 H 816',
+    's3:dr': 'M 978 480 H 948',
   },
   labels: {
-    'api:vm': { x: 938, y: 146 },
-    'web:keycloak': { x: 742, y: 250 },
-    'api:ai': { x: 732, y: 506 },
-    'api:kafka': { x: 892, y: 250 },
-    'vm:validation': { x: 1088, y: 250 },
-    'validation:api': { x: 968, y: 84 },
-    'api:overflow': { x: 854, y: 500 },
-    'overflow:dr': { x: 876, y: 536 },
-    's3:dr': { x: 1050, y: 606 },
+    'api:vm': { x: 963, y: 106 },
+    'web:keycloak': { x: 628, y: 228 },
+    'api:ai': { x: 660, y: 398 },
+    'api:kafka': { x: 916, y: 244 },
+    'api:overflow': { x: 760, y: 418 },
+    'vm:validation': { x: 1060, y: 236 },
+    'validation:api': { x: 979, y: 70 },
+    'overflow:dr': { x: 801, y: 466 },
+    's3:dr': { x: 963, y: 466 },
   },
   hiddenLabels: [
     'learner:edge',
@@ -214,6 +218,66 @@ function buildFallbackPreset(zones: ArchitectureZone[], nodes: ArchitectureNode[
   return { boundaries, positions };
 }
 
+/*
+ * 경로가 직각으로 꺾이면 모서리가 날카로워 선이 거칠게 보입니다. 꺾이는 지점마다
+ * 짧은 곡선을 넣어 잇습니다. M, H, V로만 이루어진 경로에만 적용하고 그 밖의
+ * 형태는 원본을 그대로 돌려줍니다.
+ */
+function roundPath(d: string, radius = 14) {
+  const tokens = d.trim().split(/\s+/);
+  const points: Point[] = [];
+  let x = 0;
+  let y = 0;
+
+  for (let index = 0; index < tokens.length; index += 1) {
+    const command = tokens[index];
+    if (command === 'M') {
+      x = Number(tokens[index + 1]);
+      y = Number(tokens[index + 2]);
+      index += 2;
+    } else if (command === 'H') {
+      x = Number(tokens[index + 1]);
+      index += 1;
+    } else if (command === 'V') {
+      y = Number(tokens[index + 1]);
+      index += 1;
+    } else {
+      return d;
+    }
+    if (Number.isNaN(x) || Number.isNaN(y)) return d;
+    points.push({ x, y });
+  }
+
+  if (points.length < 3) return d;
+
+  const round = (value: number) => Math.round(value * 10) / 10;
+  let path = `M ${round(points[0].x)} ${round(points[0].y)}`;
+
+  for (let index = 1; index < points.length - 1; index += 1) {
+    const previous = points[index - 1];
+    const corner = points[index];
+    const next = points[index + 1];
+    const inLength = Math.hypot(corner.x - previous.x, corner.y - previous.y);
+    const outLength = Math.hypot(next.x - corner.x, next.y - corner.y);
+    if (inLength === 0 || outLength === 0) continue;
+
+    // 짧은 구간에서는 곡선이 구간보다 커지지 않도록 반지름을 줄입니다.
+    const r = Math.min(radius, inLength / 2, outLength / 2);
+    const enter = {
+      x: corner.x + ((previous.x - corner.x) / inLength) * r,
+      y: corner.y + ((previous.y - corner.y) / inLength) * r,
+    };
+    const exit = {
+      x: corner.x + ((next.x - corner.x) / outLength) * r,
+      y: corner.y + ((next.y - corner.y) / outLength) * r,
+    };
+    path += ` L ${round(enter.x)} ${round(enter.y)} Q ${round(corner.x)} ${round(corner.y)} ${round(exit.x)} ${round(exit.y)}`;
+  }
+
+  const last = points[points.length - 1];
+  return `${path} L ${round(last.x)} ${round(last.y)}`;
+}
+
 function edgePath(from: Point, to: Point) {
   const deltaX = Math.abs(to.x - from.x);
   const deltaY = Math.abs(to.y - from.y);
@@ -305,7 +369,7 @@ export function ArchitectureDiagram({ project, title, zones, nodes, edges }: Arc
                 && (Boolean(labelPosition) || Math.abs(from.x - to.x) > 130 || Math.abs(from.y - to.y) > 90);
               return (
                 <g className={styles.connection} data-kind={edge.kind} key={`${edge.from}-${edge.to}-${edge.label}`}>
-                  <path d={preset.routes?.[routeKey] ?? edgePath(from, to)} markerEnd={`url(#${markerId}-${edge.kind})`} />
+                  <path d={roundPath(preset.routes?.[routeKey] ?? edgePath(from, to))} markerEnd={`url(#${markerId}-${edge.kind})`} />
                   {showLabel ? <text x={labelX} y={labelY} textAnchor="middle">{edge.label}</text> : null}
                 </g>
               );
