@@ -185,11 +185,39 @@ const prCheckPreset: DiagramPreset = {
   },
 };
 
+const waitOnPreset: DiagramPreset = {
+  boundaries: [
+    { id: 'client', label: '보호자 화면', caption: 'Next.js 16 · React 19', x: 40, y: 150, width: 200, height: 380, tone: 'external' },
+    { id: 'application', label: '보호자 여정 API', caption: 'NestJS 11 · 공유 Zod 계약', x: 280, y: 60, width: 380, height: 560, tone: 'cluster' },
+    { id: 'external', label: '공식 소스', caption: '삼성서울병원 공개 층별 안내도', x: 760, y: 150, width: 220, height: 380, tone: 'external' },
+  ],
+  positions: {
+    web: { x: 140, y: 340 },
+    api: { x: 470, y: 340 },
+    journeyRepo: { x: 470, y: 150 },
+    restrictionService: { x: 470, y: 530 },
+    hospitalMap: { x: 870, y: 340 },
+  },
+  routes: {
+    'web:api': 'M 189 340 H 421',
+    'api:journeyRepo': 'M 470 304 V 186',
+    'api:restrictionService': 'M 470 376 V 494',
+    'api:hospitalMap': 'M 519 340 H 821',
+  },
+  labels: {
+    'web:api': { x: 355, y: 326 },
+    'api:journeyRepo': { x: 552, y: 245 },
+    'api:restrictionService': { x: 570, y: 435 },
+    'api:hospitalMap': { x: 695, y: 326 },
+  },
+};
+
 const presets: Record<string, DiagramPreset> = {
   cledyu: cledyuPreset,
   codebuddy: codebuddyPreset,
   'kagoshima-travel': kagoshimaPreset,
   'pr-check-doctor': prCheckPreset,
+  'wait-on': waitOnPreset,
 };
 
 function buildFallbackPreset(zones: ArchitectureZone[], nodes: ArchitectureNode[]): DiagramPreset {

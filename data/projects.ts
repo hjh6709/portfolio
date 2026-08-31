@@ -1160,7 +1160,7 @@ export const projects: Project[] = [
           label: '보호자 여정 API',
           caption: 'NestJS 11 · 공유 Zod 계약',
           kind: 'application',
-          nodeIds: ['api', 'contracts', 'journeyRepo', 'restrictionService'],
+          nodeIds: ['api', 'journeyRepo', 'restrictionService'],
         },
         {
           id: 'external',
@@ -1172,15 +1172,13 @@ export const projects: Project[] = [
       ],
       nodes: [
         { id: 'web', label: 'Web', caption: '보호자 모바일 UI', icon: 'nextjs', ownership: 'mine' },
-        { id: 'api', label: 'API', caption: 'NestJS REST endpoint', icon: 'server', ownership: 'mine' },
-        { id: 'contracts', label: 'Contracts', caption: '요청·응답 Zod 스키마', icon: 'validation', ownership: 'mine' },
+        { id: 'api', label: 'API', caption: 'NestJS · REST + Zod 검증', icon: 'server', ownership: 'mine' },
         { id: 'journeyRepo', label: 'Journey Repository', caption: '가상 보호자 여정 상태', icon: 'database', ownership: 'mine' },
         { id: 'restrictionService', label: 'Restriction Guidance', caption: '검사 제한 단계·질문 관리', icon: 'shield', ownership: 'mine' },
         { id: 'hospitalMap', label: '공식 층별 안내도', caption: '삼성서울병원 공개자료', icon: 'link', ownership: 'external' },
       ],
       edges: [
         { from: 'web', to: 'api', label: 'REST + Zod 검증', kind: 'request' },
-        { from: 'api', to: 'contracts', label: '계약 검증', kind: 'data' },
         { from: 'api', to: 'journeyRepo', label: '여정 조회·갱신', kind: 'data' },
         { from: 'api', to: 'restrictionService', label: '제한 단계·질문', kind: 'data' },
         { from: 'api', to: 'hospitalMap', label: '공식 지도 이미지·좌표 대조', kind: 'data' },
