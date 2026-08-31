@@ -41,8 +41,13 @@
   transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 도식은 자체 배경이 밝아, 검은 칸에 두면 그림이 허공에 뜬 것처럼 보입니다. */
-.diagramVisual {
+/*
+ * 도식이나 휴대폰 스크린샷은 잘리면 내용을 잃어 안쪽에 맞춰 넣는데, 그러면
+ * 이미지가 칸을 다 채우지 못하고 남는 여백이 생깁니다. 사이트 배경을 흰색으로
+ * 바꾼 뒤 이 칸만 어두운 배경(#151515)으로 남아 있으면 사진 주위에 이상한
+ * 검은 테두리가 생긴 것처럼 보여, 밝은 배경으로 맞춥니다.
+ */
+.containedVisual {
   background: var(--paper-raised);
 }
 
@@ -50,7 +55,6 @@
   padding: clamp(1rem, 2vw, 2rem);
 }
 
-/* 휴대폰 화면이나 도식은 잘리면 내용을 잃어, 안쪽에 맞춰 넣습니다. */
 .containedVisual > img,
 .containedVisual > video {
   object-fit: contain;

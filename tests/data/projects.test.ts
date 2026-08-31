@@ -18,6 +18,7 @@ describe('project content', () => {
     expect(getOtherProjects().map((project) => project.slug)).toEqual([
       'pr-check-doctor',
       'us-market-intelligence-pipeline',
+      'wait-on',
     ]);
   });
 

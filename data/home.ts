@@ -91,4 +91,9 @@ export const provenCapabilities = [
     project: 'PR Check Doctor',
     description: '실패 로그를 수집·마스킹·분류해 안정적인 PR 코멘트로 갱신하는 Action을 배포했습니다.',
   },
+  {
+    title: 'AI 제품 구현',
+    project: 'Wait:ON',
+    description: '현장 인터뷰 23명으로 찾은 문제를 4일 안에 Next.js·NestJS 프로토타입으로 구현하고, AI 생성 이미지에는 항상 안전 경계 문구를 함께 표시했습니다.',
+  },
 ] as const;

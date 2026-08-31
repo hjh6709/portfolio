@@ -1028,4 +1028,167 @@ export const projects: Project[] = [
       { label: 'GitHub repository', href: 'https://github.com/hjh6709/us-market-intelligence-pipeline' },
     ],
   },
+  {
+    slug: 'wait-on',
+    title: 'Wait:ON',
+    summary:
+      '병원 밖에서 대기하는 보호자에게 병원이 확인한 치료 단계와 지금 할 일, 공식 지도 기반 이동 경로를 하나의 여정으로 이어 보여주는 Medical AX 서비스 프로토타입입니다.',
+    status: 'AI 해커톤 · 4일 프로토타입',
+    role: 'Product · Full-stack — 제품 정의부터 Next.js·NestJS 구현, 배포까지 단독 담당',
+    team: '기획·인터뷰 23명 팀 · 구현 단독',
+    period: '2026',
+    featured: false,
+    technologies: ['Next.js', 'React', 'NestJS', 'TypeScript', 'Zod', 'Vercel'],
+    technologyRoles: [
+      {
+        name: 'Next.js · React',
+        icon: 'nextjs',
+        role: '보호자용 모바일 화면을 만들고, API 응답을 공유 Zod 스키마로 검증해 화면에 반영했습니다.',
+      },
+      {
+        name: 'NestJS',
+        icon: 'server',
+        role: '보호자 여정 조회·연결·업무 완료, 검사 제한 안내, 공식 시설 카탈로그 API를 설계했습니다.',
+      },
+      {
+        name: 'Zod',
+        icon: 'validation',
+        role: 'Web과 API가 공유하는 요청·응답 계약을 정의해, 없는 정보는 임의로 만들지 않고 빈 상태로 표시하게 했습니다.',
+      },
+      {
+        name: 'AI 이미지 생성',
+        icon: 'ai',
+        role: '치료 진행 과정을 일반적인 장면으로 시각화하되, "현재 환자의 실시간 영상이 아닙니다"를 항상 함께 표시했습니다.',
+      },
+    ],
+    heroImage: {
+      src: 'projects/wait-on/live/05-route.png',
+      alt: '삼성서울병원 공식 층별 안내도 위에 현재 위치와 엘리베이터까지의 검증된 경로를 표시한 Wait:ON 길찾기 화면',
+      caption: '출발지·복도·승강기·도착지가 모두 대조된 구간만 공식 경로로 표시',
+      width: 780,
+      height: 1688,
+    },
+    challenge:
+      '현장 인터뷰에서 만난 보호자 23명은 치료 자체보다 "기다리는 동안"을 더 힘들어했습니다. 치료가 어느 단계인지 알기 어렵고, 서류 발급과 수납을 어디서 처리하는지는 오래 다닌 사람만 알았고, 본관·별관·암병원을 오가는 이동은 평면 지도만으로 이해하기 어려웠습니다. 4일 안에 이 문제를 실제로 동작하는 화면으로 증명해야 했습니다.',
+    responsibilities: [
+      '환자·보호자·병원 직원 23명 인터뷰로 발견한 문제를, "확인된 사실만 먼저 보여준다", "지금 할 일 하나를 우선한다" 같은 제품 원칙으로 정리하고 Next.js·NestJS·Zod 모노레포 구조를 설계했습니다.',
+      '치료가 진단·EMR 없이도 이해되도록, 일반적인 수술 과정을 AI로 재구성한 이미지·영상으로 보여주는 화면을 만들었습니다. "AI가 진단을 생성하지 않는다"는 안전 경계를 지키기 위해 실시간 환자 영상이 아니라는 문구를 항상 함께 표시했습니다.',
+      '환자 일정과 검사·수술 장소를 월간 달력으로 묶어 멀리 있는 보호자도 날짜별로 확인하게 하고, 삼성서울병원 공식 층별 안내도에서 출발지·복도·승강기·도착지 좌표를 모두 대조한 구간만 경로로 표시했습니다.',
+    ],
+    featureStories: [
+      {
+        src: 'projects/wait-on/live/01-home.png',
+        alt: '오늘 병원 일도 차근차근 도와드릴게요 문구와 병원 확인 상태, 목적 검색창이 있는 Wait:ON 홈 화면',
+        caption: '지금 상태와 지금 할 일 하나를 우선 보여주는 홈',
+        width: 780,
+        height: 1688,
+        title: '메뉴보다 지금 할 일 하나',
+        description: '병원이 확인한 치료 단계와 보호자가 지금 처리할 업무를 한 화면 위쪽에 두어, 전체 메뉴를 뒤지지 않아도 다음 행동을 알 수 있게 했습니다.',
+      },
+      {
+        src: 'projects/wait-on/live/02-progress.png',
+        alt: 'AI로 재구성한 일반 과정 배지와 함께 수술 준비 장면을 보여주고 실시간 영상이 아니라는 안내가 있는 화면',
+        caption: 'AI 이미지로 대기 시간의 불안을 줄이되 안전 경계는 항상 표시',
+        width: 780,
+        height: 1688,
+        title: '보이지 않는 시간을 보여주기',
+        description: '치료 중인 환자를 볼 수 없는 보호자를 위해 일반적인 수술 과정을 AI 이미지로 재구성했습니다. "현재 환자의 실시간 영상이 아닙니다"를 화면에 고정해 오해를 막았습니다.',
+      },
+      {
+        src: 'projects/wait-on/live/03-schedule.png',
+        alt: '김정우 환자의 7월 30일 입원 수속과 위암 수술 일정을 시간순으로 보여주는 환자 일정 화면',
+        caption: '멀리 있는 보호자도 날짜별로 확인하는 환자 일정',
+        width: 780,
+        height: 1688,
+        title: '문자로 흩어진 일정을 한 곳에',
+        description: '입원, 수술 같은 병원 일정을 날짜별 캘린더로 묶어, 문자와 예약 안내를 다시 찾지 않아도 보호자가 환자 일정을 확인할 수 있게 했습니다.',
+      },
+      {
+        src: 'projects/wait-on/live/04-guide.png',
+        alt: '무엇을 하러 가시나요 라는 질문과 서류 발급, 전체 건물·층별 안내 목적 카드가 있는 이용 안내 화면',
+        caption: '건물 탐색이 아니라 목적에서 시작하는 길찾기',
+        width: 780,
+        height: 1688,
+        title: '목적부터 묻고 경로로 이어주기',
+        description: '"서류 발급" 같은 이용 목적을 먼저 고르면 처리 장소와 준비물, 공식 경로로 바로 연결되도록 해, 건물 구조를 몰라도 길을 찾을 수 있게 했습니다.',
+      },
+    ],
+    outcomes: [
+      '4일 안에 위암 수술·건강검진 두 여정을 끝까지 시연 가능한 프로토타입으로 구현해 발표했고, 23명 규모 팀에서 동상을 받았습니다.',
+      '실제 환자 정보나 EMR·OCS 연결 없이, 가상 시나리오와 병원 공식 공개자료만으로 전체 흐름이 동작하도록 안전 경계를 지켰습니다.',
+      '좌표를 대조하지 못한 구간에는 임의의 경로선을 그리지 않도록 해, 잘못된 길찾기로 보호자를 헤매게 할 위험을 없앴습니다.',
+    ],
+    learnings: [
+      '빠르게 만드는 것과 의료 서비스가 지켜야 할 안전 경계(실시간 영상 아님, 진단 아님, 검증된 경로만 표시)는 서로 반대가 아니라, 경계를 먼저 정해야 오히려 빠르게 만들 수 있었습니다.',
+    ],
+    problem:
+      '보호자는 치료 자체뿐 아니라, 지금 어느 단계인지 모르는 채로 기다리는 시간과 서류·수납·이동을 어디서 처리하는지 그때그때 물어야 하는 상황을 함께 겪고 있었습니다.',
+    contribution: [
+      '23명 인터뷰로 찾은 문제를 제품 원칙으로 정리하고 Next.js·NestJS·Zod 모노레포 구조를 설계했습니다.',
+      '치료 과정을 AI 이미지로 시각화하면서 실시간 영상이 아니라는 경계를 항상 함께 표시하는 화면을 구현했습니다.',
+      '환자 일정 캘린더와, 좌표를 대조한 구간만 표시하는 공식 지도 기반 길찾기를 구현했습니다.',
+    ],
+    decisions: [
+      {
+        title: 'AI 생성 이미지에는 항상 경계 문구를 고정',
+        body: '치료 과정을 AI 이미지·영상으로 보여주되 "AI로 재구성한 일반 과정", "현재 환자의 실시간 영상이 아닙니다"를 화면에서 지울 수 없게 고정해, 보호자가 이를 실제 환자 상황으로 오해하지 않게 했습니다.',
+      },
+      {
+        title: '검증되지 않은 구간은 경로선을 그리지 않음',
+        body: '공식 층별 안내도에서 출발지·복도·동일 승강기·도착지를 모두 대조한 구간(OFFICIAL_PUBLIC)만 경로로 렌더링하고, 나머지 목적지는 경로선 없이 원문과 안내 데스크 정보만 제공합니다.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: '서류 발급 안내가 화면마다 다른 장소(1층 서류창구, 2층 원무수납)를 가리켰습니다.',
+        cause: '목적 카드와 길찾기 화면이 각자 다른 시점의 안내 문구를 참조하고 있었습니다.',
+        solution: '서류 발급 안내를 암병원 2층 원무수납 한 곳으로 단일화하고, 목적 카드에서 바로 해당 경로로 연결했습니다.',
+        result: '보호자가 서류 발급을 위해 서로 다른 층을 오가지 않도록 안내가 일치하게 되었습니다.',
+      },
+    ],
+    architecture: {
+      zones: [
+        {
+          id: 'client',
+          label: '보호자 화면',
+          caption: 'Next.js 16 · React 19',
+          kind: 'client',
+          nodeIds: ['web'],
+        },
+        {
+          id: 'application',
+          label: '보호자 여정 API',
+          caption: 'NestJS 11 · 공유 Zod 계약',
+          kind: 'application',
+          nodeIds: ['api', 'contracts', 'journeyRepo', 'restrictionService'],
+        },
+        {
+          id: 'external',
+          label: '공식 소스',
+          caption: '삼성서울병원 공개 층별 안내도',
+          kind: 'external',
+          nodeIds: ['hospitalMap'],
+        },
+      ],
+      nodes: [
+        { id: 'web', label: 'Web', caption: '보호자 모바일 UI', icon: 'nextjs', ownership: 'mine' },
+        { id: 'api', label: 'API', caption: 'NestJS REST endpoint', icon: 'server', ownership: 'mine' },
+        { id: 'contracts', label: 'Contracts', caption: '요청·응답 Zod 스키마', icon: 'validation', ownership: 'mine' },
+        { id: 'journeyRepo', label: 'Journey Repository', caption: '가상 보호자 여정 상태', icon: 'database', ownership: 'mine' },
+        { id: 'restrictionService', label: 'Restriction Guidance', caption: '검사 제한 단계·질문 관리', icon: 'shield', ownership: 'mine' },
+        { id: 'hospitalMap', label: '공식 층별 안내도', caption: '삼성서울병원 공개자료', icon: 'link', ownership: 'external' },
+      ],
+      edges: [
+        { from: 'web', to: 'api', label: 'REST + Zod 검증', kind: 'request' },
+        { from: 'api', to: 'contracts', label: '계약 검증', kind: 'data' },
+        { from: 'api', to: 'journeyRepo', label: '여정 조회·갱신', kind: 'data' },
+        { from: 'api', to: 'restrictionService', label: '제한 단계·질문', kind: 'data' },
+        { from: 'api', to: 'hospitalMap', label: '공식 지도 이미지·좌표 대조', kind: 'data' },
+      ],
+    },
+    gallery: [],
+    evidence: [
+      { label: 'GitHub repository', href: 'https://github.com/medical-ax-design/mission-hospital' },
+    ],
+  },
 ];
