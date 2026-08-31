@@ -151,9 +151,9 @@ export const projects: Project[] = [
     challenge:
       '가상머신을 만드는 것만으로는 실습 서비스가 완성되지 않습니다. 로그인부터 Lab 선택, 세션 생성, 터미널 연결, 단계 검증과 재접속까지 끊기지 않는 경험으로 연결해야 했습니다.',
     responsibilities: [
-      '랜딩부터 로그인, Lab 탐색, 프로비저닝, 실습, 내 학습까지 웹 사용자 흐름을 구현했습니다.',
-      'Next.js 화면과 Go Session API, WebSocket 터미널 사이의 상태 계약을 연결했습니다.',
-      'KubeVirt 콘솔 연결 RBAC와 세션 복귀·만료·실패 동선을 점검하고 개선했습니다.',
+      'API 서버가 재시작되면 메모리에 있던 세션 진행 상태가 사라져 재접속한 사용자의 요청이 전부 실패하는 문제가 있었습니다. 진행 상태 저장소에서 세션을 찾지 못하면 VM 프로바이더 쪽 실제 상태를 다시 조회해 최소한의 진행 상태를 복구하는 API를 설계했고, 그 결과 서버가 재시작돼도 사용자가 이어서 실습할 수 있게 됐습니다.',
+      'API가 쿠버네티스 위 VM 콘솔에 접근할 권한이 빠져 403 오류가 발생하는 문제가 있었습니다. 로그와 요청 흐름을 추적해 원인을 좁히고, 필요한 조회 권한만 담은 ClusterRole을 만든 뒤 실습 Namespace가 새로 생길 때마다 그 권한이 자동으로 연결되도록 구성했습니다. 그 결과 권한을 수동으로 매번 부여할 필요가 없어졌고 재발하지 않았습니다.',
+      'Next.js 화면과 Go Session API, WebSocket 터미널 사이의 상태 계약을 연결해 랜딩부터 로그인, Lab 탐색, 프로비저닝, 실습, 내 학습까지 웹 사용자 흐름을 구현했습니다.',
     ],
     featureStories: [
       {
@@ -403,9 +403,9 @@ export const projects: Project[] = [
     challenge:
       '부트캠프 통합 프로젝트로 시작했지만, 과제 요건을 채우는 것과 실제로 믿을 수 있는 리뷰를 내보내는 것은 다른 문제였습니다. AI가 리뷰를 생성하는 것보다 GitHub Webhook을 안전하게 받고, 긴 변경 내용을 보존하며, 지연과 실패가 있어도 결과를 전달하는 전체 파이프라인이 중요했습니다.',
     responsibilities: [
-      'GitHub Webhook 수신부터 비동기 Lambda Worker와 Bedrock Agent 호출까지 설계했습니다.',
-      'HMAC 검증, Secrets Manager, 최소 권한 IAM으로 외부 요청과 비밀값 경계를 구성했습니다.',
-      'GitHub 댓글과 Slack 알림 계약을 테스트로 고정했습니다.',
+      'Webhook 응답을 지연 없이 처리해야 하는 문제와 리뷰 생성 자체는 시간이 걸리는 문제가 함께 있었습니다. 요청을 받는 Lambda와 실제 분석을 처리하는 Lambda를 분리해, 앞단이 즉시 응답하고 뒷단이 비동기로 Bedrock Agent를 호출하도록 구성했고, 그 결과 Webhook 타임아웃 없이 안정적으로 처리할 수 있었습니다.',
+      'PR 내용을 AI에 전달할 때 파일별 글자 수 제한 때문에 전체 예산이 남았는데도 내용이 잘려 AI가 잘못된 리뷰를 내는 문제를 발견했습니다. 전체 파일 크기를 먼저 합산해 예산 안에 들어오면 파일별 제한 없이 온전히 전달하도록 로직을 바꾸고, 이 동작을 103건의 자동화 테스트로 검증했습니다.',
+      'HMAC 검증, Secrets Manager, 최소 권한 IAM으로 외부 요청과 비밀값 경계를 구성하고, GitHub 댓글과 Slack 알림 계약을 테스트로 고정했습니다.',
     ],
     featureStories: [
       {
@@ -570,9 +570,9 @@ export const projects: Project[] = [
     challenge:
       '여행 준비 때 필요한 편집 기능과 현장에서 바로 확인해야 하는 다음 일정은 사용 맥락이 달랐습니다. 작은 화면에서 필요한 정보가 먼저 보이면서도 공유 권한은 안전하게 분리해야 했습니다.',
     responsibilities: [
-      'React PWA, Go API, PostgreSQL 데이터 모델을 설계하고 구현했습니다.',
-      '여행·일정·장소·체크리스트와 읽기 전용 공유 링크를 하나의 서비스로 연결했습니다.',
-      'Vercel과 Oracle Cloud VM, Caddy를 이용한 배포 및 복구 절차를 구성했습니다.',
+      '여행 기간을 줄이는 요청과 새 일정을 추가하는 요청이 동시에 들어오면 기간 밖 일정이 남는 문제가 있었습니다. 검증 로직을 데이터베이스 트리거로 옮기고 검증하는 동안 해당 여행 행에 잠금을 걸어, 두 요청이 동시에 들어와도 정합성이 깨지지 않도록 만들었습니다.',
+      '배포 후 새 버전이 정상 동작하는지 확인하지 않고 넘어가면 장애가 그대로 노출되는 문제가 있었습니다. 새 바이너리를 대기 상태로 올리고 systemd로 재시작한 뒤 헬스체크 엔드포인트를 폴링해 정상 응답이 올 때까지 기다리는 배포 스크립트를 만들고, 실패하면 직전 바이너리로 자동 롤백하도록 구성했습니다.',
+      'React PWA, Go API, PostgreSQL 데이터 모델을 설계하고, 여행·일정·장소·체크리스트와 읽기 전용 공유 링크를 하나의 서비스로 연결했습니다.',
     ],
     journey: [
       {
@@ -902,6 +902,130 @@ export const projects: Project[] = [
     evidence: [
       { label: 'GitHub repository', href: 'https://github.com/hjh6709/pr-check-doctor' },
       { label: 'GitHub Marketplace', href: 'https://github.com/marketplace/actions/pr-check-doctor' },
+    ],
+  },
+  {
+    slug: 'us-market-intelligence-pipeline',
+    title: 'US Market Intelligence Pipeline',
+    summary:
+      'CPI 발표 시각과 당시 공개값, 발표 전후 실제 체결을 같은 시간축으로 연결해 재현 가능하게 만드는 데이터 파이프라인입니다.',
+    status: '개인 프로젝트 · 진행 중',
+    role: 'Data Engineering · Kafka·Spark · PostgreSQL',
+    team: '개인 프로젝트',
+    period: '2026',
+    featured: false,
+    technologies: ['Python', 'Kafka', 'Spark', 'Airflow', 'PostgreSQL', 'GCP'],
+    technologyRoles: [
+      {
+        name: 'Kafka · Spark',
+        icon: 'kafka',
+        role: '과거 SIP 원시 체결을 다시 흘려보내 Spark가 직접 검증·중복 제거·1분 집계하도록 구성했습니다.',
+      },
+      {
+        name: 'Airflow',
+        icon: 'airflow',
+        role: 'Dynamic Task Mapping으로 종목별 수집·검증·집계 작업을 분리해 한 DAG에서 병렬 처리하고 종목별로 재실행할 수 있게 했습니다.',
+      },
+      {
+        name: 'PostgreSQL',
+        icon: 'postgresql',
+        role: '발표 시각·종목·구간을 조합한 고유키로 같은 입력을 다시 실행해도 중복 저장되지 않도록 설계했습니다.',
+      },
+    ],
+    heroImage: {
+      src: 'projects/us-market-intelligence-pipeline/architecture.png',
+      alt: 'BLS CPI 발표, ALFRED 당시 공개값, Alpaca SIP 체결이 Kafka·Spark를 거쳐 PostgreSQL로 모이는 파이프라인 아키텍처',
+      caption: '공식 발표 시각과 당시 공개값, 실제 체결을 같은 시간축으로 연결하는 구조',
+      width: 1600,
+      height: 1080,
+    },
+    challenge:
+      '"CPI 때문에 주가가 올랐다"를 단정하기 전에, 공식 발표 시각과 그 시점에 실제로 알려져 있던 지표 값, 발표 구간의 실제 체결을 정확히 재현할 수 있어야 했습니다. 나중에 수정된 값이나 재처리 시 중복 저장이 섞이면 이 재현이 무의미해집니다.',
+    responsibilities: [
+      '같은 체결 데이터를 재처리해도 중복 저장되면 안 되는 문제가 있었습니다. PostgreSQL에 발표 시각·종목·구간을 조합한 고유키 제약을 걸고 저장 로직을 멱등하게 설계했습니다. 부하·복구 테스트로 736만여 건의 체결을 처리하는 중 PostgreSQL을 강제 중단시킨 뒤 같은 입력으로 복구했을 때 최종 고유키 중복 0건을 확인했습니다.',
+      '이미 집계된 1분봉만으로는 파이프라인 자체의 정확성을 검증할 수 없는 문제가 있었습니다. Kafka로 과거 원시 체결을 다시 흘려보내고 Spark가 직접 1분봉으로 집계하도록 구성해, NVDA 한 종목의 체결 58,036건으로 만든 121개 1분봉을 거래소 데이터 제공사가 이미 집계한 1분봉과 전부 대조하는 방식으로 검증했습니다.',
+      '종목이 늘어날수록 한 종목의 실패가 전체 실행을 막는 문제가 있었습니다. Airflow의 Dynamic Task Mapping으로 종목별 수집·검증·집계 작업을 독립시켜, 네 종목을 한 번에 처리하면서도 종목별 실패 지점과 재실행 범위를 구분할 수 있게 했습니다.',
+    ],
+    featureStories: [],
+    outcomes: [
+      'BLS 공식 발표 시각과 ALFRED 당시 공개값을 point-in-time으로 보존해 나중에 수정된 값이 섞이지 않게 했습니다.',
+      'Kafka·Spark로 재현한 1분봉이 거래소 데이터 제공사의 1분봉과 전부 일치하는 것을 확인해 파이프라인 정확성을 검증했습니다.',
+      '736만여 건 규모의 부하·장애 복구 테스트에서 데이터 중복 0건을 확인했습니다.',
+    ],
+    learnings: [
+      '집계된 데이터만 보고 파이프라인을 신뢰하면 안 되고, 원시 데이터로 직접 재현해 대조해야 정확성을 검증할 수 있었습니다.',
+      '멱등성은 처음부터 저장 스키마 설계에 넣어야지, 나중에 재처리 로직으로 보완하기 어렵다는 것을 배웠습니다.',
+    ],
+    problem:
+      '경제지표 발표와 시장 반응의 인과관계를 단정하기 전에, 검증 가능한 데이터로 같은 결과를 다시 계산할 수 있는 기반이 필요했습니다.',
+    contribution: [
+      'BLS·ALFRED·Alpaca 세 출처의 데이터를 발표 시각 기준으로 연결하는 스키마를 설계했습니다.',
+      'Kafka·Spark 기반 원시 체결 재처리 파이프라인을 구축하고 결과를 provider 데이터와 대조 검증했습니다.',
+      'Airflow DAG로 다종목 처리를 자동화하고, GCP에서 대규모 부하·장애 복구 테스트를 수행했습니다.',
+    ],
+    decisions: [
+      {
+        title: '집계값이 아니라 원시 체결로 검증하기',
+        body: '이미 집계된 1분봉만 쓰면 파이프라인 자체의 정확성을 확인할 수 없어, 원시 체결을 직접 재현해 대조하는 경로를 별도로 만들었습니다.',
+      },
+      {
+        title: '저장 단계에서부터 멱등성 보장',
+        body: '재처리·재실행이 잦은 파이프라인 특성상, 고유키 제약을 저장 스키마 설계 단계에서부터 넣어 재처리 시 중복이 구조적으로 불가능하게 했습니다.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: '대량 체결 데이터 처리 중 PostgreSQL이 중단되면 재시작 후 데이터가 중복되거나 유실될 위험이 있었습니다.',
+        cause: '저장 로직이 재실행 시 같은 입력을 다시 넣는 상황을 전제하지 않았습니다.',
+        solution: '발표 시각·종목·구간을 조합한 고유키 제약을 걸어 같은 입력을 여러 번 저장해도 하나만 남도록 만들었습니다.',
+        result: '736만여 건 처리 중 강제 중단 후 복구 테스트에서 고유키 중복 0건을 확인했습니다.',
+      },
+    ],
+    architecture: {
+      zones: [
+        {
+          id: 'source',
+          label: '공식 데이터 출처',
+          caption: 'BLS · ALFRED · Alpaca',
+          kind: 'external',
+          nodeIds: ['bls', 'alfred', 'alpaca'],
+        },
+        {
+          id: 'pipeline',
+          label: '처리 파이프라인',
+          caption: 'Kafka · Spark · Airflow',
+          kind: 'application',
+          nodeIds: ['kafka', 'spark', 'airflow'],
+        },
+        {
+          id: 'storage',
+          label: '저장소',
+          caption: 'Point-in-time · idempotent',
+          kind: 'data',
+          nodeIds: ['postgres'],
+        },
+      ],
+      nodes: [
+        { id: 'bls', label: 'BLS', caption: 'CPI 발표 시각', icon: 'calendar', ownership: 'external' },
+        { id: 'alfred', label: 'ALFRED', caption: '당시 공개값', icon: 'database', ownership: 'external' },
+        { id: 'alpaca', label: 'Alpaca SIP', caption: '실제 체결·1분봉', icon: 'chart', ownership: 'external' },
+        { id: 'kafka', label: 'Kafka', caption: '원시 체결 재생', icon: 'kafka', ownership: 'mine' },
+        { id: 'spark', label: 'Spark', caption: '검증·중복 제거·집계', icon: 'spark', ownership: 'mine' },
+        { id: 'airflow', label: 'Airflow', caption: '종목별 병렬 실행', icon: 'airflow', ownership: 'mine' },
+        { id: 'postgres', label: 'PostgreSQL', caption: '고유키 기반 멱등 저장', icon: 'postgresql', ownership: 'mine' },
+      ],
+      edges: [
+        { from: 'bls', to: 'postgres', label: '발표 시각', kind: 'data' },
+        { from: 'alfred', to: 'postgres', label: '당시 공개값', kind: 'data' },
+        { from: 'alpaca', to: 'kafka', label: '원시 체결', kind: 'data' },
+        { from: 'kafka', to: 'spark', label: '재생 스트림', kind: 'data' },
+        { from: 'spark', to: 'postgres', label: '1분봉 집계', kind: 'data' },
+        { from: 'airflow', to: 'kafka', label: '종목별 실행', kind: 'operations' },
+      ],
+    },
+    gallery: [],
+    evidence: [
+      { label: 'GitHub repository', href: 'https://github.com/hjh6709/us-market-intelligence-pipeline' },
     ],
   },
 ];

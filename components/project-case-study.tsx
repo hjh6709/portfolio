@@ -55,7 +55,10 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         </div>
 
         <figure className={styles.heroEvidence}>
-          <div className={`${styles.heroImage} ${isPortraitHero ? styles.heroImagePortrait : ''}`}>
+          <div
+            className={`${styles.heroImage} ${isPortraitHero ? styles.heroImagePortrait : ''}`}
+            style={{ viewTransitionName: `project-visual-${project.slug}` }}
+          >
             <Image
               src={`/${project.heroImage.src}`}
               alt={project.heroImage.alt}
