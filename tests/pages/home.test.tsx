@@ -32,7 +32,7 @@ describe('HomePage', () => {
     expect(
       selectedWork.compareDocumentPosition(capabilities) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
-    expect(screen.getByAltText(/Cledyu.*Lab/)).toBeInTheDocument();
+    expect(screen.getByAltText(/Cledyu 실습 화면/)).toBeInTheDocument();
     expect(screen.queryByText('Wait:ON')).not.toBeInTheDocument();
   });
 
@@ -49,7 +49,7 @@ describe('HomePage', () => {
   it('links project images to their case studies', () => {
     render(<HomePage />);
 
-    const cledyuImage = screen.getByAltText(/Cledyu.*Lab/);
+    const cledyuImage = screen.getByAltText(/Cledyu 실습 화면/);
 
     expect(cledyuImage.closest('a')).toHaveAttribute('href', '/projects/cledyu');
   });

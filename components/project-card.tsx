@@ -13,40 +13,16 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const projectNumber = String(index + 1).padStart(2, '0');
-  const isDiagram = project.heroImage.src.endsWith('.svg');
   const profile = homeProjectProfiles[project.slug];
-  const visualCount = profile?.visuals?.length ?? 0;
-  const hasVisualCollection = visualCount > 0;
-  const isSingleVisualCollection = visualCount === 1;
-  const isLandscapeCollection = profile?.visualLayout === 'landscape';
-  const projectLabel = profile?.visualLabel ?? (hasVisualCollection ? '실제 서비스 화면' : '구현 증거');
+  const media = profile?.media;
+  const isDiagram = !media && project.heroImage.src.endsWith('.svg');
+  const fitsInside = media?.fit === 'contain' || isDiagram;
+  const projectLabel = profile?.visualLabel ?? '구현 증거';
 
   return (
     <article className={styles.card} data-project={project.slug} id={project.slug}>
-      <header className={styles.header}>
-        <div className={styles.meta}>
-          <span>{projectNumber}</span>
-          <span>{profile?.eyebrow ?? project.status}</span>
-          <span>{project.period}</span>
-        </div>
-
-        <div className={styles.titleBlock}>
-          <h3>
-            <Link className={styles.titleLink} href={`/projects/${project.slug}`}>
-              {project.title}
-            </Link>
-          </h3>
-          <p className={styles.headline}>{profile?.headline ?? project.summary}</p>
-        </div>
-
-        <div className={styles.intro}>
-          <p className={styles.summary}>{project.summary}</p>
-          <p className={styles.role}>{project.role}</p>
-        </div>
-      </header>
-
       <Link
-        className={`${styles.visual} ${isDiagram ? styles.diagramVisual : ''} ${hasVisualCollection ? styles.visualCollection : ''} ${isSingleVisualCollection ? styles.singleVisualCollection : ''} ${isLandscapeCollection ? styles.landscapeVisualCollection : ''}`}
+        className={`${styles.visual} ${fitsInside ? styles.containedVisual : ''} ${isDiagram ? styles.diagramVisual : ''}`}
         href={`/projects/${project.slug}`}
         aria-label={`${project.title} 사례 이미지로 자세히 보기`}
       >
@@ -56,36 +32,39 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             사례 자세히 보기 <span className={styles.visualOverlayArrow}>→</span>
           </span>
         </span>
-        {profile?.visuals ? (
-          <div className={styles.visualGrid} data-visual-count={visualCount}>
-            {profile.visuals.map((visual, visualIndex) => (
-              <figure
-                key={visual.src}
-                className={visualIndex === Math.floor(visualCount / 2) ? styles.visualPrimary : ''}
-                data-visual-index={visualIndex}
-              >
-                <Image
-                  src={`/${visual.src}`}
-                  alt={visual.alt}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 928px) 100vw, 36vw"
-                />
-                <figcaption>{visual.label}</figcaption>
-              </figure>
-            ))}
-          </div>
+        {media?.kind === 'video' ? (
+          // 화면이 움직이는 편이 흐름을 훨씬 빨리 전달해, 영상이 있으면 영상을 먼저 씁니다.
+          <video autoPlay muted loop playsInline poster={media.poster} aria-label={media.alt}>
+            <source src={`/${media.src}`} type="video/mp4" />
+          </video>
         ) : (
           <Image
-            src={`/${project.heroImage.src}`}
-            alt={project.heroImage.alt}
+            src={`/${media?.src ?? project.heroImage.src}`}
+            alt={media?.alt ?? project.heroImage.alt}
             fill
-            sizes="(max-width: 928px) 100vw, 58vw"
+            unoptimized={Boolean(media)}
+            sizes="(max-width: 68rem) 100vw, 52vw"
           />
         )}
       </Link>
 
-      <div className={styles.content}>
+      <div className={styles.body}>
+        <header className={styles.header}>
+          <div className={styles.meta}>
+            <span>{projectNumber}</span>
+            <span>{profile?.eyebrow ?? project.status}</span>
+            <span>{project.period}</span>
+          </div>
+
+          <h3 className={styles.title}>
+            <Link className={styles.titleLink} href={`/projects/${project.slug}`}>
+              {project.title}
+            </Link>
+          </h3>
+          <p className={styles.headline}>{profile?.headline ?? project.summary}</p>
+          <p className={styles.role}>{project.role}</p>
+        </header>
+
         {profile ? (
           <div className={styles.evidenceBlock}>
             <p className={styles.flowLabel}>

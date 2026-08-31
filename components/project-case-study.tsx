@@ -4,6 +4,8 @@ import Link from 'next/link';
 import type { Project } from '@/data/projects';
 
 import { ArchitectureDiagram } from './architecture-diagram';
+import { EvidenceLink } from './evidence-link';
+
 import styles from './project-case-study.module.css';
 import { TechnologyIcon } from './technology-icon';
 
@@ -31,9 +33,7 @@ export function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             <p className={styles.summary}>{project.summary}</p>
             <div className={styles.heroLinks} aria-label={`${project.title} 외부 근거`}>
               {project.evidence.map((item) => (
-                <a key={item.href} href={item.href} target="_blank" rel="noreferrer">
-                  {item.label} <span aria-hidden="true">↗</span>
-                </a>
+                <EvidenceLink key={item.href} href={item.href} label={item.label} />
               ))}
             </div>
           </div>
