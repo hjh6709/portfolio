@@ -33,7 +33,6 @@ describe('HomePage', () => {
       selectedWork.compareDocumentPosition(capabilities) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(screen.getByAltText(/Cledyu 실습 화면/)).toBeInTheDocument();
-    expect(screen.queryByText('Wait:ON')).not.toBeInTheDocument();
   });
 
   it('presents supporting work separately from the three flagship projects', () => {
@@ -43,6 +42,10 @@ describe('HomePage', () => {
     expect(screen.getByRole('link', { name: 'PR Check Doctor' })).toHaveAttribute(
       'href',
       '/projects/pr-check-doctor',
+    );
+    expect(screen.getByRole('link', { name: 'Wait:ON' })).toHaveAttribute(
+      'href',
+      '/projects/wait-on',
     );
   });
 
