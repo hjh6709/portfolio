@@ -1,5 +1,9 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { MouseEvent } from 'react';
 
 import type { Project } from '@/data/projects';
 import { homeProjectProfiles } from '@/data/home';
@@ -12,18 +16,32 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
+  const router = useRouter();
   const projectNumber = String(index + 1).padStart(2, '0');
   const profile = homeProjectProfiles[project.slug];
   const media = profile?.media;
   const isDiagram = !media && project.heroImage.src.endsWith('.svg');
   const fitsInside = media?.fit === 'contain' || isDiagram;
   const projectLabel = profile?.visualLabel ?? '구현 증거';
+  const href = `/projects/${project.slug}`;
+
+  // 카드 이미지를 클릭하면 그 자리에서 바로 확대되며 상세 화면으로 이어지게 합니다.
+  // 지원 브라우저가 없으면(Safari 등) 아무 효과 없이 평범하게 이동합니다.
+  const handleVisualClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!('startViewTransition' in document)) return;
+    event.preventDefault();
+    (document as Document & { startViewTransition: (cb: () => void) => void }).startViewTransition(
+      () => router.push(href),
+    );
+  };
 
   return (
     <article className={styles.card} data-project={project.slug} id={project.slug}>
       <Link
         className={`${styles.visual} ${fitsInside ? styles.containedVisual : ''} ${isDiagram ? styles.diagramVisual : ''}`}
-        href={`/projects/${project.slug}`}
+        href={href}
+        onClick={handleVisualClick}
+        style={{ viewTransitionName: `project-visual-${project.slug}` }}
         aria-label={`${project.title} 사례 이미지로 자세히 보기`}
       >
         <span className={styles.visualKicker}>{projectLabel}</span>
