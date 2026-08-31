@@ -15,7 +15,10 @@ describe('project content', () => {
       'cledyu',
       'codebuddy',
     ]);
-    expect(getOtherProjects().map((project) => project.slug)).toEqual(['pr-check-doctor']);
+    expect(getOtherProjects().map((project) => project.slug)).toEqual([
+      'pr-check-doctor',
+      'us-market-intelligence-pipeline',
+    ]);
   });
 
   it('gives every published project an architecture and evidence', () => {

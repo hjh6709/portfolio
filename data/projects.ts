@@ -904,4 +904,128 @@ export const projects: Project[] = [
       { label: 'GitHub Marketplace', href: 'https://github.com/marketplace/actions/pr-check-doctor' },
     ],
   },
+  {
+    slug: 'us-market-intelligence-pipeline',
+    title: 'US Market Intelligence Pipeline',
+    summary:
+      'CPI 발표 시각과 당시 공개값, 발표 전후 실제 체결을 같은 시간축으로 연결해 재현 가능하게 만드는 데이터 파이프라인입니다.',
+    status: '개인 프로젝트 · 진행 중',
+    role: 'Data Engineering · Kafka·Spark · PostgreSQL',
+    team: '개인 프로젝트',
+    period: '2026',
+    featured: false,
+    technologies: ['Python', 'Kafka', 'Spark', 'Airflow', 'PostgreSQL', 'GCP'],
+    technologyRoles: [
+      {
+        name: 'Kafka · Spark',
+        icon: 'kafka',
+        role: '과거 SIP 원시 체결을 다시 흘려보내 Spark가 직접 검증·중복 제거·1분 집계하도록 구성했습니다.',
+      },
+      {
+        name: 'Airflow',
+        icon: 'airflow',
+        role: 'Dynamic Task Mapping으로 종목별 수집·검증·집계 작업을 분리해 한 DAG에서 병렬 처리하고 종목별로 재실행할 수 있게 했습니다.',
+      },
+      {
+        name: 'PostgreSQL',
+        icon: 'postgresql',
+        role: '발표 시각·종목·구간을 조합한 고유키로 같은 입력을 다시 실행해도 중복 저장되지 않도록 설계했습니다.',
+      },
+    ],
+    heroImage: {
+      src: 'projects/us-market-intelligence-pipeline/architecture.png',
+      alt: 'BLS CPI 발표, ALFRED 당시 공개값, Alpaca SIP 체결이 Kafka·Spark를 거쳐 PostgreSQL로 모이는 파이프라인 아키텍처',
+      caption: '공식 발표 시각과 당시 공개값, 실제 체결을 같은 시간축으로 연결하는 구조',
+      width: 1600,
+      height: 1080,
+    },
+    challenge:
+      '"CPI 때문에 주가가 올랐다"를 단정하기 전에, 공식 발표 시각과 그 시점에 실제로 알려져 있던 지표 값, 발표 구간의 실제 체결을 정확히 재현할 수 있어야 했습니다. 나중에 수정된 값이나 재처리 시 중복 저장이 섞이면 이 재현이 무의미해집니다.',
+    responsibilities: [
+      '같은 체결 데이터를 재처리해도 중복 저장되면 안 되는 문제가 있었습니다. PostgreSQL에 발표 시각·종목·구간을 조합한 고유키 제약을 걸고 저장 로직을 멱등하게 설계했습니다. 부하·복구 테스트로 736만여 건의 체결을 처리하는 중 PostgreSQL을 강제 중단시킨 뒤 같은 입력으로 복구했을 때 최종 고유키 중복 0건을 확인했습니다.',
+      '이미 집계된 1분봉만으로는 파이프라인 자체의 정확성을 검증할 수 없는 문제가 있었습니다. Kafka로 과거 원시 체결을 다시 흘려보내고 Spark가 직접 1분봉으로 집계하도록 구성해, NVDA 한 종목의 체결 58,036건으로 만든 121개 1분봉을 거래소 데이터 제공사가 이미 집계한 1분봉과 전부 대조하는 방식으로 검증했습니다.',
+      '종목이 늘어날수록 한 종목의 실패가 전체 실행을 막는 문제가 있었습니다. Airflow의 Dynamic Task Mapping으로 종목별 수집·검증·집계 작업을 독립시켜, 네 종목을 한 번에 처리하면서도 종목별 실패 지점과 재실행 범위를 구분할 수 있게 했습니다.',
+    ],
+    featureStories: [],
+    outcomes: [
+      'BLS 공식 발표 시각과 ALFRED 당시 공개값을 point-in-time으로 보존해 나중에 수정된 값이 섞이지 않게 했습니다.',
+      'Kafka·Spark로 재현한 1분봉이 거래소 데이터 제공사의 1분봉과 전부 일치하는 것을 확인해 파이프라인 정확성을 검증했습니다.',
+      '736만여 건 규모의 부하·장애 복구 테스트에서 데이터 중복 0건을 확인했습니다.',
+    ],
+    learnings: [
+      '집계된 데이터만 보고 파이프라인을 신뢰하면 안 되고, 원시 데이터로 직접 재현해 대조해야 정확성을 검증할 수 있었습니다.',
+      '멱등성은 처음부터 저장 스키마 설계에 넣어야지, 나중에 재처리 로직으로 보완하기 어렵다는 것을 배웠습니다.',
+    ],
+    problem:
+      '경제지표 발표와 시장 반응의 인과관계를 단정하기 전에, 검증 가능한 데이터로 같은 결과를 다시 계산할 수 있는 기반이 필요했습니다.',
+    contribution: [
+      'BLS·ALFRED·Alpaca 세 출처의 데이터를 발표 시각 기준으로 연결하는 스키마를 설계했습니다.',
+      'Kafka·Spark 기반 원시 체결 재처리 파이프라인을 구축하고 결과를 provider 데이터와 대조 검증했습니다.',
+      'Airflow DAG로 다종목 처리를 자동화하고, GCP에서 대규모 부하·장애 복구 테스트를 수행했습니다.',
+    ],
+    decisions: [
+      {
+        title: '집계값이 아니라 원시 체결로 검증하기',
+        body: '이미 집계된 1분봉만 쓰면 파이프라인 자체의 정확성을 확인할 수 없어, 원시 체결을 직접 재현해 대조하는 경로를 별도로 만들었습니다.',
+      },
+      {
+        title: '저장 단계에서부터 멱등성 보장',
+        body: '재처리·재실행이 잦은 파이프라인 특성상, 고유키 제약을 저장 스키마 설계 단계에서부터 넣어 재처리 시 중복이 구조적으로 불가능하게 했습니다.',
+      },
+    ],
+    troubleshooting: [
+      {
+        problem: '대량 체결 데이터 처리 중 PostgreSQL이 중단되면 재시작 후 데이터가 중복되거나 유실될 위험이 있었습니다.',
+        cause: '저장 로직이 재실행 시 같은 입력을 다시 넣는 상황을 전제하지 않았습니다.',
+        solution: '발표 시각·종목·구간을 조합한 고유키 제약을 걸어 같은 입력을 여러 번 저장해도 하나만 남도록 만들었습니다.',
+        result: '736만여 건 처리 중 강제 중단 후 복구 테스트에서 고유키 중복 0건을 확인했습니다.',
+      },
+    ],
+    architecture: {
+      zones: [
+        {
+          id: 'source',
+          label: '공식 데이터 출처',
+          caption: 'BLS · ALFRED · Alpaca',
+          kind: 'external',
+          nodeIds: ['bls', 'alfred', 'alpaca'],
+        },
+        {
+          id: 'pipeline',
+          label: '처리 파이프라인',
+          caption: 'Kafka · Spark · Airflow',
+          kind: 'application',
+          nodeIds: ['kafka', 'spark', 'airflow'],
+        },
+        {
+          id: 'storage',
+          label: '저장소',
+          caption: 'Point-in-time · idempotent',
+          kind: 'data',
+          nodeIds: ['postgres'],
+        },
+      ],
+      nodes: [
+        { id: 'bls', label: 'BLS', caption: 'CPI 발표 시각', icon: 'calendar', ownership: 'external' },
+        { id: 'alfred', label: 'ALFRED', caption: '당시 공개값', icon: 'database', ownership: 'external' },
+        { id: 'alpaca', label: 'Alpaca SIP', caption: '실제 체결·1분봉', icon: 'chart', ownership: 'external' },
+        { id: 'kafka', label: 'Kafka', caption: '원시 체결 재생', icon: 'kafka', ownership: 'mine' },
+        { id: 'spark', label: 'Spark', caption: '검증·중복 제거·집계', icon: 'spark', ownership: 'mine' },
+        { id: 'airflow', label: 'Airflow', caption: '종목별 병렬 실행', icon: 'airflow', ownership: 'mine' },
+        { id: 'postgres', label: 'PostgreSQL', caption: '고유키 기반 멱등 저장', icon: 'postgresql', ownership: 'mine' },
+      ],
+      edges: [
+        { from: 'bls', to: 'postgres', label: '발표 시각', kind: 'data' },
+        { from: 'alfred', to: 'postgres', label: '당시 공개값', kind: 'data' },
+        { from: 'alpaca', to: 'kafka', label: '원시 체결', kind: 'data' },
+        { from: 'kafka', to: 'spark', label: '재생 스트림', kind: 'data' },
+        { from: 'spark', to: 'postgres', label: '1분봉 집계', kind: 'data' },
+        { from: 'airflow', to: 'kafka', label: '종목별 실행', kind: 'operations' },
+      ],
+    },
+    gallery: [],
+    evidence: [
+      { label: 'GitHub repository', href: 'https://github.com/hjh6709/us-market-intelligence-pipeline' },
+    ],
+  },
 ];
