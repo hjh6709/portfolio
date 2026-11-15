@@ -55,6 +55,20 @@ describe('project content', () => {
     }
   });
 
+  it('grounds Cledyu full-stack participation in frontend and backend PR evidence', () => {
+    const cledyu = getProject('cledyu');
+    expect(cledyu?.role).toContain('Full-stack Developer');
+    expect(cledyu?.role).toContain('Go/Gin API');
+    expect(cledyu?.responsibilities.some((item) => item.includes('풀스택 사용자 흐름'))).toBe(true);
+    expect(cledyu?.evidence.map((item) => item.href)).toEqual(
+      expect.arrayContaining([
+        'https://github.com/requset700k/Cledyu/pull/25',
+        'https://github.com/requset700k/Cledyu/pull/39',
+        'https://github.com/requset700k/Cledyu/pull/325',
+      ]),
+    );
+  });
+
   it('publishes verified architecture evidence for Cledyu and Map Planner', () => {
     const cledyu = getProject('cledyu');
     const kagoshima = getProject('kagoshima-travel');

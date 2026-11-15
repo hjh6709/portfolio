@@ -11,7 +11,7 @@ describe('HomePage', () => {
       '안정적인 서비스를 만드는 개발자',
     );
     expect(screen.getByText('BACKEND · CLOUD')).toBeInTheDocument();
-    expect(screen.getByText('04', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByText('03', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByText('LIVE', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByText('102', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByText('MARKETPLACE', { selector: 'strong' })).toBeInTheDocument();
