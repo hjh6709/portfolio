@@ -21,9 +21,9 @@ export type HomeProjectProfile = {
 
 export const homeProjectProfiles: Record<string, HomeProjectProfile> = {
   cledyu: {
-    eyebrow: 'TEAM PROJECT · DEPLOYED',
+    eyebrow: 'TEAM PROJECT · FULL-STACK DEVELOPMENT',
     headline: '브라우저에서 실제 VM을 열고 끝까지 실습하는 플랫폼',
-    flow: '로그인 → Lab 선택 → VM 프로비저닝 → WebSocket 터미널 → 단계 검증',
+    flow: 'Next.js Web → Go/Gin API → VM 프로비저닝 → WebSocket 터미널 → 단계 검증',
     visualLabel: '실제 서비스 화면',
     media: {
       src: 'projects/cledyu/lab-session.png',
@@ -64,7 +64,7 @@ export const homeProjectProfiles: Record<string, HomeProjectProfile> = {
 };
 
 export const heroProofs = [
-  { value: '04', label: '대표 프로젝트' },
+  { value: '03', label: '대표 프로젝트' },
   { value: 'LIVE', label: '운영 중인 서비스' },
   { value: '102', label: '자동화 테스트' },
   { value: 'MARKETPLACE', label: 'GitHub Action 배포' },
