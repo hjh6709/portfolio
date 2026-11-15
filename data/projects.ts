@@ -87,7 +87,7 @@ export const projects: Project[] = [
     summary:
       '브라우저에서 전용 VM을 열고 직접 명령을 실행하며 배우는 클라우드 엔지니어링 실습 플랫폼입니다.',
     status: '팀 프로젝트 · 서비스 배포',
-    role: 'Full-stack · 인증과 Lab 사용자 흐름 · 세션 연동',
+    role: 'Full-stack Developer · Next.js 웹 · Go/Gin API · 인증·VM 세션 연동',
     team: '6인 팀 프로젝트',
     period: '2026',
     featured: true,
@@ -153,7 +153,7 @@ export const projects: Project[] = [
     responsibilities: [
       'API 서버가 재시작되면 메모리에 있던 세션 진행 상태가 사라져 재접속한 사용자의 요청이 전부 실패하는 문제가 있었습니다. 진행 상태 저장소에서 세션을 찾지 못하면 VM 프로바이더 쪽 실제 상태를 다시 조회해 최소한의 진행 상태를 복구하는 API를 설계했고, 그 결과 서버가 재시작돼도 사용자가 이어서 실습할 수 있게 됐습니다.',
       'API가 쿠버네티스 위 VM 콘솔에 접근할 권한이 빠져 403 오류가 발생하는 문제가 있었습니다. 로그와 요청 흐름을 추적해 원인을 좁히고, 필요한 조회 권한만 담은 ClusterRole을 만든 뒤 실습 Namespace가 새로 생길 때마다 그 권한이 자동으로 연결되도록 구성했습니다. 그 결과 권한을 수동으로 매번 부여할 필요가 없어졌고 재발하지 않았습니다.',
-      'Next.js 화면과 Go Session API, WebSocket 터미널 사이의 상태 계약을 연결해 랜딩부터 로그인, Lab 탐색, 프로비저닝, 실습, 내 학습까지 웹 사용자 흐름을 구현했습니다.',
+      'Next.js 화면과 Go/Gin API의 Lab·세션 엔드포인트를 함께 구현·보완하고, WebSocket 터미널의 상태 계약을 연결해 로그인, Lab 탐색, 프로비저닝, 실습, 내 학습까지 풀스택 사용자 흐름을 구축했습니다.',
     ],
     featureStories: [
       {
@@ -207,7 +207,7 @@ export const projects: Project[] = [
       '영상이나 설명만 보는 교육을 넘어, 학습자가 실제 서버 환경에서 명령을 실행하고 단계별 결과를 바로 확인할 수 있어야 했습니다.',
     contribution: [
       '랜딩, 로그인, Lab 탐색, 프로비저닝, 실습 세션, 내 학습으로 이어지는 사용자 흐름을 구현하고 다듬었습니다.',
-      'Next.js 화면과 Go Session API, WebSocket 터미널이 전달하는 상태를 연결했습니다.',
+      'Next.js 프론트엔드와 Go/Gin 백엔드 API를 모두 구현·수정하면서 WebSocket 터미널과 VM 세션 상태를 연결했습니다.',
       '세션 복귀, 중복 생성, 만료와 실패 상태를 사용자 화면에서 구분해 다음 행동을 안내했습니다.',
       'KubeVirt 콘솔 접근에 필요한 최소 RBAC 범위를 점검하고 Lab Namespace별 RoleBinding 흐름을 개선했습니다.',
     ],
@@ -357,6 +357,10 @@ export const projects: Project[] = [
         label: '내가 올린 PR 62건',
         href: 'https://github.com/requset700k/Cledyu/pulls?q=is%3Apr+author%3Ahjh6709',
       },
+      { label: '풀스택 구현 — Web·API PR #39', href: 'https://github.com/requset700k/Cledyu/pull/39' },
+      { label: 'Go/Gin API 기반 — PR #25', href: 'https://github.com/requset700k/Cledyu/pull/25' },
+      { label: 'Lab 세션 UI·API 복구 — PR #325', href: 'https://github.com/requset700k/Cledyu/pull/325' },
+      { label: '터미널 권한 문제 해결 — PR #146', href: 'https://github.com/requset700k/Cledyu/pull/146' },
       { label: '팀 저장소 (6인)', href: 'https://github.com/requset700k/Cledyu' },
     ],
   },
